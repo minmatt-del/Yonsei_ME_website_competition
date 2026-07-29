@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연세대학교 기계공학부 | 초빙안내</title>
+    <style>
+        /* [디자인 시스템] 기존 Smart Cyber-Lab 무드 계승 및 확장 */
+        :root {
+            --primary: #004a99;       /* 연세 블루 */
+            --navy-active: #002d5a;   /* 활성화된 카테고리 남색 */
+            --dark-bg: #0b132b;      /* 다크 네이비 */
+            --accent: #00d2ff;       /* 네온 사이언 */
+            --light-bg: #f4f7f6;     /* 소프트 배경 */
+            --card-border: #e1e8ed;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Pretendard', 'Nanum Gothic', sans-serif; line-height: 1.6; color: #333; background-color: var(--light-bg); }
+        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+        /* 헤더 영역 */
+        #header { width: 100%; background: #fff; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .header-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
+        .logo-area { display: flex; align-items: center; }
+        .logo-area img { height: 45px; width: auto; object-fit: contain; margin-right: 15px; }
+        .logo-link { display: flex; align-items: center; }
+        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid #ccc; cursor: pointer; }
+
+        .lang-toggle { 
+            background: var(--primary); color: #fff; border: none; padding: 6px 14px; 
+            border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold; transition: 0.3s;
+        }
+
+        /* 네비게이션바 (GNB) */
+        .nav-container { width: 100%; background: #fff; border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .gnb { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; padding: 0 40px; position: relative; }
+        .gnb > li { flex: 1; text-align: center; }
+        .gnb > li > a { display: block; padding: 18px 0; font-weight: 600; font-size: 16px; color: #444; cursor: pointer; }
+        .gnb > li:hover > a { color: var(--primary); }
+
+        .submenu-wrap { 
+            position: absolute; top: 100%; left: 0; width: 100%; background: #fff; 
+            border-bottom: 1px solid #ddd; display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        .submenu-inner { max-width: 1400px; margin: 0 auto; display: flex; padding: 20px 40px; }
+        .submenu-inner ul { flex: 1; text-align: center; border-left: 1px solid #f0f0f0; }
+        .submenu-inner ul:first-child { border-left: none; }
+        .submenu-inner li a { display: block; padding: 8px 0; font-size: 14px; color: #666; }
+        .submenu-inner li a:hover { color: var(--primary); font-weight: bold; }
+        .nav-container.active .submenu-wrap { display: block; }
+
+        /* 레이아웃 및 사이드바 */
+        .container { max-width: 1400px; margin: 40px auto; display: flex; gap: 30px; padding: 0 40px; }
+        .sidebar { width: 300px; flex-shrink: 0; }
+        .category-box { 
+            background: #fff; border: 1px solid var(--card-border); margin-bottom: 10px; 
+            padding: 18px 20px; display: flex; justify-content: space-between; align-items: center;
+            border-radius: 4px; cursor: pointer; transition: 0.3s;
+            border-top: 2px solid var(--primary);
+        }
+        .category-box span { font-weight: 600; color: #444; font-size: 15px; }
+        .category-box .arrow { font-size: 12px; transition: 0.3s; }
+        .category-box.active { border-left: 6px solid var(--navy-active); background: #f8fafc; }
+        .category-box.active span { color: var(--navy-active); }
+        .category-box.active .arrow { transform: rotate(180deg); color: var(--navy-active); }
+
+        /* [신규] 사이드바 서브 카테고리 (예: 공지사항 하위 - 학부/대학원/외부기관) */
+        .sub-category-list { margin: -4px 0 14px; border: 1px solid var(--card-border); border-top: none; border-radius: 0 0 4px 4px; overflow: hidden; }
+        .sub-category-list li a {
+            display: block; padding: 13px 20px 13px 28px; font-size: 14px; color: #777;
+            background: #fff; border-top: 1px solid #f0f2f4;
+        }
+        .sub-category-list li a:hover { background: var(--light-bg); color: var(--primary); }
+        .sub-category-list li a.sub-current {
+            font-weight: 700; color: var(--navy-active); background: #eef4fb;
+            position: relative;
+        }
+        .sub-category-list li a.sub-current::before {
+            content: "●"; font-size: 8px; color: var(--navy-active);
+            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content { flex-grow: 1; }
+        .title-row { display: flex; flex-direction: column; align-items: flex-end; margin-bottom: 5px; }
+        .page-title { align-self: stretch; font-size: 32px; font-weight: 800; color: #222; }
+        .sub-title { font-size: 20px; font-weight: 600; color: var(--primary); margin-bottom: 30px; }
+
+        /* [신규] 학과 소개 텍스트 블록 */
+        .dept-intro { margin-bottom: 45px; }
+        .dept-intro-kr { font-size: 21px; font-weight: 700; color: #222; margin-bottom: 4px; }
+        .dept-intro-en { font-size: 14px; color: #8b95a1; margin-bottom: 18px; }
+        .dept-intro-slogan { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 18px; }
+        .dept-intro-body { font-size: 15px; color: #444; line-height: 1.9; }
+
+        /* [신규] 비전/교육목표 다이어그램 */
+        .vision-diagram { max-width: 700px; margin: 0 auto 60px; text-align: center; }
+
+        .vision-header-row { display: flex; align-items: center; justify-content: center; position: relative; z-index: 2; }
+        .vcircle {
+            width: 210px; height: 210px; border-radius: 50%; flex-shrink: 0;
+            background: radial-gradient(circle at 35% 30%, #ffffff 0%, #eef1f4 75%);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 10px; position: relative;
+        }
+        .vcircle h4 { color: var(--primary); font-size: 19px; font-weight: 800; margin-bottom: 10px; }
+        .vcircle p { font-size: 13px; color: #444; line-height: 1.6; }
+        .v1 { margin-right: -36px; }
+        .v3 { margin-left: -36px; }
+        .v2 { width: 230px; height: 230px; margin: -70px auto 0; z-index: 3; }
+
+        .vision-banner {
+            background: linear-gradient(135deg, #e2e6ea, #c8cfd6);
+            color: var(--primary); font-weight: 800; font-size: 16px;
+            padding: 16px 26px; border-radius: 70px; position: relative; z-index: 1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); white-space: nowrap;
+        }
+
+        .connector { width: 0; height: 0; margin: 0 auto; }
+        .connector.down {
+            border-left: 26px solid transparent; border-right: 26px solid transparent;
+            border-top: 30px solid #ece7dc;
+        }
+        .connector.up {
+            border-left: 26px solid transparent; border-right: 26px solid transparent;
+            border-bottom: 30px solid #ece7dc;
+        }
+
+        .edu-purpose {
+            display: flex; align-items: center; gap: 22px;
+            border: 2px solid #f5a623; border-radius: 10px;
+            padding: 20px 30px; margin: 0 auto; max-width: 560px;
+            background: #fff; text-align: left;
+        }
+        .edu-purpose-label { color: #f5a623; font-size: 22px; font-weight: 800; white-space: nowrap; flex-shrink: 0; }
+        .edu-purpose ul { list-style: none; }
+        .edu-purpose li { font-size: 14px; color: #333; line-height: 1.85; padding-left: 14px; position: relative; }
+        .edu-purpose li::before { content: "▪"; color: #f5a623; position: absolute; left: 0; font-size: 11px; top: 5px; }
+
+        .objective-row { display: flex; justify-content: center; gap: 14px; margin-top: 6px; }
+        .ocircle {
+            width: 150px; height: 150px; border-radius: 50%; flex-shrink: 0;
+            background: radial-gradient(circle at 35% 30%, #ffffff 0%, #eef1f4 75%);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 12px;
+        }
+        .ocircle h5 { color: var(--primary); font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+        .ocircle p { font-size: 11px; color: #555; line-height: 1.5; }
+
+        @media (max-width: 900px) {
+            .vision-header-row { flex-direction: column; gap: 16px; }
+            .v1, .v3 { margin: 0; }
+            .v2 { margin: -20px auto 0; }
+            .objective-row { flex-wrap: wrap; }
+        }
+        @media (max-width: 768px) {
+            .edu-purpose { flex-direction: column; text-align: center; }
+            .edu-purpose li { padding-left: 0; }
+            .edu-purpose li::before { display: none; }
+        }
+
+        /* [신규] 연구실 목록 표 */
+        .lab-table-wrap { margin-bottom: 40px; overflow-x: auto; }
+        .lab-table {
+            width: 100%; border-collapse: collapse; background: #fff;
+            border: 1px solid var(--card-border); border-radius: 6px; overflow: hidden;
+        }
+        .lab-table thead th {
+            background: var(--primary); color: #fff;
+            font-size: 15px; font-weight: 700; text-align: center;
+            padding: 14px 16px;
+        }
+        .lab-table tbody td {
+            padding: 22px 20px; border-bottom: 1px solid var(--card-border);
+            font-size: 14px; color: #444; vertical-align: middle;
+        }
+        .lab-table tbody tr:last-child td { border-bottom: none; }
+        .lab-table tbody tr:hover { background: var(--light-bg); }
+        .lab-table td.col-lab { width: 34%; text-align: center; }
+        .lab-table td.col-prof { width: 26%; text-align: center; }
+        .lab-table td.col-contact { width: 40%; text-align: center; }
+        .lab-name-link {
+            display: inline-block; cursor: pointer;
+        }
+        .lab-name-kr { display: block; font-size: 17px; font-weight: 700; color: #333; }
+        .lab-name-en { display: block; font-size: 12px; color: #8b95a1; margin-top: 2px; }
+        .lab-name-link:hover .lab-name-kr,
+        .lab-name-link:hover .lab-name-en,
+        .lab-name-link:hover .lab-address { color: var(--primary); }
+        .lab-address { display: inline-block; margin-top: 6px; font-size: 13px; color: #8b95a1; word-break: break-all; }
+        .lab-prof-kr { display: block; font-size: 15px; font-weight: 700; color: var(--primary); }
+        .lab-prof-en { display: block; font-size: 12px; color: #8b95a1; margin-top: 2px; }
+        .lab-contact { font-size: 13px; color: #555; line-height: 1.7; white-space: pre-line; }
+
+        @media (max-width: 768px) {
+            .lab-table thead { display: none; }
+            .lab-table, .lab-table tbody, .lab-table tr, .lab-table td { display: block; width: 100% !important; }
+            .lab-table tbody tr { padding: 18px 20px; border-bottom: 1px solid var(--card-border); }
+            .lab-table td { padding: 6px 0; text-align: left !important; }
+        }
+
+        /* [신규] 공지사항 게시판 표 */
+        .notice-table-wrap { margin-bottom: 30px; overflow-x: auto; }
+        .notice-table { width: 100%; border-collapse: collapse; background: #fff; }
+        .notice-table thead th {
+            border-top: 2px solid var(--primary); border-bottom: 1px solid var(--card-border);
+            background: #f8fafc; color: #333; font-size: 14px; font-weight: 700;
+            padding: 14px 10px; text-align: center;
+        }
+        .notice-table tbody td {
+            padding: 15px 10px; border-bottom: 1px solid var(--card-border);
+            font-size: 14px; color: #444; text-align: center; vertical-align: middle;
+        }
+        .notice-table tbody tr:hover { background: var(--light-bg); }
+        .notice-table td.col-num { width: 8%; color: #8b95a1; }
+        .notice-table td.col-title { width: 56%; text-align: left; }
+        .notice-table td.col-writer { width: 12%; }
+        .notice-table td.col-date { width: 12%; color: #777; }
+        .notice-table tr.pinned td.col-num { color: var(--primary); font-weight: 700; }
+        .notice-table tr.pinned { background: #f8fafc; }
+        .notice-title-link { font-size: 15px; color: #333; }
+        .notice-title-link:hover { color: var(--primary); font-weight: 600; }
+        .notice-tag {
+            display: inline-block; margin-left: 6px; padding: 2px 6px; font-size: 10px;
+            font-weight: 700; color: #fff; background: var(--primary); border-radius: 3px; vertical-align: middle;
+        }
+
+        @media (max-width: 768px) {
+            .notice-table thead { display: none; }
+            .notice-table, .notice-table tbody, .notice-table tr, .notice-table td { display: block; width: 100% !important; }
+            .notice-table tbody tr { padding: 16px 20px; border-bottom: 1px solid var(--card-border); }
+            .notice-table td { padding: 4px 0 !important; text-align: left !important; }
+            .notice-table td.col-num { display: none; }
+        }
+
+        /* [신규] 뉴스 검색바 */
+        .search-bar {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+            gap: 12px; padding: 16px 20px; background: #fff; border: 1px solid var(--card-border);
+            border-radius: 4px; margin-bottom: 20px;
+        }
+        .search-category select {
+            padding: 8px 12px; border: 1px solid var(--card-border); border-radius: 4px;
+            font-size: 13px; color: #444; background: #fff; cursor: pointer;
+        }
+        .search-input-group { display: flex; gap: 6px; }
+        .search-input-group input {
+            padding: 8px 14px; border: 1px solid var(--card-border); border-radius: 4px;
+            font-size: 13px; width: 220px; color: #333;
+        }
+        .search-input-group input:focus { outline: none; border-color: var(--primary); }
+        .search-btn {
+            padding: 8px 20px; border: none; border-radius: 4px; background: var(--primary);
+            color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        .search-btn:hover { background: var(--navy-active); }
+
+        /* [신규] 뉴스 목록 */
+        .news-list { border-top: 2px solid var(--primary); margin-bottom: 10px; }
+        .news-item {
+            display: flex; gap: 22px; padding: 26px 8px; align-items: flex-start;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .news-item:hover { background: var(--light-bg); }
+        .news-num { width: 34px; flex-shrink: 0; padding-top: 8px; text-align: center; font-size: 14px; color: #8b95a1; }
+        .news-thumb {
+            width: 130px; height: 86px; flex-shrink: 0; border-radius: 4px; overflow: hidden;
+            background: #eef1f4; display: flex; align-items: center; justify-content: center;
+        }
+        .news-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .news-thumb-placeholder { color: #c3cad2; font-size: 30px; }
+        .news-body { flex: 1; min-width: 0; }
+        .news-title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .news-title-link { font-size: 17px; font-weight: 700; color: #333; }
+        .news-title-link:hover { color: var(--primary); }
+        .news-new-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 17px; height: 17px; font-size: 10px; font-weight: 800; color: #fff;
+            background: #e6483f; border-radius: 3px; flex-shrink: 0;
+        }
+        .news-clip { color: #8b95a1; font-size: 15px; flex-shrink: 0; }
+        .news-excerpt {
+            font-size: 13px; color: #a7afb8; line-height: 1.7; margin-bottom: 10px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+        .news-date { font-size: 12px; color: #8b95a1; }
+
+        @media (max-width: 768px) {
+            .search-bar { flex-direction: column; align-items: stretch; }
+            .search-input-group { width: 100%; }
+            .search-input-group input { flex: 1; width: auto; }
+            .news-item { gap: 14px; padding: 20px 4px; }
+            .news-num { display: none; }
+            .news-thumb { width: 90px; height: 64px; }
+            .news-title-link { font-size: 15px; }
+        }
+
+        /* [신규] 교수초빙 안내 콘텐츠 */
+        .faculty-heading {
+            font-size: 26px; font-weight: 800; color: var(--primary);
+            text-align: center; margin-bottom: 20px; letter-spacing: -0.3px;
+        }
+        .faculty-divider { border: none; border-top: 2px solid var(--primary); margin: 0 0 34px; }
+        .faculty-body { font-size: 15px; color: #444; line-height: 1.9; }
+        .faculty-body p { margin-bottom: 22px; }
+        .faculty-body a.mail-link { color: var(--primary); font-weight: 600; }
+        .faculty-body a.mail-link:hover { text-decoration: underline; }
+        .faculty-keyword-list { margin: 0 0 40px; }
+        .faculty-keyword-list li {
+            font-size: 15px; color: #333; font-weight: 600; padding: 10px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .faculty-keyword-list li:first-child { padding-top: 0; }
+        .faculty-keyword-list li span.mark { color: var(--primary); margin-right: 8px; }
+        .apply-wrap { text-align: center; margin-top: 20px; }
+        .apply-btn {
+            display: inline-block; padding: 16px 60px; background: var(--primary); color: #fff;
+            font-size: 17px; font-weight: 800; letter-spacing: 1px; border-radius: 4px;
+            transition: 0.3s; box-shadow: 0 6px 16px rgba(0,74,153,0.25);
+        }
+        .apply-btn:hover { background: var(--navy-active); transform: translateY(-2px); }
+
+        /* [신규] 페이지네이션 */
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 6px; margin: 30px 0 10px; }
+        .pagination a, .pagination span {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-width: 32px; height: 32px; font-size: 13px; color: #666;
+            border-radius: 4px; cursor: pointer;
+        }
+        .pagination a:hover { background: var(--light-bg); color: var(--primary); }
+        .pagination .current { background: var(--primary); color: #fff; font-weight: 700; }
+        .pagination a.disabled { color: #ccc; cursor: not-allowed; pointer-events: none; }
+
+        /* [신규] 연구 역량 항목 리스트 */
+        .capability-list { margin-bottom: 50px; }
+        .capability-item {
+            display: flex; align-items: flex-start; gap: 26px;
+            padding: 30px 0; border-bottom: 1px solid var(--card-border);
+        }
+        .capability-item:first-child { padding-top: 0; }
+        .capability-item:last-child { border-bottom: none; }
+        .capability-num {
+            font-size: 34px; font-weight: 800; color: var(--primary);
+            opacity: 0.18; width: 64px; flex-shrink: 0; line-height: 1;
+        }
+        .capability-text h3 { font-size: 20px; font-weight: 800; color: #222; margin-bottom: 10px; }
+        .capability-text p { font-size: 15px; color: #555; line-height: 1.85; }
+
+        @media (max-width: 600px) {
+            .capability-item { gap: 16px; }
+            .capability-num { width: 44px; font-size: 26px; }
+        }
+
+        /* [신규] 브레드크럼(경로 표시) */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #b0b8c1; /* 연한 회색 */
+            white-space: nowrap;
+        }
+        .breadcrumb .home-icon { font-size: 13px; color: #c3cad2; cursor: pointer; }
+        .breadcrumb .sep { color: #d4dae0; font-size: 11px; }
+        .breadcrumb .crumb { color: #b0b8c1; }
+        .breadcrumb .crumb.current { color: #8b95a1; font-weight: 500; }
+
+        /* 푸터 */
+        footer { background: #1e293b; color: #fff; padding: 40px 0; margin-top: 60px; }
+        .footer-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; }
+
+        /* 반응형 */
+        @media (max-width: 1024px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        }
+        @media (max-width: 768px) {
+            .sidebar { grid-template-columns: 1fr; }
+        }
+
+        /* [신규] 공통 하단 푸터 (로고 + 부서명 + 관련 사이트) */
+        .site-footer { background: var(--navy-active, #002d5a); color: #fff; padding: 26px 0; margin-top: 60px; }
+        .site-footer .footer-inner {
+            max-width: 1400px; margin: 0 auto; padding: 0 40px;
+            display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+        }
+        .footer-left { display: flex; align-items: center; flex-shrink: 0; }
+        .footer-logo-chip {
+            display: inline-flex; align-items: center; background: #fff; border-radius: 4px;
+            padding: 5px 12px; height: 34px;
+        }
+        .footer-logo-chip img { height: 26px; width: auto; object-fit: contain; display: block; }
+        .footer-dept-link {
+            color: #fff; font-size: 18px; font-weight: 800; margin-left: 16px; padding-left: 16px;
+            border-left: 1px solid rgba(255,255,255,0.35);
+        }
+        .footer-mid { flex: 1; min-width: 260px; font-size: 12.5px; color: #c7d0dc; line-height: 1.85; }
+        .footer-policy { margin-bottom: 6px; }
+        .footer-policy a { color: #fff; font-weight: 600; font-size: 13px; }
+        .footer-policy a:hover { text-decoration: underline; }
+        .footer-policy .sep { margin: 0 8px; color: #5c6b82; }
+        .footer-mid p { margin: 0; }
+        .footer-right { flex-shrink: 0; position: relative; }
+        .related-site-btn {
+            background: transparent; border: 1px solid rgba(255,255,255,0.45); color: #fff;
+            padding: 10px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; gap: 14px; min-width: 170px; justify-content: space-between;
+        }
+        .related-site-btn:hover { background: rgba(255,255,255,0.08); }
+        .related-site-btn .caret { font-size: 11px; transition: 0.2s; }
+        .related-site-btn.open .caret { transform: rotate(180deg); }
+        .related-site-menu {
+            list-style: none; position: absolute; bottom: calc(100% + 8px); right: 0; background: #fff;
+            border-radius: 4px; box-shadow: 0 -10px 24px rgba(0,0,0,0.18); min-width: 230px;
+            display: none; overflow: hidden; z-index: 200;
+        }
+        .related-site-menu.open { display: block; }
+        .related-site-menu li a { display: block; padding: 11px 18px; font-size: 13px; color: #333; }
+        .related-site-menu li a:hover { background: var(--light-bg); color: var(--primary); }
+        .related-site-menu li + li { border-top: 1px solid #f0f0f0; }
+
+        @media (max-width: 768px) {
+            .site-footer .footer-inner { flex-direction: column; align-items: flex-start; }
+            .footer-right { width: 100%; }
+            .related-site-btn { width: 100%; }
+            .related-site-menu { left: 0; right: 0; }
+        }
+    
+        /* ===================== [v2 패치] 다크모드 + 이미지 자리 컴포넌트 (레거시 페이지 공용 헤더/푸터 일치화) ===================== */
+        :root {
+            --bg-page: var(--light-bg);
+            --bg-surface: #ffffff;
+            --text-main: #333333;
+            --text-strong: #1a1a1a;
+            --text-soft: #666666;
+            --border-c: var(--card-border);
+            --ph-bg: linear-gradient(135deg, #eef2f7 0%, #e3e9f1 55%, #eef2f7 100%);
+            --ph-border: #c7d2e0;
+            --ph-text: #8892a6;
+        }
+        body.dark-theme {
+            --bg-page: #0b132b;
+            --bg-surface: #131c3a;
+            --text-main: #d7deed;
+            --text-strong: #ffffff;
+            --text-soft: #9aa7c2;
+            --border-c: #263159;
+            --card-border: #263159;
+            --ph-bg: linear-gradient(135deg, #172345 0%, #1c2b52 55%, #172345 100%);
+            --ph-border: #33437a;
+            --ph-text: #7c8ab0;
+        }
+        /* 레거시 본문 콘텐츠는 고유 색상 체계를 유지하므로, 다크모드는 헤더/내비/푸터/이미지 자리에만 적용됩니다. */
+        body.dark-theme #header { background: var(--bg-surface); border-bottom-color: var(--border-c); }
+        body.dark-theme .dept-name { color: var(--primary); }
+        body.dark-theme .nav-container { background: var(--bg-surface); }
+        body.dark-theme .gnb > li > a { color: var(--text-main); }
+        body.dark-theme .submenu-wrap { background: var(--bg-surface); border-bottom-color: var(--border-c); }
+        body.dark-theme .submenu-inner ul { border-left-color: var(--border-c); }
+        body.dark-theme .submenu-inner li a { color: var(--text-soft); }
+
+        #header, .nav-container { transition: 0.35s; }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+        .theme-toggle {
+            background: var(--bg-page); color: var(--text-main); border: 1px solid var(--border-c);
+            padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold;
+            transition: 0.3s; display: flex; align-items: center; gap: 6px;
+        }
+        .theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
+        body.dark-theme .lang-toggle { background: var(--primary); }
+
+        .nav-container.scrolled { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        .nav-container.scrolled .gnb > li > a { padding: 11px 0; font-size: 15px; }
+
+        body.dark-theme .site-footer { background: #041022; }
+
+        /* 이미지 placeholder 공용 컴포넌트 */
+        .img-ph {
+            position: relative; width: 100%; background: var(--ph-bg);
+            border: 1.5px dashed var(--ph-border); border-radius: 14px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--ph-text); text-align: center; overflow: hidden; gap: 6px;
+        }
+        .img-ph .ph-icon { font-size: 26px; opacity: 0.7; }
+        .img-ph .ph-label { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; }
+        .img-ph .ph-sub { font-size: 11px; color: var(--ph-text); opacity: 0.8; }
+        .ar-21-9 { aspect-ratio: 21 / 9; }
+
+        /* 레거시 서브페이지용 슬림 이미지 배너 (사이드바 레이아웃 상단) */
+        .legacy-hero-strip { margin-bottom: 22px; }
+        .legacy-hero-strip .img-ph { min-height: 150px; }
+        @media (max-width: 900px) { .legacy-hero-strip .img-ph { min-height: 110px; } }
+
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="header-inner">
+            <div class="logo-area">
+                <a href="https://www.yonsei.ac.kr/sc/index.do" class="logo-link" aria-label="연세대학교 홈페이지로 이동">
+                    <img src="yonsei_logo.jpeg" alt="연세대학교 로고">
+                </a>
+                <a href="yonsei.html" class="dept-name" id="txt-dept">기계공학부</a>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" id="btn-theme">🌙 다크모드</button>
+                <button class="lang-toggle" onclick="toggleLanguage()" id="btn-lang">ENG</button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-container" id="navContainer">
+        <ul class="gnb">
+            <li><a onclick="toggleMenu()" id="menu-1">소개</a></li>
+            <li><a onclick="toggleMenu()" id="menu-2">학부</a></li>
+            <li><a onclick="toggleMenu()" id="menu-3">대학원</a></li>
+            <li><a onclick="toggleMenu()" id="menu-4">연구</a></li>
+            <li><a onclick="toggleMenu()" id="menu-5">뉴스 및 공지사항</a></li>
+            <li><a onclick="toggleMenu()" id="menu-6">교수초빙</a></li>
+
+            <div class="submenu-wrap">
+                <div class="submenu-inner">
+                    <ul>
+                        <li><a href="소개.html#history">연혁 및 비전</a></li>
+                        <li><a href="소개.html#faculty">교수진</a></li>
+                        <li><a href="소개.html#staff">교직원</a></li>
+                        <li><a href="소개.html#location">오시는 길</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="학부.html">학부 안내</a></li>
+                        <li><a href="교육목표.html">교육 목표</a></li>
+                        <li><a href="졸업요건.html">졸업 요건</a></li>
+                        <li><a href="교과목체계도.html">교과목 체계도</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://graduate.yonsei.ac.kr/graduate/index.do" target="_blank">입학 안내</a></li>
+                        <li><a href="대학원_연구실_소개_자료_및_영상.html">대학원 연구실 소개 자료 및 영상</a></li>
+                        <li><a href="BK21FOUR.html">BK21 FOUR</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="연구_비전.html">연구 비전</a></li>
+                        <li><a href="연구_역량.html">연구 역량</a></li>
+                        <li><a href="연구실.html">연구실</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="학부_공지사항.html">학부 공지사항</a></li>
+                        <li><a href="대학원_공지사항.html">대학원 공지사항</a></li>
+                        <li><a href="외부기관_공지사항.html">외부기관 공지사항</a></li>
+                        <li><a href="뉴스.html">뉴스</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="초빙안내.html">초빙 안내</a></li>
+                    </ul>
+                </div>
+            </div>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="category-box active">
+                <span>교수초빙</span>
+                <span class="arrow">▼</span>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="legacy-hero-strip">
+                <div class="img-ph ar-21-9">
+                    <span class="ph-icon">👔</span>
+                    <span class="ph-label">교수 초빙 안내</span>
+                    <span class="ph-sub">이미지 영역 · 기계공학부 신임 교원 초빙 정보를 안내합니다</span>
+                </div>
+            </div>
+
+            <div class="title-row">
+                <nav class="breadcrumb" aria-label="breadcrumb">
+                    <a class="home-icon" href="yonsei.html">⌂</a>
+                    <span class="sep">&gt;</span>
+                    <span class="crumb">교수초빙</span>
+                    <span class="sep">&gt;</span>
+                    <span class="crumb current">초빙안내</span>
+                </nav>
+                <h1 class="page-title">초빙안내</h1>
+            </div>
+
+            <h2 class="faculty-heading">Mechanical Engineering Faculty Information</h2>
+            <hr class="faculty-divider">
+
+            <div class="faculty-body">
+                <p>The School of Mechanical Engineering at Yonsei University is planning to hire numerous tenure-track faculty members over the coming years. This initiative reflects our commitment to academic excellence and our intent to bolster research and education in various sub-disciplines of mechanical engineering. Our goal is to expand our faculty base to enhance our research capabilities and academic offerings. We are seeking innovative thinkers and leaders who are eager to contribute to our dynamic and collaborative environment. Prospective candidates are encouraged to submit their curriculum vitae in pdf format as a preliminary step in joining our community. For questions or further information, please contact the Faculty Search Committee at <a href="mailto:mech@yonsei.ac.kr" class="mail-link">mech@yonsei.ac.kr</a></p>
+
+                <p>We are seeking talented faculty candidates across the full spectrum of mechanical engineering disciplines. Regardless of your specialization, if you possess a passion for teaching and a record of research excellence, we encourage you to express your interest.</p>
+
+                <p>Ideal candidates will hold a Ph.D. in Mechanical Engineering or a related field and have a proven track record of excellence in research and teaching. Specifically, the areas of research fields of our major interest include following keywords (but not limited to). We value candidates who can bring diverse perspectives and interdisciplinary approaches to address complex engineering challenges.</p>
+            </div>
+
+            <ul class="faculty-keyword-list">
+                <li><span class="mark">■</span>Mechanics, Materials</li>
+                <li><span class="mark">■</span>Thermal/Fluid Systems</li>
+                <li><span class="mark">■</span>Dynamics systems and Control</li>
+                <li><span class="mark">■</span>Manufacturing and Design</li>
+                <li><span class="mark">■</span>Emerging Areas including Bio/Medical/Nano/Micro/Optical Technology</li>
+            </ul>
+
+            <div class="apply-wrap">
+                <a href="https://sites.google.com/yonsei.ac.kr/me-faculty-application?usp=sharing" target="_blank" class="apply-btn">APPLY</a>
+            </div>
+        </main>
+    </div>
+
+        <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <a href="https://www.yonsei.ac.kr/sc/index.do" target="_blank" class="footer-logo-chip">
+                    <img src="yonsei_logo.jpeg" alt="연세대학교 로고">
+                </a>
+                <a href="yonsei.html" class="footer-dept-link">기계공학부</a>
+            </div>
+            <div class="footer-mid">
+                <p class="footer-policy"><a href="#">개인정보처리방침</a><span class="sep">|</span><a href="#">법적고지</a></p>
+                <p>[03722] 서울특별시 서대문구 연세로 50 연세대학교 공과대학 기계공학부</p>
+                <p>대학원: 02-2123-2810 / 학부: 02-2123-4426 / BK21: 02-2123-7817, 02-2123-7815</p>
+                <p>copyrights (c) 2026 연세대학교 기계공학부. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <button class="related-site-btn" onclick="toggleRelatedSites(this)">관련 사이트 <span class="caret">▾</span></button>
+                <ul class="related-site-menu">
+                    <li><a href="https://www.yonsei.ac.kr/sc/index.do" target="_blank">연세대학교</a></li>
+                    <li><a href="https://engineering.yonsei.ac.kr/engineering/index.do" target="_blank">연세대학교 공과대학</a></li>
+                    <li><a href="BK21FOUR.html">BK21 교육연구단</a></li>
+                    <li><a href="https://counsel.yonsei.ac.kr/ysclinic/index.do" target="_blank">연세대학교 심리상담센터</a></li>
+                    <li><a href="https://yabc.yonsei.ac.kr/sinchon/index.php" target="_blank">연세대학교 ABC</a></li>
+                    <li><a href="https://library.yonsei.ac.kr/local/html/education" target="_blank">연세대학교 학술정보원</a></li>
+                    <li><a href="https://ydec.yonsei.ac.kr/ydec/index.do" target="_blank">Y-DEC</a></li>
+                    <li><a href="https://career.yonsei.ac.kr/nonIndex.do" target="_blank">커리어 연세</a></li>
+                    <li><a href="https://www.learnus.org/" target="_blank">LEARN US</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+
+        function applyTheme(dark) {
+            document.body.classList.toggle('dark-theme', dark);
+            var btn = document.getElementById('btn-theme');
+            if (btn) btn.innerText = dark ? '☀️ 라이트모드' : '🌙 다크모드';
+        }
+        function toggleTheme() {
+            const dark = !document.body.classList.contains('dark-theme');
+            applyTheme(dark);
+            localStorage.setItem('me-theme', dark ? 'dark' : 'light');
+        }
+        applyTheme(localStorage.getItem('me-theme') === 'dark');
+
+        (function() {
+            var navEl = document.getElementById('navContainer');
+            if (navEl) {
+                window.addEventListener('scroll', () => {
+                    navEl.classList.toggle('scrolled', window.scrollY > 40);
+                });
+            }
+        })();
+
+        function toggleMenu() { 
+            document.getElementById('navContainer').classList.toggle('active'); 
+        }
+
+        let isEng = false;
+        function toggleLanguage() {
+            isEng = !isEng;
+            document.getElementById('btn-lang').innerText = isEng ? 'KOR' : 'ENG';
+            document.getElementById('txt-dept').innerText = isEng ? 'School of Mechanical Engineering' : '기계공학부';
+            document.getElementById('menu-1').innerText = isEng ? 'About' : '소개';
+            document.getElementById('menu-2').innerText = isEng ? 'Undergraduate' : '학부';
+            document.getElementById('menu-3').innerText = isEng ? 'Graduate' : '대학원';
+            document.getElementById('menu-4').innerText = isEng ? 'Research' : '연구';
+            document.getElementById('menu-5').innerText = isEng ? 'News & Notices' : '뉴스 및 공지사항';
+            document.getElementById('menu-6').innerText = isEng ? 'Careers' : '교수초빙';
+        }
+
+    
+        // [신규] 하단 "관련 사이트" 드롭다운
+        function toggleRelatedSites(btn) {
+            const menu = btn.nextElementSibling;
+            const isOpen = menu.classList.toggle('open');
+            btn.classList.toggle('open', isOpen);
+        }
+        document.addEventListener('click', function(e) {
+            document.querySelectorAll('.related-site-menu.open').forEach(menu => {
+                if (!menu.parentElement.contains(e.target)) {
+                    menu.classList.remove('open');
+                    menu.parentElement.querySelector('.related-site-btn').classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

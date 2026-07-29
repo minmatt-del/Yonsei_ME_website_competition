@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연세대학교 기계공학부 | 교과목 체계도</title>
+    <style>
+        /* [디자인 시스템] Smart Cyber-Lab 무드 v2 - 이미지 중심 리뉴얼 */
+        :root {
+            --primary: #004a99;       /* 연세 블루 */
+            --dark-bg: #0b132b;      /* 다크 네이비 / 사이버 무드 */
+            --accent: #00d2ff;       /* 네온 사이언 포인트 */
+            --light-bg: #f4f7f6;     /* 소프트 배경 */
+            --card-border: #e1e8ed;
+
+            --bg-page: var(--light-bg);
+            --bg-surface: #ffffff;
+            --text-main: #333333;
+            --text-strong: #1a1a1a;
+            --text-soft: #666666;
+            --border-c: var(--card-border);
+            --ph-bg: linear-gradient(135deg, #eef2f7 0%, #e3e9f1 55%, #eef2f7 100%);
+            --ph-border: #c7d2e0;
+            --ph-text: #8892a6;
+        }
+
+        body.dark-theme {
+            --bg-page: #0b132b;
+            --bg-surface: #131c3a;
+            --text-main: #d7deed;
+            --text-strong: #ffffff;
+            --text-soft: #9aa7c2;
+            --border-c: #263159;
+            --card-border: #263159;
+            --ph-bg: linear-gradient(135deg, #172345 0%, #1c2b52 55%, #172345 100%);
+            --ph-border: #33437a;
+            --ph-text: #7c8ab0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Pretendard', 'Noto Sans KR', 'Nanum Gothic', sans-serif; line-height: 1.6; color: var(--text-main); background-color: var(--bg-page); transition: background-color 0.35s ease, color 0.35s ease; }
+        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        img { max-width: 100%; display: block; }
+
+        /* 헤더 및 글로벌 상단바 */
+        #header { width: 100%; background: var(--bg-surface); padding: 15px 0; border-bottom: 1px solid var(--border-c); transition: 0.35s; }
+        .header-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
+        .logo-area { display: flex; align-items: center; }
+        .logo-area img { height: 45px; width: auto; object-fit: contain; margin-right: 15px; }
+        .logo-link { display: flex; align-items: center; }
+        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid #ccc; cursor: pointer; }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+
+        .lang-toggle {
+            background: var(--primary); color: #fff; border: none; padding: 6px 14px;
+            border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold; transition: 0.3s;
+        }
+        .lang-toggle:hover { background: #003366; }
+
+        .theme-toggle {
+            background: var(--bg-page); color: var(--text-main); border: 1px solid var(--border-c);
+            padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold;
+            transition: 0.3s; display: flex; align-items: center; gap: 6px;
+        }
+        .theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* 네비게이션바 (GNB) */
+        .nav-container { width: 100%; background: var(--bg-surface); border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: 0.3s; }
+        .gnb { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; padding: 0 40px; position: relative; transition: 0.3s; }
+        .gnb > li { flex: 1; text-align: center; }
+        .gnb > li > a { display: block; padding: 18px 0; font-weight: 600; font-size: 16px; color: var(--text-main); cursor: pointer; transition: 0.3s; }
+        .gnb > li:hover > a { color: var(--primary); }
+
+        .nav-container.scrolled { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        .nav-container.scrolled .gnb > li > a { padding: 11px 0; font-size: 15px; }
+
+        .submenu-wrap {
+            position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-c); display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+        .submenu-inner { max-width: 1400px; margin: 0 auto; display: flex; padding: 20px 40px; }
+        .submenu-inner ul { flex: 1; text-align: center; border-left: 1px solid var(--border-c); }
+        .submenu-inner ul:first-child { border-left: none; }
+        .submenu-inner li a { display: block; padding: 8px 0; font-size: 14px; color: var(--text-soft); }
+        .submenu-inner li a:hover { color: var(--primary); font-weight: bold; }
+        .nav-container.active .submenu-wrap { display: block; }
+
+        /* 메인 슬라이더 (이미지 자리 포함) */
+        .slider-container { position: relative; width: 100%; height: 560px; overflow: hidden; background-color: var(--dark-bg); }
+        .slider-wrapper { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; }
+        .slide { min-width: 100%; height: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 0 20px; overflow: hidden; }
+        .slide .slide-ph {
+            position: absolute; inset: 0; z-index: 0;
+            background: repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 26px);
+        }
+        .slide .slide-ph::before {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(11,19,43,0.15) 0%, rgba(11,19,43,0.85) 100%);
+        }
+        .slide-caption { position: relative; z-index: 2; }
+        .slide-tag { display: inline-block; border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; padding: 5px 16px; font-size: 12px; letter-spacing: 1px; margin-bottom: 18px; color: var(--accent); }
+        .slide h2 { font-size: 44px; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .slide p { font-size: 18px; color: var(--accent); font-weight: 300; }
+        .slide .img-note { position: absolute; bottom: 22px; right: 26px; z-index: 2; font-size: 11px; color: rgba(255,255,255,0.5); border: 1px dashed rgba(255,255,255,0.35); padding: 4px 10px; border-radius: 20px; }
+
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.1); color: #fff; border: none; padding: 18px 12px; cursor: pointer; font-size: 24px; z-index: 10; transition: 0.3s; }
+        .slider-btn:hover { background: var(--primary); }
+        .prev-btn { left: 0; border-radius: 0 5px 5px 0; }
+        .next-btn { right: 0; border-radius: 5px 0 0 5px; }
+
+        /* 메인 레이아웃 */
+        .main-content { max-width: 1400px; margin: 40px auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; padding: 0 40px; }
+        .content-box { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 8px; padding: 25px; border-top: 4px solid var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .content-box h3 { font-size: 18px; margin-bottom: 15px; color: var(--primary); border-bottom: 1px solid var(--border-c); padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .wide-box { grid-column: span 2; }
+        .full-box { grid-column: span 3; }
+
+        .info-list { font-size: 14px; }
+        .info-item { padding: 10px 0; border-bottom: 1px solid var(--border-c); display: flex; justify-content: space-between; align-items: center; color: var(--text-main); }
+        .info-item:last-child { border-bottom: none; }
+        .info-date { color: var(--text-soft); font-size: 12px; white-space: nowrap; margin-left: 10px; }
+
+        .tab-header { display: flex; border-bottom: 2px solid var(--primary); margin-bottom: 15px; }
+        .tab-btn { background: none; border: none; padding: 10px 18px; cursor: pointer; font-weight: bold; color: var(--text-soft); font-size: 15px; outline: none; }
+        .tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); margin-bottom: -2px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .filter-container { margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .filter-btn { background: var(--bg-page); border: 1px solid var(--border-c); padding: 6px 14px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 13px; color: var(--text-soft); transition: 0.2s; }
+        .filter-btn.active, .filter-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+        .prof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .prof-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 8px; padding: 16px 15px 18px; text-align: center; transition: 0.3s; }
+        .prof-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+        .prof-card .tag { display: inline-block; background: #e3f2fd; color: var(--primary); font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; font-weight: bold; }
+        .prof-card h4 { font-size: 16px; color: var(--text-strong); margin-bottom: 4px; }
+        .prof-card p { font-size: 12px; color: var(--text-soft); }
+
+        .prof-photo-ph {
+            width: 100%; aspect-ratio: 3 / 4; border-radius: 8px; margin: 0 0 12px;
+            background: var(--ph-bg); border: 1px dashed var(--ph-border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--ph-text); font-size: 22px; overflow: hidden;
+        }
+        .prof-card:hover .prof-photo-ph { border-color: var(--primary); }
+
+        .coop-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 10px; }
+        .coop-item { background: var(--bg-page); border: 1px solid var(--border-c); padding: 20px 15px; text-align: center; border-radius: 6px; transition: 0.2s; }
+        .coop-item:hover { border-color: var(--primary); background: var(--bg-surface); }
+
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center; }
+        .modal-content { background:#fff; padding:30px; border-radius:8px; max-width:500px; width:90%; position:relative; }
+        .close-modal { position:absolute; top:15px; right:15px; cursor:pointer; font-size:20px; font-weight:bold; }
+
+        @media (max-width: 1024px) {
+            .main-content { grid-template-columns: repeat(2, 1fr); }
+            .wide-box, .full-box { grid-column: span 2; }
+            .coop-list { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .header-inner { flex-direction: column; gap: 10px; text-align: center; }
+            .dept-name { border-left: none; padding-left: 0; }
+            .gnb { flex-wrap: wrap; padding: 0; }
+            .gnb > li > a { padding: 10px 0; font-size: 14px; }
+            .main-content { grid-template-columns: 1fr; padding: 0 20px; }
+            .wide-box, .full-box { grid-column: span 1; }
+            .coop-list { grid-template-columns: 1fr; }
+            .slider-container { height: 420px; }
+        }
+
+        .site-footer { background: var(--navy-active, #002d5a); color: #fff; padding: 26px 0; margin-top: 60px; }
+        .site-footer .footer-inner {
+            max-width: 1400px; margin: 0 auto; padding: 0 40px;
+            display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+        }
+        .footer-left { display: flex; align-items: center; flex-shrink: 0; }
+        .footer-logo-chip {
+            display: inline-flex; align-items: center; background: #fff; border-radius: 4px;
+            padding: 5px 12px; height: 34px;
+        }
+        .footer-logo-chip img { height: 26px; width: auto; object-fit: contain; display: block; }
+        .footer-dept-link {
+            color: #fff; font-size: 18px; font-weight: 800; margin-left: 16px; padding-left: 16px;
+            border-left: 1px solid rgba(255,255,255,0.35);
+        }
+        .footer-mid { flex: 1; min-width: 260px; font-size: 12.5px; color: #c7d0dc; line-height: 1.85; }
+        .footer-policy { margin-bottom: 6px; }
+        .footer-policy a { color: #fff; font-weight: 600; font-size: 13px; }
+        .footer-policy a:hover { text-decoration: underline; }
+        .footer-policy .sep { margin: 0 8px; color: #5c6b82; }
+        .footer-mid p { margin: 0; }
+        .footer-right { flex-shrink: 0; position: relative; }
+        .related-site-btn {
+            background: transparent; border: 1px solid rgba(255,255,255,0.45); color: #fff;
+            padding: 10px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; gap: 14px; min-width: 170px; justify-content: space-between;
+        }
+        .related-site-btn:hover { background: rgba(255,255,255,0.08); }
+        .related-site-btn .caret { font-size: 11px; transition: 0.2s; }
+        .related-site-btn.open .caret { transform: rotate(180deg); }
+        .related-site-menu {
+            list-style: none; position: absolute; bottom: calc(100% + 8px); right: 0; background: #fff;
+            border-radius: 4px; box-shadow: 0 -10px 24px rgba(0,0,0,0.18); min-width: 230px;
+            display: none; overflow: hidden; z-index: 200;
+        }
+        .related-site-menu.open { display: block; }
+        .related-site-menu li a { display: block; padding: 11px 18px; font-size: 13px; color: #333; }
+        .related-site-menu li a:hover { background: var(--light-bg); color: var(--primary); }
+        .related-site-menu li + li { border-top: 1px solid #f0f0f0; }
+
+        @media (max-width: 768px) {
+            .site-footer .footer-inner { flex-direction: column; align-items: flex-start; }
+            .footer-right { width: 100%; }
+            .related-site-btn { width: 100%; }
+            .related-site-menu { left: 0; right: 0; }
+        }
+
+        .scroll-cue {
+            position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+            color: rgba(255,255,255,0.75); font-size: 22px; animation: bounceCue 1.8s infinite; z-index: 5; pointer-events: none;
+        }
+        @keyframes bounceCue { 0%,100% { transform: translate(-50%, 0); opacity: 0.6; } 50% { transform: translate(-50%, 8px); opacity: 1; } }
+
+        .stats-section { background: var(--dark-bg); padding: 50px 40px; }
+        .stats-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .stat-item .stat-num { font-size: 42px; font-weight: 800; color: var(--accent); line-height: 1; }
+        .stat-item .stat-num::after { content: attr(data-suffix); font-size: 24px; margin-left: 2px; }
+        .stat-item .stat-label { color: #cfe3f5; font-size: 14px; margin-top: 8px; letter-spacing: 0.3px; }
+        @media (max-width: 768px) { .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; } }
+
+        .showcase-section { max-width: 1400px; margin: 60px auto 10px; padding: 0 40px; }
+        .showcase-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 22px; }
+        .showcase-head h3 { font-size: 24px; color: var(--text-strong); }
+        .showcase-head p { color: var(--text-soft); font-size: 14px; margin-top: 6px; }
+        .showcase-head a { font-size: 13px; color: var(--primary); font-weight: 700; }
+        .showcase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .showcase-card {
+            position: relative; height: 340px; border-radius: 12px; overflow: hidden; display: flex; align-items: flex-end; padding: 24px; color: #fff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+        .showcase-card::before {
+            content: ""; position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.78) 100%);
+        }
+        .showcase-card::after {
+            content: ""; position: absolute; inset: 0; z-index: 0; transition: transform 0.5s ease;
+        }
+        .showcase-card:hover::after { transform: scale(1.08); }
+        .showcase-card.c1::after { background: linear-gradient(135deg, #0b132b, #1b3a6b, #00d2ff); }
+        .showcase-card.c2::after { background: linear-gradient(135deg, #0b132b, #004a99, #6f42c1); }
+        .showcase-card.c3::after { background: linear-gradient(135deg, #0b132b, #0d6e5c, #00d2ff); }
+        .showcase-body { position: relative; z-index: 2; }
+        .showcase-tag { display: inline-block; background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); font-size: 11px; padding: 4px 10px; border-radius: 20px; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.3px; }
+        .showcase-body h4 { font-size: 20px; margin-bottom: 6px; }
+        .showcase-body p { font-size: 13px; color: rgba(255,255,255,0.85); }
+        .showcase-imgnote { position: absolute; top: 18px; right: 18px; z-index: 2; font-size: 10px; color: rgba(255,255,255,0.6); border: 1px dashed rgba(255,255,255,0.4); padding: 3px 8px; border-radius: 14px; }
+        @media (max-width: 1024px) { .showcase-grid { grid-template-columns: 1fr; } }
+
+        /* ===================== [v2 신규] 이미지 중심 컴포넌트 ===================== */
+
+        /* 범용 이미지 placeholder 블록 */
+        .img-ph {
+            position: relative; width: 100%; background: var(--ph-bg);
+            border: 1.5px dashed var(--ph-border); border-radius: 14px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--ph-text); text-align: center; overflow: hidden; gap: 8px;
+        }
+        .img-ph .ph-icon { font-size: 30px; opacity: 0.7; }
+        .img-ph .ph-label { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; }
+        .img-ph .ph-sub { font-size: 11px; color: var(--ph-text); opacity: 0.8; }
+        .ar-21-9 { aspect-ratio: 21 / 9; }
+        .ar-16-9 { aspect-ratio: 16 / 9; }
+        .ar-4-3  { aspect-ratio: 4 / 3; }
+        .ar-1-1  { aspect-ratio: 1 / 1; }
+        .ar-3-4  { aspect-ratio: 3 / 4; }
+
+        /* 페이지 히어로 (이미지 자리 + 타이틀 오버레이) - 서브페이지 공용 */
+        .hero-media {
+            position: relative; width: 100%; height: 420px; overflow: hidden;
+            background: linear-gradient(135deg, var(--dark-bg), #123a75);
+            display: flex; align-items: flex-end;
+        }
+        .hero-media .hero-ph-pattern {
+            position: absolute; inset: 0;
+            background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.045) 0 2px, transparent 2px 30px);
+        }
+        .hero-media::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(11,19,43,0.25) 0%, rgba(11,19,43,0.92) 100%);
+        }
+        .hero-media-inner { position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; padding: 0 40px 46px; width: 100%; color: #fff; }
+        .hero-eyebrow { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-bottom: 12px; text-transform: uppercase; }
+        .hero-media-inner h1 { font-size: 42px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .hero-media-inner p { font-size: 15px; color: #cfe3f5; max-width: 640px; }
+        .hero-imgnote { position: absolute; top: 24px; right: 32px; z-index: 3; font-size: 11px; color: rgba(255,255,255,0.55); border: 1px dashed rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 20px; }
+        @media (max-width: 768px) { .hero-media { height: 300px; } .hero-media-inner h1 { font-size: 30px; } }
+
+        .page-wrap { max-width: 1200px; margin: 0 auto; padding: 64px 40px; }
+        .page-section { margin-bottom: 80px; scroll-margin-top: 90px; }
+        .page-section:last-child { margin-bottom: 0; }
+        .page-section h2 { font-size: 26px; color: var(--text-strong); margin-bottom: 8px; padding-left: 14px; border-left: 5px solid var(--primary); }
+        .page-section .section-desc { color: var(--text-soft); font-size: 14px; margin: 8px 0 32px 19px; }
+        .eyebrow-sm { color: var(--primary); font-weight: 800; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+
+        /* 이미지 + 텍스트 좌우 교차 배치 (Imperial / MIT 스타일) */
+        .feature-split { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-bottom: 46px; }
+        .feature-split.reverse .fs-media { order: 2; }
+        .feature-split.reverse .fs-text { order: 1; }
+        .fs-text h3 { font-size: 21px; color: var(--text-strong); margin-bottom: 12px; }
+        .fs-text p { font-size: 14.5px; color: var(--text-main); line-height: 1.85; }
+        .fs-text ul { margin-top: 14px; }
+        .fs-text ul li { font-size: 14px; color: var(--text-main); padding: 7px 0 7px 20px; position: relative; border-bottom: 1px dashed var(--border-c); }
+        .fs-text ul li::before { content: "―"; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+        @media (max-width: 900px) {
+            .feature-split, .feature-split.reverse { grid-template-columns: 1fr; }
+            .feature-split.reverse .fs-media, .feature-split.reverse .fs-text { order: unset; }
+        }
+
+        /* 이미지 갤러리 그리드 */
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .gallery-grid .img-ph { min-height: 160px; }
+        @media (max-width: 1024px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        /* 큰 통계 스트립 (MIT 스타일) */
+        .bignum-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin: 6px 0 0; }
+        .bignum-item { text-align: center; padding: 26px 10px; background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 10px; }
+        .bignum-item .bn { font-size: 34px; font-weight: 800; color: var(--primary); }
+        .bignum-item .bl { font-size: 12.5px; color: var(--text-soft); margin-top: 6px; }
+        @media (max-width: 900px) { .bignum-strip { grid-template-columns: repeat(2, 1fr); } }
+
+        /* CTA 카드 (하위 페이지 상호 연결용) */
+        .cta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .cta-card {
+            display: block; background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 14px;
+            overflow: hidden; transition: 0.3s;
+        }
+        .cta-card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0,0,0,0.1); border-color: var(--primary); }
+        .cta-card .img-ph { border-radius: 0; border-left: none; border-right: none; border-top: none; }
+        .cta-card-body { padding: 20px 22px 24px; }
+        .cta-card-body .eyebrow-sm { margin-bottom: 6px; }
+        .cta-card-body h4 { font-size: 18px; color: var(--text-strong); margin-bottom: 8px; }
+        .cta-card-body p { font-size: 13px; color: var(--text-soft); margin-bottom: 14px; }
+        .cta-card-body .go { font-size: 13px; font-weight: 800; color: var(--primary); }
+        @media (max-width: 900px) { .cta-grid { grid-template-columns: 1fr; } }
+
+        /* 연혁 타임라인 */
+        .timeline { position: relative; margin-left: 20px; padding-left: 30px; border-left: 2px solid var(--border-c); }
+        .timeline-item { position: relative; margin-bottom: 28px; }
+        .timeline-item::before { content: ""; position: absolute; left: -37px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary); border: 3px solid var(--bg-page); }
+        .timeline-item .t-year { font-weight: 800; color: var(--primary); font-size: 15px; }
+        .timeline-item .t-desc { color: var(--text-main); font-size: 14px; margin-top: 4px; }
+        .vision-box { background: var(--bg-surface); border: 1px solid var(--border-c); border-left: 4px solid var(--accent); border-radius: 8px; padding: 26px; margin-top: 24px; }
+        .vision-box h3 { color: var(--primary); font-size: 16px; margin-bottom: 8px; }
+        .vision-box p { color: var(--text-main); font-size: 14px; }
+
+        .staff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .staff-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 8px; padding: 18px 20px; }
+        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--primary); background: #e3f2fd; display: inline-block; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; }
+        .staff-card h4 { font-size: 15px; color: var(--text-strong); margin-bottom: 4px; }
+        .staff-card p { font-size: 12.5px; color: var(--text-soft); }
+
+        .location-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 30px; align-items: start; }
+        .location-info p { font-size: 14px; color: var(--text-main); margin-bottom: 10px; }
+        .location-info strong { color: var(--text-strong); }
+
+        /* 교육 목표 카드 (번호 + 이미지 자리) */
+        .goal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .goal-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 10px; padding: 24px 18px; text-align: center; transition: 0.3s; }
+        .goal-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+        .goal-card .g-num { width: 36px; height: 36px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto 12px; }
+        .goal-card h4 { font-size: 14.5px; color: var(--text-strong); margin-bottom: 6px; }
+        .goal-card p { font-size: 12.5px; color: var(--text-soft); }
+
+        /* 졸업 요건 테이블 */
+        .req-table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 8px; overflow: hidden; }
+        .req-table th, .req-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border-c); }
+        .req-table th { background: var(--primary); color: #fff; font-weight: 700; }
+        .req-table tr:last-child td { border-bottom: none; }
+        .req-table td.credit { font-weight: 700; color: var(--primary); text-align: right; }
+        .req-table tfoot td { background: var(--bg-page); font-weight: 800; }
+
+        /* 교과목 체계도 */
+        .curri-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .curri-col h5 { text-align: center; font-size: 14px; font-weight: 800; color: #fff; background: var(--primary); padding: 8px; border-radius: 6px; margin-bottom: 10px; }
+        .curri-col ul { display: flex; flex-direction: column; gap: 8px; }
+        .curri-col li { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 6px; padding: 9px 10px; font-size: 12.5px; color: var(--text-main); text-align: center; }
+        .curri-col li.core { border-color: var(--primary); font-weight: 700; color: var(--primary); }
+        @media (max-width: 900px) {
+            .location-grid { grid-template-columns: 1fr; }
+            .staff-grid, .goal-grid, .curri-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .staff-grid, .goal-grid, .curri-grid { grid-template-columns: 1fr; }
+        }
+
+        /* 트랙 태그 라인 (교과목 체계도용) */
+        .track-legend { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 30px 19px; }
+        .track-chip { font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border-c); color: var(--text-soft); }
+        .track-chip.tc-mech { border-color: #004a99; color: #004a99; }
+        .track-chip.tc-thermo { border-color: #0d6e5c; color: #0d6e5c; }
+        .track-chip.tc-dyn { border-color: #6f42c1; color: #6f42c1; }
+        .track-chip.tc-design { border-color: #b8590a; color: #b8590a; }
+        body.dark-theme .track-chip.tc-mech { color: #4fa3ff; }
+        body.dark-theme .track-chip.tc-thermo { color: #35c9a8; }
+        body.dark-theme .track-chip.tc-dyn { color: #b18fff; }
+        body.dark-theme .track-chip.tc-design { color: #ffa64f; }
+
+
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <div class="header-inner">
+            <div class="logo-area">
+                <a href="https://www.yonsei.ac.kr/sc/index.do" class="logo-link" aria-label="연세대학교 홈페이지로 이동">
+                    <img src="yonsei_logo.jpeg" alt="연세대학교 로고">
+                </a>
+                <a href="yonsei.html" class="dept-name" id="txt-dept">기계공학부</a>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" id="btn-theme">🌙 다크모드</button>
+                <button class="lang-toggle" onclick="toggleLanguage()" id="btn-lang">ENG</button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-container" id="navContainer">
+        <ul class="gnb">
+            <li><a onclick="toggleMenu()" id="menu-1">소개</a></li>
+            <li><a onclick="toggleMenu()" id="menu-2">학부</a></li>
+            <li><a onclick="toggleMenu()" id="menu-3">대학원</a></li>
+            <li><a onclick="toggleMenu()" id="menu-4">연구</a></li>
+            <li><a onclick="toggleMenu()" id="menu-5">뉴스 및 공지사항</a></li>
+            <li><a onclick="toggleMenu()" id="menu-6">교수초빙</a></li>
+
+            <div class="submenu-wrap">
+                <div class="submenu-inner">
+                    <ul>
+                        <li><a href="소개.html#history">연혁 및 비전</a></li>
+                        <li><a href="소개.html#faculty">교수진</a></li>
+                        <li><a href="소개.html#staff">교직원</a></li>
+                        <li><a href="소개.html#location">오시는 길</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="학부.html">학부 안내</a></li>
+                        <li><a href="교육목표.html">교육 목표</a></li>
+                        <li><a href="졸업요건.html">졸업 요건</a></li>
+                        <li><a href="교과목체계도.html">교과목 체계도</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="https://graduate.yonsei.ac.kr/graduate/index.do" target="_blank">입학 안내</a></li>
+                        <li><a href="대학원_연구실_소개_자료_및_영상.html">대학원 연구실 소개 자료 및 영상</a></li>
+                        <li><a href="BK21FOUR.html">BK21 FOUR</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="연구_비전.html">연구 비전</a></li>
+                        <li><a href="연구_역량.html">연구 역량</a></li>
+                        <li><a href="연구실.html">연구실</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="학부_공지사항.html">학부 공지사항</a></li>
+                        <li><a href="대학원_공지사항.html">대학원 공지사항</a></li>
+                        <li><a href="외부기관_공지사항.html">외부기관 공지사항</a></li>
+                        <li><a href="뉴스.html">뉴스</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="초빙안내.html">초빙 안내</a></li>
+                    </ul>
+                </div>
+            </div>
+        </ul>
+    </nav>
+
+
+    <div class="hero-media">
+        <div class="hero-ph-pattern"></div>
+        <span class="hero-imgnote">이미지 영역 · 추후 교과과정 다이어그램 이미지 교체</span>
+        <div class="hero-media-inner">
+            <div class="hero-eyebrow">Undergraduate · Faculty Introduction</div>
+            <h1>교과목 체계도</h1>
+            <p>공학 기초에서 융합·설계까지, 학년이 올라갈수록 심화되는 기계공학부 교과목 이수 흐름을 소개합니다.</p>
+        </div>
+    </div>
+
+    <div class="page-wrap">
+        <section class="page-section" id="tracks">
+            <h2>4대 교과 트랙</h2>
+            <p class="section-desc">기계공학부 전공 교과목은 아래 4개 트랙을 중심으로 설계되어 있습니다.</p>
+            <div class="track-legend">
+                <span class="track-chip tc-mech">역학 · 공학기초</span>
+                <span class="track-chip tc-thermo">열 · 유체 · 에너지</span>
+                <span class="track-chip tc-dyn">동역학 · 제어 · 로보틱스</span>
+                <span class="track-chip tc-design">고체 · 생산 · 설계</span>
+            </div>
+
+            <div class="img-ph ar-21-9">
+                <span class="ph-icon">📊</span>
+                <span class="ph-label">교과목 체계도 전체 흐름 다이어그램</span>
+                <span class="ph-sub">이미지 영역 · 학과 사무실 제공 공식 체계도 이미지로 교체 예정</span>
+            </div>
+        </section>
+
+        <section class="page-section" id="roadmap">
+            <h2>학년별 교과목 로드맵</h2>
+            <p class="section-desc">굵게 표시된 과목은 다음 학년 전공 심화 과목의 선수과목에 해당하는 핵심 과목입니다.</p>
+            <div class="curri-grid">
+                <div class="curri-col">
+                    <h5>1학년</h5>
+                    <ul>
+                        <li class="core">일반물리학 및 실험</li>
+                        <li class="core">공업수학 I</li>
+                        <li>공학설계입문</li>
+                        <li>프로그래밍기초(C/Python)</li>
+                        <li>일반화학</li>
+                    </ul>
+                </div>
+                <div class="curri-col">
+                    <h5>2학년</h5>
+                    <ul>
+                        <li class="core">정역학</li>
+                        <li class="core">열역학</li>
+                        <li class="core">유체역학</li>
+                        <li class="core">고체역학(재료역학)</li>
+                        <li>동역학</li>
+                        <li>공업수학 II</li>
+                    </ul>
+                </div>
+                <div class="curri-col">
+                    <h5>3학년</h5>
+                    <ul>
+                        <li class="core">제어공학</li>
+                        <li class="core">열전달</li>
+                        <li>기계재료</li>
+                        <li>기계공작법 및 실습</li>
+                        <li>로보틱스개론</li>
+                        <li>진동학</li>
+                    </ul>
+                </div>
+                <div class="curri-col">
+                    <h5>4학년</h5>
+                    <ul>
+                        <li class="core">기계공학종합설계(캡스톤)</li>
+                        <li>에너지시스템설계</li>
+                        <li>정밀가공특론</li>
+                        <li>인공지능응용</li>
+                        <li>메카트로닉스</li>
+                        <li>현장실습/인턴십</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section" id="tracks-detail">
+            <h2>트랙별 대표 과목</h2>
+            <p class="section-desc">진로·연구 관심 분야에 따라 아래 트랙을 중심으로 전공선택 과목을 설계할 수 있습니다.</p>
+            <div class="feature-split">
+                <div class="fs-media">
+                    <div class="img-ph ar-4-3"><span class="ph-icon">🔥</span><span class="ph-label">열 · 유체 · 에너지 트랙</span></div>
+                </div>
+                <div class="fs-text">
+                    <div class="eyebrow-sm">Track</div>
+                    <h3>열·유체·에너지</h3>
+                    <p>열역학, 유체역학, 열전달을 기초로 친환경 에너지 변환, 열관리 시스템, 전산유체역학(CFD)을 다룹니다.</p>
+                    <ul>
+                        <li>연소공학 · 에너지변환공학</li>
+                        <li>전산유체역학(CFD)</li>
+                        <li>냉동공조공학 · 열시스템설계</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-split reverse">
+                <div class="fs-media">
+                    <div class="img-ph ar-4-3"><span class="ph-icon">🤖</span><span class="ph-label">동역학 · 제어 · 로보틱스 트랙</span></div>
+                </div>
+                <div class="fs-text">
+                    <div class="eyebrow-sm">Track</div>
+                    <h3>동역학 · 제어 · 로보틱스</h3>
+                    <p>동역학, 제어공학을 기반으로 자율주행, 인간-로봇 협업, 메카트로닉스 시스템 설계를 학습합니다.</p>
+                    <ul>
+                        <li>로봇공학 · 로봇동역학</li>
+                        <li>메카트로닉스 · 임베디드 제어</li>
+                        <li>인공지능응용 · 지능형시스템</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="feature-split">
+                <div class="fs-media">
+                    <div class="img-ph ar-4-3"><span class="ph-icon">⚙️</span><span class="ph-label">고체 · 생산 · 설계 트랙</span></div>
+                </div>
+                <div class="fs-text">
+                    <div class="eyebrow-sm">Track</div>
+                    <h3>고체 · 생산 · 설계</h3>
+                    <p>고체역학과 기계재료를 바탕으로 정밀가공, 복합소재, 종합설계 역량을 심화합니다.</p>
+                    <ul>
+                        <li>정밀가공특론 · 제조공정</li>
+                        <li>복합재료 구조설계</li>
+                        <li>기계공학종합설계(캡스톤)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section" id="more">
+            <h2>더 알아보기</h2>
+            <p class="section-desc">교과목 체계도와 함께 확인하면 좋은 학부 안내 페이지입니다.</p>
+            <div class="cta-grid">
+                <a href="교육목표.html" class="cta-card">
+                    <div class="img-ph ar-16-9"><span class="ph-icon">🎯</span><span class="ph-label">교육 목표</span></div>
+                    <div class="cta-card-body">
+                        <div class="eyebrow-sm">Undergraduate</div>
+                        <h4>교육 목표</h4>
+                        <p>학부 교육이 지향하는 4가지 목표를 확인하세요.</p>
+                        <span class="go">자세히 보기 →</span>
+                    </div>
+                </a>
+                <a href="졸업요건.html" class="cta-card">
+                    <div class="img-ph ar-16-9"><span class="ph-icon">🎓</span><span class="ph-label">졸업 요건</span></div>
+                    <div class="cta-card-body">
+                        <div class="eyebrow-sm">Undergraduate</div>
+                        <h4>졸업 요건</h4>
+                        <p>이수 구분별 필요 학점과 졸업 조건을 확인하세요.</p>
+                        <span class="go">자세히 보기 →</span>
+                    </div>
+                </a>
+                <a href="학부.html" class="cta-card">
+                    <div class="img-ph ar-16-9"><span class="ph-icon">🏫</span><span class="ph-label">학부 안내</span></div>
+                    <div class="cta-card-body">
+                        <div class="eyebrow-sm">Undergraduate</div>
+                        <h4>학부 안내 홈으로</h4>
+                        <p>학부 소개 전체 페이지로 돌아갑니다.</p>
+                        <span class="go">이동하기 →</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-left">
+                <a href="https://www.yonsei.ac.kr/sc/index.do" target="_blank" class="footer-logo-chip">
+                    <img src="yonsei_logo.jpeg" alt="연세대학교 로고">
+                </a>
+                <a href="yonsei.html" class="footer-dept-link">기계공학부</a>
+            </div>
+            <div class="footer-mid">
+                <p class="footer-policy"><a href="#">개인정보처리방침</a><span class="sep">|</span><a href="#">법적고지</a></p>
+                <p>[03722] 서울특별시 서대문구 연세로 50 연세대학교 공과대학 기계공학부</p>
+                <p>대학원: 02-2123-2810 / 학부: 02-2123-4426 / BK21: 02-2123-7817, 02-2123-7815</p>
+                <p>copyrights (c) 2026 연세대학교 기계공학부. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <button class="related-site-btn" onclick="toggleRelatedSites(this)">관련 사이트 <span class="caret">▾</span></button>
+                <ul class="related-site-menu">
+                    <li><a href="https://www.yonsei.ac.kr/sc/index.do" target="_blank">연세대학교</a></li>
+                    <li><a href="https://engineering.yonsei.ac.kr/engineering/index.do" target="_blank">연세대학교 공과대학</a></li>
+                    <li><a href="BK21FOUR.html">BK21 교육연구단</a></li>
+                    <li><a href="https://counsel.yonsei.ac.kr/ysclinic/index.do" target="_blank">연세대학교 심리상담센터</a></li>
+                    <li><a href="https://yabc.yonsei.ac.kr/sinchon/index.php" target="_blank">연세대학교 ABC</a></li>
+                    <li><a href="https://library.yonsei.ac.kr/local/html/education" target="_blank">연세대학교 학술정보원</a></li>
+                    <li><a href="https://ydec.yonsei.ac.kr/ydec/index.do" target="_blank">Y-DEC</a></li>
+                    <li><a href="https://career.yonsei.ac.kr/nonIndex.do" target="_blank">커리어 연세</a></li>
+                    <li><a href="https://www.learnus.org/" target="_blank">LEARN US</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        function toggleMenu() { document.getElementById('navContainer').classList.toggle('active'); }
+
+        function applyTheme(dark) {
+            document.body.classList.toggle('dark-theme', dark);
+            document.getElementById('btn-theme').innerText = dark ? '☀️ 라이트모드' : '🌙 다크모드';
+        }
+        function toggleTheme() {
+            const dark = !document.body.classList.contains('dark-theme');
+            applyTheme(dark);
+            localStorage.setItem('me-theme', dark ? 'dark' : 'light');
+        }
+        applyTheme(localStorage.getItem('me-theme') === 'dark');
+
+        const navEl = document.getElementById('navContainer');
+        window.addEventListener('scroll', () => {
+            navEl.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        let isEng = false;
+        function toggleLanguage() {
+            isEng = !isEng;
+            document.getElementById('btn-lang').innerText = isEng ? 'KOR' : 'ENG';
+            document.getElementById('txt-dept').innerText = isEng ? 'School of Mechanical Engineering' : '기계공학부';
+            document.getElementById('menu-1').innerText = isEng ? 'About' : '소개';
+            document.getElementById('menu-2').innerText = isEng ? 'Undergraduate' : '학부';
+            document.getElementById('menu-3').innerText = isEng ? 'Graduate' : '대학원';
+            document.getElementById('menu-4').innerText = isEng ? 'Research' : '연구';
+            document.getElementById('menu-5').innerText = isEng ? 'News & Notices' : '뉴스 및 공지사항';
+            document.getElementById('menu-6').innerText = isEng ? 'Careers' : '교수초빙';
+        }
+
+        function toggleRelatedSites(btn) {
+            const menu = btn.nextElementSibling;
+            const isOpen = menu.classList.toggle('open');
+            btn.classList.toggle('open', isOpen);
+        }
+        document.addEventListener('click', function(e) {
+            document.querySelectorAll('.related-site-menu.open').forEach(menu => {
+                if (!menu.parentElement.contains(e.target)) {
+                    menu.classList.remove('open');
+                    menu.parentElement.querySelector('.related-site-btn').classList.remove('open');
+                }
+            });
+        });
+
+
+    </script>
+</body>
+</html>
