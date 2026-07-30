@@ -477,7 +477,7 @@
 
         /* ===================== 홈 전용: 히어로 위에 오버레이되는 헤더/내비 (한양대 스타일) ===================== */
         body.home-hero { padding-top: 132px; }
-        body.home-hero .slider-container { margin-top: -132px; }
+        body.home-hero .hero-video-section { margin-top: -132px; }
 
         body.home-hero #header {
             position: fixed; top: 0; left: 0; right: 0; z-index: 60;
@@ -511,42 +511,38 @@
 
         @media (max-width: 768px) {
             body.home-hero { padding-top: 0; }
-            body.home-hero .slider-container { margin-top: 0; }
+            body.home-hero .hero-video-section { margin-top: 0; }
             body.home-hero #header, body.home-hero .nav-container { position: static; background: var(--bg-surface); }
             body.home-hero .dept-name, body.home-hero .gnb > li > a { color: var(--text-main); }
             body.home-hero .lang-toggle { background: var(--primary); border: none; color: #fff; }
             body.home-hero .logo-link { background: transparent; padding: 0; }
         }
 
-        /* 히어로 1번 슬라이드: 독수리 그래픽 + 텍스트 좌우 배치 */
-        .hero-feature-slide { justify-content: flex-start !important; padding: 0 !important; }
-        .hero-feature-inner {
-            position: relative; z-index: 2; max-width: 1400px; width: 100%; margin: 0 auto;
-            display: flex; align-items: center; justify-content: space-between; gap: 40px;
-            padding: 158px 40px 0;
+        /* ===================== 전체화면 영상 히어로 ===================== */
+        .hero-video-section {
+            position: relative; width: 100%; height: 100vh; min-height: 560px; max-height: 980px;
+            overflow: hidden; background: var(--dark-bg);
         }
-        .hero-feature-text { flex: 0 0 auto; text-align: left; max-width: 560px; }
-        .hero-feature-media { flex: 1 1 auto; display: flex; justify-content: flex-end; align-items: center; height: 100%; max-width: 720px; position: relative; }
-        .hero-eagle-plate {
-            position: relative; width: 100%; max-width: 640px; padding: 22px 26px 30px;
-            background: linear-gradient(160deg, #eef4fb 0%, #dbe7f2 100%);
-            border: 1px solid rgba(0,243,255,0.4); border-radius: 6px;
-            box-shadow: 0 0 0 1px rgba(0,243,255,0.08) inset, 0 0 46px rgba(0,243,255,0.28), 0 24px 40px rgba(0,0,0,0.5);
-            animation: eagleFloat 6s ease-in-out infinite;
+        .hero-video-section video {
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
         }
-        .hero-eagle-plate img { width: 100%; height: auto; max-height: 320px; object-fit: contain; display: block; margin: 0 auto; }
-        .hero-eagle-plate .hud-tag { position: absolute; left: 18px; bottom: -14px; background: var(--bg-surface-solid); }
-        @keyframes eagleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        .hero-feature-media .img-ph { width: 100%; min-height: 260px; }
-        @media (max-width: 1100px) {
-            .hero-feature-inner { flex-direction: column; text-align: center; padding-top: 40px; gap: 10px; }
-            .hero-feature-text { max-width: 100%; text-align: center; }
-            .hero-feature-media { max-width: 420px; }
+        .hero-video-section::after {
+            content: ""; position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(180deg, rgba(6,9,17,0.55) 0%, rgba(6,9,17,0.35) 45%, rgba(6,9,17,0.85) 100%);
         }
-
-        /* CAD 와이어프레임 캔버스 배경 (히어로 전체 뒤 레이어) */
-        .hero-canvas { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; display: block; }
-        .slider-wrapper { position: relative; z-index: 1; }
+        .hero-canvas { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; pointer-events: none; display: block; opacity: 0.55; }
+        .hero-video-inner {
+            position: relative; z-index: 3; max-width: 1400px; width: 100%; height: 100%; margin: 0 auto;
+            display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+            gap: 16px; padding: 158px 40px 0; color: #fff;
+        }
+        .hero-video-inner h2 { font-size: 48px; font-weight: 800; letter-spacing: -0.5px; }
+        .hero-video-inner p { font-size: 18px; color: var(--accent); font-weight: 300; }
+        @media (max-width: 768px) {
+            .hero-video-section { height: 78vh; min-height: 460px; }
+            .hero-video-inner { padding-top: 40px; align-items: center; text-align: center; }
+            .hero-video-inner h2 { font-size: 32px; }
+        }
 
     </style>
 </head>
@@ -614,47 +610,18 @@
     </nav>
 
 
-    <section class="slider-container">
+    <section class="hero-video-section">
+        <video autoplay muted loop playsinline preload="auto">
+            <source src="hero_video.mp4" type="video/mp4">
+            <source src="hero_video.webm" type="video/webm">
+        </video>
         <canvas id="heroCanvas" class="hero-canvas"></canvas>
-        <div class="slider-wrapper" id="sliderWrapper">
-            <div class="slide hero-feature-slide">
-                <div class="slide-ph"></div>
-                <div class="hero-feature-inner">
-                    <div class="hero-feature-text slide-caption">
-                        <span class="slide-tag">YONSEI MECHANICAL ENGINEERING</span>
-                        <h2>SMART CYBER-LAB</h2>
-                        <p>Leading Future Innovation</p>
-                    </div>
-                    <div class="hero-feature-media">
-                        <div class="hero-eagle-plate hud-corners">
-                            <span class="hc-tr"></span><span class="hc-bl"></span>
-                            <img src="hero_eagle.jpg" alt="연세대학교 기계공학부 상징 독수리 그래픽">
-                            <span class="hud-tag">LAB_STATUS: ACTIVE</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="slide-ph"></div>
-                <span class="img-note">이미지 영역 · 연구 현장 사진 교체</span>
-                <div class="slide-caption">
-                    <span class="slide-tag">INNOVATIVE RESEARCH HUB</span>
-                    <h2>AI · ROBOTICS · ENERGY</h2>
-                    <p>Advanced Materials & Beyond</p>
-                </div>
-            </div>
-            <div class="slide">
-                <div class="slide-ph"></div>
-                <span class="img-note">이미지 영역 · 학생 프로젝트 사진 교체</span>
-                <div class="slide-caption">
-                    <span class="slide-tag">DESIGN THE NEXT MOVEMENT</span>
-                    <h2>ROBOTICS · MOBILITY</h2>
-                    <p>Sustainable Energy Systems</p>
-                </div>
-            </div>
+        <div class="hero-video-inner">
+            <span class="slide-tag">YONSEI MECHANICAL ENGINEERING</span>
+            <h2>SMART CYBER-LAB</h2>
+            <p>Leading Future Innovation</p>
+            <span class="hud-tag">LAB_STATUS: ACTIVE</span>
         </div>
-        <button class="slider-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="slider-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
         <div class="scroll-cue">⌄</div>
     </section>
 
@@ -916,17 +883,6 @@
         });
 
 
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const wrapper = document.getElementById('sliderWrapper');
-        const totalSlides = slides.length;
-
-        function moveSlide(direction) {
-            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-        setInterval(() => moveSlide(1), 7000);
-
         const headerEl = document.getElementById('header');
         window.addEventListener('scroll', () => {
             headerEl.classList.toggle('scrolled', window.scrollY > 40);
@@ -1055,7 +1011,7 @@
                 tiltY += (targetTiltY - tiltY) * 0.04;
                 ctx.clearRect(0, 0, W, H);
 
-                const cx = W * 0.5, cy = H * 0.58;
+                const cx = W * 0.76, cy = H * 0.5;
                 const scale = Math.min(W, H) * 0.0026;
 
                 /* 파티클 + 연결선 */
