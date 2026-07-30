@@ -30,7 +30,7 @@
 
         .lang-toggle { 
             background: var(--primary); color: #fff; border: none; padding: 6px 14px; 
-            border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold; transition: 0.3s;
+            border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: bold; transition: 0.3s;
         }
 
         /* 네비게이션바 (GNB) */
@@ -57,7 +57,7 @@
         .category-box { 
             background: #fff; border: 1px solid var(--card-border); margin-bottom: 10px; 
             padding: 18px 20px; display: flex; justify-content: space-between; align-items: center;
-            border-radius: 4px; cursor: pointer; transition: 0.3s;
+            border-radius: 2px; cursor: pointer; transition: 0.3s;
             border-top: 2px solid var(--primary);
         }
         .category-box span { font-weight: 600; color: #444; font-size: 15px; }
@@ -115,7 +115,7 @@
 
         .edu-purpose {
             display: flex; align-items: center; gap: 22px;
-            border: 2px solid #f5a623; border-radius: 10px;
+            border: 2px solid #f5a623; border-radius: 4px;
             padding: 20px 30px; margin: 0 auto; max-width: 560px;
             background: #fff; text-align: left;
         }
@@ -151,7 +151,7 @@
         .lab-table-wrap { margin-bottom: 40px; overflow-x: auto; }
         .lab-table {
             width: 100%; border-collapse: collapse; background: #fff;
-            border: 1px solid var(--card-border); border-radius: 6px; overflow: hidden;
+            border: 1px solid var(--card-border); border-radius: 3px; overflow: hidden;
         }
         .lab-table thead th {
             background: var(--primary); color: #fff;
@@ -242,7 +242,7 @@
         }
         .footer-left { display: flex; align-items: center; flex-shrink: 0; }
         .footer-logo-chip {
-            display: inline-flex; align-items: center; background: #fff; border-radius: 4px;
+            display: inline-flex; align-items: center; background: #fff; border-radius: 2px;
             padding: 5px 12px; height: 34px;
         }
         .footer-logo-chip img { height: 26px; width: auto; object-fit: contain; display: block; }
@@ -259,7 +259,7 @@
         .footer-right { flex-shrink: 0; position: relative; }
         .related-site-btn {
             background: transparent; border: 1px solid rgba(255,255,255,0.45); color: #fff;
-            padding: 10px 18px; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer;
+            padding: 10px 18px; border-radius: 2px; font-size: 13px; font-weight: 600; cursor: pointer;
             display: flex; align-items: center; gap: 14px; min-width: 170px; justify-content: space-between;
         }
         .related-site-btn:hover { background: rgba(255,255,255,0.08); }
@@ -267,7 +267,7 @@
         .related-site-btn.open .caret { transform: rotate(180deg); }
         .related-site-menu {
             list-style: none; position: absolute; bottom: calc(100% + 8px); right: 0; background: #fff;
-            border-radius: 4px; box-shadow: 0 -10px 24px rgba(0,0,0,0.18); min-width: 230px;
+            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.18); min-width: 230px;
             display: none; overflow: hidden; z-index: 200;
         }
         .related-site-menu.open { display: block; }
@@ -282,7 +282,7 @@
             .related-site-menu { left: 0; right: 0; }
         }
     
-        /* ===================== [v2 패치] 다크모드 + 이미지 자리 컴포넌트 (레거시 페이지 공용 헤더/푸터 일치화) ===================== */
+        /* ===================== [v2 패치] 이미지 자리 컴포넌트 (레거시 페이지 공용 헤더/푸터 일치화) ===================== */
         :root {
             --bg-page: var(--light-bg);
             --bg-surface: #ffffff;
@@ -294,46 +294,16 @@
             --ph-border: #c7d2e0;
             --ph-text: #8892a6;
         }
-        body.dark-theme {
-            --bg-page: #0b132b;
-            --bg-surface: #131c3a;
-            --text-main: #d7deed;
-            --text-strong: #ffffff;
-            --text-soft: #9aa7c2;
-            --border-c: #263159;
-            --card-border: #263159;
-            --ph-bg: linear-gradient(135deg, #172345 0%, #1c2b52 55%, #172345 100%);
-            --ph-border: #33437a;
-            --ph-text: #7c8ab0;
-        }
-        /* 레거시 본문 콘텐츠는 고유 색상 체계를 유지하므로, 다크모드는 헤더/내비/푸터/이미지 자리에만 적용됩니다. */
-        body.dark-theme #header { background: var(--bg-surface); border-bottom-color: var(--border-c); }
-        body.dark-theme .dept-name { color: var(--primary); }
-        body.dark-theme .nav-container { background: var(--bg-surface); }
-        body.dark-theme .gnb > li > a { color: var(--text-main); }
-        body.dark-theme .submenu-wrap { background: var(--bg-surface); border-bottom-color: var(--border-c); }
-        body.dark-theme .submenu-inner ul { border-left-color: var(--border-c); }
-        body.dark-theme .submenu-inner li a { color: var(--text-soft); }
-
         #header, .nav-container { transition: 0.35s; }
         .header-actions { display: flex; align-items: center; gap: 10px; }
-        .theme-toggle {
-            background: var(--bg-page); color: var(--text-main); border: 1px solid var(--border-c);
-            padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: bold;
-            transition: 0.3s; display: flex; align-items: center; gap: 6px;
-        }
-        .theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
-        body.dark-theme .lang-toggle { background: var(--primary); }
 
         .nav-container.scrolled { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
         .nav-container.scrolled .gnb > li > a { padding: 11px 0; font-size: 15px; }
 
-        body.dark-theme .site-footer { background: #041022; }
-
         /* 이미지 placeholder 공용 컴포넌트 */
         .img-ph {
             position: relative; width: 100%; background: var(--ph-bg);
-            border: 1.5px dashed var(--ph-border); border-radius: 14px;
+            border: 1.5px dashed var(--ph-border); border-radius: 3px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             color: var(--ph-text); text-align: center; overflow: hidden; gap: 6px;
         }
@@ -360,7 +330,6 @@
                 <a href="yonsei.html" class="dept-name" id="txt-dept">기계공학부</a>
             </div>
             <div class="header-actions">
-                <button class="theme-toggle" onclick="toggleTheme()" id="btn-theme">🌙 다크모드</button>
                 <button class="lang-toggle" onclick="toggleLanguage()" id="btn-lang">ENG</button>
             </div>
         </div>
@@ -496,18 +465,6 @@
     </footer>
 
     <script>
-
-        function applyTheme(dark) {
-            document.body.classList.toggle('dark-theme', dark);
-            var btn = document.getElementById('btn-theme');
-            if (btn) btn.innerText = dark ? '☀️ 라이트모드' : '🌙 다크모드';
-        }
-        function toggleTheme() {
-            const dark = !document.body.classList.contains('dark-theme');
-            applyTheme(dark);
-            localStorage.setItem('me-theme', dark ? 'dark' : 'light');
-        }
-        applyTheme(localStorage.getItem('me-theme') === 'dark');
 
         (function() {
             var navEl = document.getElementById('navContainer');
