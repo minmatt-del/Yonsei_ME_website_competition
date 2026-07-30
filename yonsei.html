@@ -5,31 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>연세대학교 기계공학부 | Smart Cyber-Lab</title>
     <style>
-        /* [디자인 시스템] Smart Cyber-Lab 무드 v2 - 이미지 중심 리뉴얼 */
+        /* [디자인 시스템] CAD/HUD 무드 v3 - 기계공학 도면 스타일 */
         :root {
-            --primary: #004a99;       /* 연세 블루 */
-            --dark-bg: #0b132b;      /* 다크 네이비 / 사이버 무드 */
-            --accent: #00d2ff;       /* 네온 사이언 포인트 */
-            --light-bg: #f4f7f6;     /* 소프트 배경 */
-            --card-border: #e1e8ed;
+            --primary: #2fb6d9;       /* HUD 블루 (연세 블루 계열의 사이언화) */
+            --dark-bg: #0b0f19;      /* CAD 다크 배경 */
+            --accent: #00f3ff;       /* 네온 시안 */
+            --accent-amber: #ffb238; /* 네온 앰버 (보조 포인트) */
+            --light-bg: #0b0f19;
+            --card-border: rgba(0,243,255,0.22);
 
-            --bg-page: var(--light-bg);
-            --bg-surface: #ffffff;
-            --text-main: #333333;
-            --text-strong: #1a1a1a;
-            --text-soft: #666666;
+            --bg-page: #0b0f19;
+            --bg-surface: rgba(16,22,36,0.72);
+            --bg-surface-solid: #101624;
+            --text-main: #b9c6d9;
+            --text-strong: #f2f8ff;
+            --text-soft: #7c8aa0;
             --border-c: var(--card-border);
-            --ph-bg: linear-gradient(135deg, #eef2f7 0%, #e3e9f1 55%, #eef2f7 100%);
-            --ph-border: #c7d2e0;
-            --ph-text: #8892a6;
+            --ph-bg: linear-gradient(135deg, rgba(0,243,255,0.06) 0%, rgba(0,243,255,0.02) 55%, rgba(0,243,255,0.06) 100%);
+            --ph-border: rgba(0,243,255,0.3);
+            --ph-text: #6f88a8;
+            --hud-grid-line: rgba(0,243,255,0.055);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Pretendard', 'Noto Sans KR', 'Nanum Gothic', sans-serif; line-height: 1.6; color: var(--text-main); background-color: var(--bg-page); transition: background-color 0.35s ease, color 0.35s ease; }
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', 'Nanum Gothic', sans-serif; line-height: 1.6;
+            color: var(--text-main); background-color: var(--bg-page);
+            background-image:
+                linear-gradient(var(--hud-grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--hud-grid-line) 1px, transparent 1px);
+            background-size: 42px 42px;
+            transition: background-color 0.35s ease, color 0.35s ease;
+        }
         ul { list-style: none; }
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        a { text-decoration: none; color: inherit; transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
         img { max-width: 100%; display: block; }
+
+        /* HUD 상태 태그 (예: [ LAB_STATUS: ACTIVE ]) */
+        .hud-tag {
+            display: inline-flex; align-items: center; gap: 6px; font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 11px; letter-spacing: 1px; color: var(--accent); background: rgba(0,243,255,0.07);
+            border: 1px solid rgba(0,243,255,0.3); padding: 4px 10px; border-radius: 2px;
+        }
+        .hud-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px 1px var(--accent); animation: hudBlink 1.6s infinite; flex-shrink: 0; }
+        @keyframes hudBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+        /* HUD 모서리 눈금 (카드/히어로 코너 브래킷) */
+        .hud-corners { position: relative; }
+        .hud-corners::before, .hud-corners::after,
+        .hud-corners .hc-tl, .hud-corners .hc-tr, .hud-corners .hc-bl, .hud-corners .hc-br { content: ""; position: absolute; width: 14px; height: 14px; border: 1.5px solid var(--accent); opacity: 0.75; pointer-events: none; }
+        .hud-corners::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+        .hud-corners::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+        .hud-corners .hc-tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+        .hud-corners .hc-bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
 
         /* 헤더 및 글로벌 상단바 */
         #header { width: 100%; background: var(--bg-surface); padding: 15px 0; border-bottom: 1px solid var(--border-c); transition: 0.35s; }
@@ -37,14 +66,14 @@
         .logo-area { display: flex; align-items: center; }
         .logo-area img { height: 45px; width: auto; object-fit: contain; margin-right: 15px; }
         .logo-link { display: flex; align-items: center; }
-        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid #ccc; cursor: pointer; }
+        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid rgba(0,243,255,0.25); cursor: pointer; }
         .header-actions { display: flex; align-items: center; gap: 10px; }
 
         .lang-toggle {
             background: var(--primary); color: #fff; border: none; padding: 6px 14px;
             border-radius: 3px; cursor: pointer; font-size: 13px; font-weight: bold; transition: 0.3s;
         }
-        .lang-toggle:hover { background: #003366; }
+        .lang-toggle:hover { background: #1c8aa8; }
 
         /* 네비게이션바 (GNB) */
         .nav-container { width: 100%; background: var(--bg-surface); border-bottom: 2px solid var(--primary); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: 0.3s; }
@@ -72,12 +101,12 @@
         .slider-wrapper { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; }
         .slide { min-width: 100%; height: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 0 20px; overflow: hidden; }
         .slide .slide-ph {
-            position: absolute; inset: 0; z-index: 0;
-            background: repeating-linear-gradient(135deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 26px);
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background: radial-gradient(ellipse at 30% 40%, rgba(0,243,255,0.05) 0%, transparent 60%);
         }
         .slide .slide-ph::before {
             content: ""; position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(11,19,43,0.15) 0%, rgba(11,19,43,0.85) 100%);
+            background: linear-gradient(180deg, rgba(6,9,17,0.1) 0%, rgba(6,9,17,0.7) 100%);
         }
         .slide-caption { position: relative; z-index: 2; }
         .slide-tag { display: inline-block; border: 1px solid rgba(255,255,255,0.5); border-radius: 4px; padding: 5px 16px; font-size: 12px; letter-spacing: 1px; margin-bottom: 18px; color: var(--accent); }
@@ -115,7 +144,7 @@
         .prof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .prof-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px; padding: 16px 15px 18px; text-align: center; transition: 0.3s; }
         .prof-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
-        .prof-card .tag { display: inline-block; background: #e3f2fd; color: var(--primary); font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
+        .prof-card .tag { display: inline-block; background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.25); color: var(--accent); font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
         .prof-card h4 { font-size: 16px; color: var(--text-strong); margin-bottom: 4px; }
         .prof-card p { font-size: 12px; color: var(--text-soft); }
 
@@ -131,9 +160,9 @@
         .coop-item { background: var(--bg-page); border: 1px solid var(--border-c); padding: 20px 15px; text-align: center; border-radius: 3px; transition: 0.2s; }
         .coop-item:hover { border-color: var(--primary); background: var(--bg-surface); }
 
-        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center; }
-        .modal-content { background:#fff; padding:30px; border-radius: 3px; max-width:500px; width:90%; position:relative; }
-        .close-modal { position:absolute; top:15px; right:15px; cursor:pointer; font-size:20px; font-weight:bold; }
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; justify-content:center; align-items:center; }
+        .modal-content { background: var(--bg-surface-solid); color: var(--text-main); padding:30px; border: 1px solid var(--border-c); border-radius: 3px; max-width:500px; width:90%; position:relative; }
+        .close-modal { position:absolute; top:15px; right:15px; cursor:pointer; font-size:20px; font-weight:bold; color: var(--text-strong); }
 
         @media (max-width: 1024px) {
             .main-content { grid-template-columns: repeat(2, 1fr); }
@@ -141,17 +170,21 @@
             .coop-list { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .header-inner { flex-direction: column; gap: 10px; text-align: center; }
+            .header-inner { flex-direction: column; gap: 10px; text-align: center; padding: 0 20px; }
             .dept-name { border-left: none; padding-left: 0; }
             .gnb { flex-wrap: wrap; padding: 0; }
-            .gnb > li > a { padding: 10px 0; font-size: 14px; }
+            .gnb > li { flex: 1 1 33.333%; min-width: 33.333%; }
+            .gnb > li > a { padding: 10px 4px; font-size: 12.5px; line-height: 1.3; }
             .main-content { grid-template-columns: 1fr; padding: 0 20px; }
             .wide-box, .full-box { grid-column: span 1; }
             .coop-list { grid-template-columns: 1fr; }
             .slider-container { height: 420px; }
         }
+        @media (max-width: 420px) {
+            .gnb > li { flex: 1 1 50%; min-width: 50%; }
+        }
 
-        .site-footer { background: var(--navy-active, #002d5a); color: #fff; padding: 26px 0; margin-top: 60px; }
+        .site-footer { background: #060a14; color: #fff; padding: 26px 0; margin-top: 60px; border-top: 1px solid rgba(0,243,255,0.22); box-shadow: 0 -1px 24px rgba(0,243,255,0.05); }
         .site-footer .footer-inner {
             max-width: 1400px; margin: 0 auto; padding: 0 40px;
             display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
@@ -182,14 +215,16 @@
         .related-site-btn .caret { font-size: 11px; transition: 0.2s; }
         .related-site-btn.open .caret { transform: rotate(180deg); }
         .related-site-menu {
-            list-style: none; position: absolute; bottom: calc(100% + 8px); right: 0; background: #fff;
-            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.18); min-width: 230px;
+            list-style: none; position: absolute; bottom: calc(100% + 8px); right: 0;
+            background: var(--bg-surface-solid); border: 1px solid rgba(0,243,255,0.25);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.4), 0 0 20px rgba(0,243,255,0.08); min-width: 230px;
             display: none; overflow: hidden; z-index: 200;
         }
         .related-site-menu.open { display: block; }
-        .related-site-menu li a { display: block; padding: 11px 18px; font-size: 13px; color: #333; }
-        .related-site-menu li a:hover { background: var(--light-bg); color: var(--primary); }
-        .related-site-menu li + li { border-top: 1px solid #f0f0f0; }
+        .related-site-menu li a { display: block; padding: 11px 18px; font-size: 13px; color: var(--text-main); }
+        .related-site-menu li a:hover { background: rgba(0,243,255,0.08); color: var(--accent); }
+        .related-site-menu li + li { border-top: 1px solid rgba(0,243,255,0.12); }
 
         @media (max-width: 768px) {
             .site-footer .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -204,7 +239,10 @@
         }
         @keyframes bounceCue { 0%,100% { transform: translate(-50%, 0); opacity: 0.6; } 50% { transform: translate(-50%, 8px); opacity: 1; } }
 
-        .stats-section { background: var(--dark-bg); padding: 50px 40px; }
+        .stats-section {
+            background: rgba(0,243,255,0.035); padding: 50px 40px;
+            border-top: 1px solid rgba(0,243,255,0.16); border-bottom: 1px solid rgba(0,243,255,0.16);
+        }
         .stats-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
         .stat-item .stat-num { font-size: 42px; font-weight: 800; color: var(--accent); line-height: 1; }
         .stat-item .stat-num::after { content: attr(data-suffix); font-size: 24px; margin-left: 2px; }
@@ -279,7 +317,7 @@
         @media (max-width: 768px) { .hero-media { height: 300px; } .hero-media-inner h1 { font-size: 30px; } }
 
         .page-wrap { max-width: 1200px; margin: 0 auto; padding: 64px 40px; }
-        .page-section { margin-bottom: 80px; scroll-margin-top: 90px; }
+        .page-section { margin-bottom: 80px; scroll-margin-top: 130px; }
         .page-section:last-child { margin-bottom: 0; }
         .page-section h2 { font-size: 26px; color: var(--text-strong); margin-bottom: 8px; padding-left: 14px; border-left: 5px solid var(--primary); }
         .page-section .section-desc { color: var(--text-soft); font-size: 14px; margin: 8px 0 32px 19px; }
@@ -338,7 +376,7 @@
 
         .staff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .staff-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px; padding: 18px 20px; }
-        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--primary); background: #e3f2fd; display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.25); display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
         .staff-card h4 { font-size: 15px; color: var(--text-strong); margin-bottom: 4px; }
         .staff-card p { font-size: 12.5px; color: var(--text-soft); }
 
@@ -379,10 +417,56 @@
         /* 트랙 태그 라인 (교과목 체계도용) */
         .track-legend { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 30px 19px; }
         .track-chip { font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 4px; border: 1px solid var(--border-c); color: var(--text-soft); }
-        .track-chip.tc-mech { border-color: #004a99; color: #004a99; }
-        .track-chip.tc-thermo { border-color: #0d6e5c; color: #0d6e5c; }
-        .track-chip.tc-dyn { border-color: #6f42c1; color: #6f42c1; }
-        .track-chip.tc-design { border-color: #b8590a; color: #b8590a; }
+        .track-chip.tc-mech { border-color: #2fb6d9; color: #5fd3f0; }
+        .track-chip.tc-thermo { border-color: #21c6a1; color: #4fe0bd; }
+        .track-chip.tc-dyn { border-color: #a680ff; color: #c2a8ff; }
+        .track-chip.tc-design { border-color: #ffb238; color: #ffc766; }
+
+        /* ===================== [v3 신규] CAD/HUD 글래스모피즘 + 네온 글로우 ===================== */
+        #header {
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 1px 0 rgba(0,243,255,0.08);
+        }
+        .nav-container { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+        .submenu-wrap { backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+
+        .content-box, .prof-card, .goal-card, .staff-card, .bignum-item,
+        .req-table, .modal-content, .cta-card, .curri-col li, .vision-box,
+        .location-map-box {
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            box-shadow: 0 0 0 1px rgba(0,243,255,0.04) inset, 0 10px 26px rgba(0,0,0,0.35);
+            transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+        }
+        .content-box:hover, .prof-card:hover, .goal-card:hover, .cta-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(0,243,255,0.08) inset, 0 0 26px rgba(0,243,255,0.18), 0 10px 26px rgba(0,0,0,0.4);
+        }
+        .img-ph { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: 0.35s cubic-bezier(0.4,0,0.2,1); }
+        .img-ph:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,243,255,0.15); }
+
+        .coop-item { background: rgba(0,243,255,0.03); backdrop-filter: blur(10px); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .coop-item:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(0,243,255,0.15); }
+
+        /* 버튼류 네온 글로우 & 부드러운 트랜지션 */
+        .lang-toggle, .theme-toggle, .filter-btn, .tab-btn, .related-site-btn, .slider-btn {
+            transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .lang-toggle { box-shadow: 0 0 0 rgba(0,243,255,0); }
+        .lang-toggle:hover { background: var(--primary); box-shadow: 0 0 16px rgba(47,182,217,0.55); transform: translateY(-1px); }
+        .filter-btn.active, .filter-btn:hover { box-shadow: 0 0 14px rgba(47,182,217,0.45); }
+        .tab-btn.active { text-shadow: 0 0 10px rgba(0,243,255,0.5); }
+        .slider-btn:hover { box-shadow: 0 0 20px rgba(0,243,255,0.4); }
+        .related-site-btn:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(0,243,255,0.25); }
+        .cta-card, .prof-card, .goal-card, .showcase-card, .coop-item {
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s cubic-bezier(0.4,0,0.2,1), border-color 0.35s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .showcase-card { border: 1px solid rgba(0,243,255,0.18); }
+        .showcase-card:hover { box-shadow: 0 0 30px rgba(0,243,255,0.2), 0 10px 25px rgba(0,0,0,0.35); }
+
+        .stat-item .stat-num { text-shadow: 0 0 16px rgba(0,243,255,0.55); font-family: 'Consolas', 'Courier New', monospace; }
+
+        ::selection { background: rgba(0,243,255,0.3); color: #fff; }
 
 
         /* 홈 전용: 학부 안내 퀵링크 */
@@ -442,14 +526,27 @@
             padding: 158px 40px 0;
         }
         .hero-feature-text { flex: 0 0 auto; text-align: left; max-width: 560px; }
-        .hero-feature-media { flex: 1 1 auto; display: flex; justify-content: flex-end; align-items: center; height: 100%; max-width: 720px; }
-        .hero-feature-media img { width: 100%; height: auto; max-height: 340px; object-fit: contain; mix-blend-mode: multiply; }
+        .hero-feature-media { flex: 1 1 auto; display: flex; justify-content: flex-end; align-items: center; height: 100%; max-width: 720px; position: relative; }
+        .hero-eagle-plate {
+            position: relative; width: 100%; max-width: 640px; padding: 22px 26px 30px;
+            background: linear-gradient(160deg, #eef4fb 0%, #dbe7f2 100%);
+            border: 1px solid rgba(0,243,255,0.4); border-radius: 6px;
+            box-shadow: 0 0 0 1px rgba(0,243,255,0.08) inset, 0 0 46px rgba(0,243,255,0.28), 0 24px 40px rgba(0,0,0,0.5);
+            animation: eagleFloat 6s ease-in-out infinite;
+        }
+        .hero-eagle-plate img { width: 100%; height: auto; max-height: 320px; object-fit: contain; display: block; margin: 0 auto; }
+        .hero-eagle-plate .hud-tag { position: absolute; left: 18px; bottom: -14px; background: var(--bg-surface-solid); }
+        @keyframes eagleFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .hero-feature-media .img-ph { width: 100%; min-height: 260px; }
         @media (max-width: 1100px) {
             .hero-feature-inner { flex-direction: column; text-align: center; padding-top: 40px; gap: 10px; }
             .hero-feature-text { max-width: 100%; text-align: center; }
             .hero-feature-media { max-width: 420px; }
         }
+
+        /* CAD 와이어프레임 캔버스 배경 (히어로 전체 뒤 레이어) */
+        .hero-canvas { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; display: block; }
+        .slider-wrapper { position: relative; z-index: 1; }
 
     </style>
 </head>
@@ -518,6 +615,7 @@
 
 
     <section class="slider-container">
+        <canvas id="heroCanvas" class="hero-canvas"></canvas>
         <div class="slider-wrapper" id="sliderWrapper">
             <div class="slide hero-feature-slide">
                 <div class="slide-ph"></div>
@@ -528,7 +626,11 @@
                         <p>Leading Future Innovation</p>
                     </div>
                     <div class="hero-feature-media">
-                        <div class="img-ph ar-4-3"><span class="ph-icon">🦅</span><span class="ph-label">독수리 히어로 그래픽</span><span class="ph-sub">이미지 영역 · hero_eagle.png 교체 예정</span></div>
+                        <div class="hero-eagle-plate hud-corners">
+                            <span class="hc-tr"></span><span class="hc-bl"></span>
+                            <img src="hero_eagle.jpg" alt="연세대학교 기계공학부 상징 독수리 그래픽">
+                            <span class="hud-tag">LAB_STATUS: ACTIVE</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -875,6 +977,139 @@
                 }
             });
         }
+
+        /* ===================== CAD 와이어프레임 히어로 캔버스 (순수 JS, 라이브러리 없음) ===================== */
+        (function () {
+            const canvas = document.getElementById('heroCanvas');
+            if (!canvas || !canvas.getContext) return;
+            const ctx = canvas.getContext('2d');
+            const container = canvas.parentElement;
+            let W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
+            let targetTiltX = 0, targetTiltY = 0, tiltX = 0, tiltY = 0;
+
+            function resize() {
+                const rect = container.getBoundingClientRect();
+                W = rect.width; H = rect.height;
+                canvas.width = W * DPR;
+                canvas.height = H * DPR;
+                canvas.style.width = W + 'px';
+                canvas.style.height = H + 'px';
+                ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                targetTiltY = ((e.clientX - rect.left) / rect.width - 0.5) * 0.7;
+                targetTiltX = ((e.clientY - rect.top) / rect.height - 0.5) * -0.5;
+            });
+            container.addEventListener('mouseleave', () => { targetTiltX = 0; targetTiltY = 0; });
+
+            /* 3D 와이어프레임 링(기어/자이로스코프 조립체) 정점 생성 */
+            function buildRing(radius, segments) {
+                const pts = [];
+                for (let i = 0; i <= segments; i++) {
+                    const a = (i / segments) * Math.PI * 2;
+                    pts.push([Math.cos(a) * radius, Math.sin(a) * radius, 0]);
+                }
+                return pts;
+            }
+            const rings = [
+                { pts: buildRing(150, 64), rx: 1.15, ry: 0.0, spin: 0.10, phase: 0 },
+                { pts: buildRing(150, 64), rx: 0.35, ry: 1.15, spin: -0.07, phase: 1.3 },
+                { pts: buildRing(112, 48), rx: 0.65, ry: 0.65, spin: 0.15, phase: 2.6 },
+            ];
+
+            /* 배경 파티클 (별자리 느낌의 점 + 연결선) */
+            const particles = [];
+            const seedCount = 34;
+            for (let i = 0; i < seedCount; i++) {
+                particles.push({
+                    x: Math.random(), y: Math.random(),
+                    vx: (Math.random() - 0.5) * 0.00028,
+                    vy: (Math.random() - 0.5) * 0.00028,
+                    r: Math.random() * 1.6 + 0.6,
+                });
+            }
+
+            function project(p, cx, cy, scale) {
+                const x = p[0], y = p[1], z = p[2];
+                const persp = 480 / (480 - z);
+                return [cx + x * scale * persp, cy + y * scale * persp, persp];
+            }
+
+            function rotatePoint(p, ax, ay) {
+                let [x, y, z] = p;
+                const cosA = Math.cos(ax), sinA = Math.sin(ax);
+                const y1 = y * cosA - z * sinA, z1 = y * sinA + z * cosA;
+                const cosB = Math.cos(ay), sinB = Math.sin(ay);
+                const x2 = x * cosB + z1 * sinB, z2 = -x * sinB + z1 * cosB;
+                return [x2, y1, z2];
+            }
+
+            let t = 0;
+            function draw() {
+                t += 0.008;
+                tiltX += (targetTiltX - tiltX) * 0.04;
+                tiltY += (targetTiltY - tiltY) * 0.04;
+                ctx.clearRect(0, 0, W, H);
+
+                const cx = W * 0.5, cy = H * 0.58;
+                const scale = Math.min(W, H) * 0.0026;
+
+                /* 파티클 + 연결선 */
+                ctx.lineWidth = 1;
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0 || p.x > 1) p.vx *= -1;
+                    if (p.y < 0 || p.y > 1) p.vy *= -1;
+                    const px = p.x * W, py = p.y * H;
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const q = particles[j];
+                        const qx = q.x * W, qy = q.y * H;
+                        const d = Math.hypot(px - qx, py - qy);
+                        if (d < 130) {
+                            ctx.strokeStyle = 'rgba(0,243,255,' + (0.09 * (1 - d / 130)) + ')';
+                            ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(qx, qy); ctx.stroke();
+                        }
+                    }
+                    ctx.fillStyle = 'rgba(0,243,255,0.5)';
+                    ctx.beginPath(); ctx.arc(px, py, p.r, 0, Math.PI * 2); ctx.fill();
+                }
+
+                /* 회전하는 와이어프레임 링 (자이로스코프/기어 조립체) */
+                rings.forEach((ring, ri) => {
+                    const ax = t * ring.spin + ring.phase + tiltX;
+                    const ay = t * (ring.spin * 0.6) + ring.phase + tiltY;
+                    const projected = ring.pts.map(p => {
+                        const r1 = rotatePoint(p, ax * ring.rx, ay + ring.ry * Math.sin(t * 0.3));
+                        return project(r1, cx, cy, scale);
+                    });
+                    ctx.beginPath();
+                    projected.forEach((pp, i) => {
+                        if (i === 0) ctx.moveTo(pp[0], pp[1]); else ctx.lineTo(pp[0], pp[1]);
+                    });
+                    const hue = ri === 2 ? 'rgba(255,178,56,0.42)' : 'rgba(0,243,255,0.4)';
+                    ctx.strokeStyle = hue;
+                    ctx.lineWidth = ri === 2 ? 1.4 : 1;
+                    ctx.stroke();
+
+                    /* 링을 따라 도는 노드 마커 (기어 톱니 느낌) */
+                    for (let i = 0; i < projected.length; i += 8) {
+                        const pp = projected[i];
+                        ctx.beginPath();
+                        ctx.arc(pp[0], pp[1], 2.1 * pp[2] / 1.3, 0, Math.PI * 2);
+                        ctx.fillStyle = ri === 2 ? 'rgba(255,178,56,0.65)' : 'rgba(0,243,255,0.65)';
+                        ctx.fill();
+                    }
+                });
+
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
 
     </script>
 </body>
