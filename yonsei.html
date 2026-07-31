@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>연세대학교 기계공학부 | Smart Cyber-Lab</title>
+    <title>연세대학교 기계공학부</title>
     <style>
         /* [디자인 시스템] CAD/HUD 무드 v3 - 기계공학 도면 스타일 */
         :root {
@@ -86,8 +86,8 @@
         .nav-container.scrolled .gnb > li > a { padding: 11px 0; font-size: 15px; }
 
         .submenu-wrap {
-            position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-c); display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-surface-solid);
+            border-bottom: 1px solid var(--border-c); display: none; box-shadow: 0 10px 20px rgba(0,0,0,0.35);
         }
         .submenu-inner { max-width: 1400px; margin: 0 auto; display: flex; padding: 20px 40px; }
         .submenu-inner ul { flex: 1; text-align: center; border-left: 1px solid var(--border-c); }
@@ -544,6 +544,65 @@
             .hero-video-inner h2 { font-size: 32px; }
         }
 
+        /* ===================== 히어로 이후 섹션: 새하얀 배경 + 연세 블루 + 블루프린트 느낌 ===================== */
+        body.home-hero {
+            --primary: #004a99;
+            --bg-page: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-solid: #ffffff;
+            --text-main: #4a5a70;
+            --text-strong: #0a2540;
+            --text-soft: #7a8aa0;
+            --border-c: #dde6f0;
+            --ph-bg: linear-gradient(135deg, #eef4fb 0%, #e3edf7 55%, #eef4fb 100%);
+            --ph-border: #c7d8ea;
+            --ph-text: #5a7599;
+            --hud-grid-line: rgba(0,74,153,0.05);
+        }
+        body.home-hero .stats-section {
+            background: rgba(0,74,153,0.035);
+            border-top: 1px solid rgba(0,74,153,0.14); border-bottom: 1px solid rgba(0,74,153,0.14);
+        }
+        body.home-hero .stat-item .stat-num { color: var(--primary); text-shadow: none; }
+        body.home-hero .stat-item .stat-label { color: #5a6a80; }
+
+        body.home-hero .content-box, body.home-hero .prof-card, body.home-hero .goal-card,
+        body.home-hero .cta-card, body.home-hero .coop-item, body.home-hero .img-ph {
+            box-shadow: 0 4px 16px rgba(10,37,64,0.06);
+        }
+        body.home-hero .content-box:hover, body.home-hero .prof-card:hover,
+        body.home-hero .goal-card:hover, body.home-hero .cta-card:hover {
+            box-shadow: 0 10px 26px rgba(0,74,153,0.14);
+        }
+        body.home-hero .img-ph:hover { box-shadow: 0 6px 18px rgba(0,74,153,0.12); }
+        body.home-hero .coop-item:hover { box-shadow: 0 6px 18px rgba(0,74,153,0.12); }
+        body.home-hero .tab-btn.active { text-shadow: none; }
+        body.home-hero .lang-toggle:hover { background: #00306b; }
+
+        /* 연구실 하이라이트: 로테이팅 스포트라이트 카드 */
+        .spotlight-card {
+            display: flex; align-items: center; gap: 34px; color: #fff; text-decoration: none;
+            background: linear-gradient(135deg, #0b132b 0%, #123a75 60%, #0b3d5c 100%);
+            border-radius: 6px; padding: 40px; min-height: 200px; position: relative; overflow: hidden;
+            border: 1px solid rgba(0,116,217,0.4); transition: opacity 0.35s ease;
+            box-shadow: 0 14px 34px rgba(0,74,153,0.18);
+        }
+        .spotlight-card::before {
+            content: ""; position: absolute; inset: 0;
+            background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 30px);
+        }
+        .spotlight-photo {
+            position: relative; z-index: 1; flex-shrink: 0; width: 150px; height: 150px; border-radius: 4px;
+            background: rgba(255,255,255,0.08); border: 1px dashed rgba(255,255,255,0.35);
+            display: flex; align-items: center; justify-content: center; font-size: 52px;
+        }
+        .spotlight-body { position: relative; z-index: 1; }
+        .spotlight-body h4 { font-size: 24px; margin: 10px 0 6px; }
+        .spotlight-body p { font-size: 14px; color: #cfe3f5; }
+        @media (max-width: 700px) {
+            .spotlight-card { flex-direction: column; text-align: center; padding: 30px 24px; }
+        }
+
     </style>
 </head>
 <body class="home-hero">
@@ -580,9 +639,9 @@
                         <li><a href="소개.html#location">오시는 길</a></li>
                     </ul>
                     <ul>
-                        <li><a href="학부.html">학부 안내</a></li>
                         <li><a href="교육목표.html">교육 목표</a></li>
                         <li><a href="졸업요건.html">졸업 요건</a></li>
+                        <li><a href="교과목소개.html">교과목 소개</a></li>
                         <li><a href="교과목체계도.html">교과목 체계도</a></li>
                     </ul>
                     <ul>
@@ -617,10 +676,10 @@
         </video>
         <canvas id="heroCanvas" class="hero-canvas"></canvas>
         <div class="hero-video-inner">
-            <span class="slide-tag">YONSEI MECHANICAL ENGINEERING</span>
-            <h2>SMART CYBER-LAB</h2>
-            <p>Leading Future Innovation</p>
-            <span class="hud-tag">LAB_STATUS: ACTIVE</span>
+            <span class="slide-tag">YONSEI UNIVERSITY · SCHOOL OF MECHANICAL ENGINEERING</span>
+            <h2>사람의 손끝에서, 세상의 움직임으로</h2>
+            <p>1957년부터 이어온 도전 — 로보틱스·에너지·정밀공학으로 미래를 설계하는 연세 기계공학</p>
+            <span class="hud-tag">YONSEI · EST. 1957</span>
         </div>
         <div class="scroll-cue">⌄</div>
     </section>
@@ -636,7 +695,7 @@
 
     <section class="quicklink-section">
         <div class="quicklink-head">
-            <span class="eyebrow-sm">Undergraduate Program</span>
+            <span class="eyebrow-sm">⚙ Undergraduate Program</span>
             <h3>학부 안내</h3>
         </div>
         <div class="cta-grid">
@@ -658,6 +717,15 @@
                     <span class="go">자세히 보기 →</span>
                 </div>
             </a>
+            <a href="교과목소개.html" class="cta-card">
+                <div class="img-ph ar-16-9"><span class="ph-icon">📘</span><span class="ph-label">교과목 소개</span></div>
+                <div class="cta-card-body">
+                    <div class="eyebrow-sm">Undergraduate</div>
+                    <h4>교과목 소개</h4>
+                    <p>전공필수·전공선택 대표 교과목을 코드와 함께 소개합니다.</p>
+                    <span class="go">자세히 보기 →</span>
+                </div>
+            </a>
             <a href="교과목체계도.html" class="cta-card">
                 <div class="img-ph ar-16-9"><span class="ph-icon">🗺️</span><span class="ph-label">교과목 체계도</span></div>
                 <div class="cta-card-body">
@@ -673,37 +741,19 @@
     <section class="showcase-section">
         <div class="showcase-head">
             <div>
-                <h3>연구실 하이라이트</h3>
-                <p>기계공학부를 대표하는 연구 분야를 살펴보세요</p>
+                <h3>⚙ 연구실 하이라이트</h3>
+                <p>기계공학부를 대표하는 교수진과 연구실을 만나보세요 (3초마다 자동 전환)</p>
             </div>
             <a href="연구실.html">전체 연구실 보기 →</a>
         </div>
-        <div class="showcase-grid">
-            <a href="연구실.html" class="showcase-card c1">
-                <span class="showcase-imgnote">이미지 영역</span>
-                <div class="showcase-body">
-                    <span class="showcase-tag">동역학·제어·로봇</span>
-                    <h4>지능형 로보틱스 연구실</h4>
-                    <p>자율주행 & 인간-로봇 협업 시스템</p>
-                </div>
-            </a>
-            <a href="연구실.html" class="showcase-card c2">
-                <span class="showcase-imgnote">이미지 영역</span>
-                <div class="showcase-body">
-                    <span class="showcase-tag">열·유체</span>
-                    <h4>차세대 에너지 연구실</h4>
-                    <p>친환경 에너지 변환 및 열관리 시스템</p>
-                </div>
-            </a>
-            <a href="연구실.html" class="showcase-card c3">
-                <span class="showcase-imgnote">이미지 영역</span>
-                <div class="showcase-body">
-                    <span class="showcase-tag">고체·생산</span>
-                    <h4>정밀 나노소재 연구실</h4>
-                    <p>초정밀 가공 & 첨단 복합소재</p>
-                </div>
-            </a>
-        </div>
+        <a href="https://me.yonsei.ac.kr/me/research/lab2.do" target="_blank" rel="noopener" class="spotlight-card" id="spotlightCard">
+            <div class="spotlight-photo"><span id="spotlightIcon">👤</span></div>
+            <div class="spotlight-body">
+                <span class="showcase-tag" id="spotlightTag">동역학·제어·로봇</span>
+                <h4 id="spotlightLab">지능형 로보틱스 연구실</h4>
+                <p id="spotlightProf">최로봇 교수</p>
+            </div>
+        </a>
     </section>
 
     <main class="main-content">
@@ -934,14 +984,14 @@
             });
         }
 
-        /* ===================== CAD 와이어프레임 히어로 캔버스 (순수 JS, 라이브러리 없음) ===================== */
+        /* ===================== 맞물려 돌아가는 기어 히어로 캔버스 (순수 JS, 라이브러리 없음) ===================== */
         (function () {
             const canvas = document.getElementById('heroCanvas');
             if (!canvas || !canvas.getContext) return;
             const ctx = canvas.getContext('2d');
             const container = canvas.parentElement;
             let W = 0, H = 0, DPR = Math.min(window.devicePixelRatio || 1, 2);
-            let targetTiltX = 0, targetTiltY = 0, tiltX = 0, tiltY = 0;
+            let targetPanX = 0, targetPanY = 0, panX = 0, panY = 0;
 
             function resize() {
                 const rect = container.getBoundingClientRect();
@@ -957,29 +1007,47 @@
 
             container.addEventListener('mousemove', (e) => {
                 const rect = container.getBoundingClientRect();
-                targetTiltY = ((e.clientX - rect.left) / rect.width - 0.5) * 0.7;
-                targetTiltX = ((e.clientY - rect.top) / rect.height - 0.5) * -0.5;
+                targetPanX = ((e.clientX - rect.left) / rect.width - 0.5) * 18;
+                targetPanY = ((e.clientY - rect.top) / rect.height - 0.5) * 18;
             });
-            container.addEventListener('mouseleave', () => { targetTiltX = 0; targetTiltY = 0; });
+            container.addEventListener('mouseleave', () => { targetPanX = 0; targetPanY = 0; });
 
-            /* 3D 와이어프레임 링(기어/자이로스코프 조립체) 정점 생성 */
-            function buildRing(radius, segments) {
-                const pts = [];
-                for (let i = 0; i <= segments; i++) {
-                    const a = (i / segments) * Math.PI * 2;
-                    pts.push([Math.cos(a) * radius, Math.sin(a) * radius, 0]);
+            /* 기어 하나를 그리는 함수: 톱니 + 중심 허브 + 스포크 */
+            function drawGear(cx, cy, radius, teeth, rotation, color, lineWidth) {
+                const inner = radius, outer = radius * 1.16, root = radius * 0.88;
+                ctx.beginPath();
+                for (let i = 0; i < teeth; i++) {
+                    const a0 = (i / teeth) * Math.PI * 2;
+                    const step = (Math.PI * 2) / teeth;
+                    const p0 = a0 + step * 0.02, p1 = a0 + step * 0.24;
+                    const p2 = a0 + step * 0.40, p3 = a0 + step * 0.60;
+                    const p4 = a0 + step * 0.76, p5 = a0 + step * 0.98;
+                    const pt = (a, r) => [cx + Math.cos(a + rotation) * r, cy + Math.sin(a + rotation) * r];
+                    let q = pt(p0, root); i === 0 ? ctx.moveTo(q[0], q[1]) : ctx.lineTo(q[0], q[1]);
+                    q = pt(p1, root); ctx.lineTo(q[0], q[1]);
+                    q = pt(p2, outer); ctx.lineTo(q[0], q[1]);
+                    q = pt(p3, outer); ctx.lineTo(q[0], q[1]);
+                    q = pt(p4, root); ctx.lineTo(q[0], q[1]);
+                    q = pt(p5, root); ctx.lineTo(q[0], q[1]);
                 }
-                return pts;
-            }
-            const rings = [
-                { pts: buildRing(150, 64), rx: 1.15, ry: 0.0, spin: 0.10, phase: 0 },
-                { pts: buildRing(150, 64), rx: 0.35, ry: 1.15, spin: -0.07, phase: 1.3 },
-                { pts: buildRing(112, 48), rx: 0.65, ry: 0.65, spin: 0.15, phase: 2.6 },
-            ];
+                ctx.closePath();
+                ctx.strokeStyle = color; ctx.lineWidth = lineWidth; ctx.stroke();
 
-            /* 배경 파티클 (별자리 느낌의 점 + 연결선) */
+                ctx.beginPath(); ctx.arc(cx, cy, inner * 0.34, 0, Math.PI * 2);
+                ctx.stroke();
+                const spokes = 5;
+                for (let i = 0; i < spokes; i++) {
+                    const a = (i / spokes) * Math.PI * 2 + rotation;
+                    ctx.beginPath();
+                    ctx.moveTo(cx + Math.cos(a) * inner * 0.34, cy + Math.sin(a) * inner * 0.34);
+                    ctx.lineTo(cx + Math.cos(a) * inner * 0.8, cy + Math.sin(a) * inner * 0.8);
+                    ctx.stroke();
+                }
+            }
+
+            /* 배경 파티클 (은은한 점 + 연결선) */
             const particles = [];
-            const seedCount = 34;
+            const seedCount = 30;
             for (let i = 0; i < seedCount; i++) {
                 particles.push({
                     x: Math.random(), y: Math.random(),
@@ -989,32 +1057,16 @@
                 });
             }
 
-            function project(p, cx, cy, scale) {
-                const x = p[0], y = p[1], z = p[2];
-                const persp = 480 / (480 - z);
-                return [cx + x * scale * persp, cy + y * scale * persp, persp];
-            }
-
-            function rotatePoint(p, ax, ay) {
-                let [x, y, z] = p;
-                const cosA = Math.cos(ax), sinA = Math.sin(ax);
-                const y1 = y * cosA - z * sinA, z1 = y * sinA + z * cosA;
-                const cosB = Math.cos(ay), sinB = Math.sin(ay);
-                const x2 = x * cosB + z1 * sinB, z2 = -x * sinB + z1 * cosB;
-                return [x2, y1, z2];
-            }
-
             let t = 0;
             function draw() {
-                t += 0.008;
-                tiltX += (targetTiltX - tiltX) * 0.04;
-                tiltY += (targetTiltY - tiltY) * 0.04;
+                t += 1;
+                panX += (targetPanX - panX) * 0.05;
+                panY += (targetPanY - panY) * 0.05;
                 ctx.clearRect(0, 0, W, H);
 
-                const cx = W * 0.76, cy = H * 0.5;
-                const scale = Math.min(W, H) * 0.0026;
+                const baseX = W * 0.74 + panX, baseY = H * 0.48 + panY;
+                const s = Math.min(W, H) / 720;
 
-                /* 파티클 + 연결선 */
                 ctx.lineWidth = 1;
                 for (let i = 0; i < particles.length; i++) {
                     const p = particles[i];
@@ -1026,45 +1078,68 @@
                         const q = particles[j];
                         const qx = q.x * W, qy = q.y * H;
                         const d = Math.hypot(px - qx, py - qy);
-                        if (d < 130) {
-                            ctx.strokeStyle = 'rgba(0,243,255,' + (0.09 * (1 - d / 130)) + ')';
+                        if (d < 120) {
+                            ctx.strokeStyle = 'rgba(0,243,255,' + (0.08 * (1 - d / 120)) + ')';
                             ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(qx, qy); ctx.stroke();
                         }
                     }
-                    ctx.fillStyle = 'rgba(0,243,255,0.5)';
+                    ctx.fillStyle = 'rgba(0,243,255,0.45)';
                     ctx.beginPath(); ctx.arc(px, py, p.r, 0, Math.PI * 2); ctx.fill();
                 }
 
-                /* 회전하는 와이어프레임 링 (자이로스코프/기어 조립체) */
-                rings.forEach((ring, ri) => {
-                    const ax = t * ring.spin + ring.phase + tiltX;
-                    const ay = t * (ring.spin * 0.6) + ring.phase + tiltY;
-                    const projected = ring.pts.map(p => {
-                        const r1 = rotatePoint(p, ax * ring.rx, ay + ring.ry * Math.sin(t * 0.3));
-                        return project(r1, cx, cy, scale);
-                    });
-                    ctx.beginPath();
-                    projected.forEach((pp, i) => {
-                        if (i === 0) ctx.moveTo(pp[0], pp[1]); else ctx.lineTo(pp[0], pp[1]);
-                    });
-                    const hue = ri === 2 ? 'rgba(255,178,56,0.42)' : 'rgba(0,243,255,0.4)';
-                    ctx.strokeStyle = hue;
-                    ctx.lineWidth = ri === 2 ? 1.4 : 1;
-                    ctx.stroke();
+                /* 3개의 기어가 서로 맞물려 반대 방향으로 회전 (물리적으로 자연스러운 톱니 방향) */
+                const rA = 92 * s, rB = 56 * s, rC = 40 * s;
+                const teethA = 18, teethB = 11, teethC = 8;
+                const spinA = t * 0.008;
+                const spinB = -spinA * (teethA / teethB) + Math.PI / teethB;
+                const spinC = -spinB * (teethB / teethC) + Math.PI / teethC;
 
-                    /* 링을 따라 도는 노드 마커 (기어 톱니 느낌) */
-                    for (let i = 0; i < projected.length; i += 8) {
-                        const pp = projected[i];
-                        ctx.beginPath();
-                        ctx.arc(pp[0], pp[1], 2.1 * pp[2] / 1.3, 0, Math.PI * 2);
-                        ctx.fillStyle = ri === 2 ? 'rgba(255,178,56,0.65)' : 'rgba(0,243,255,0.65)';
-                        ctx.fill();
-                    }
-                });
+                const gearAx = baseX, gearAy = baseY;
+                const gearBx = baseX + (rA + rB) * Math.cos(-0.35), gearBy = baseY + (rA + rB) * Math.sin(-0.35);
+                const gearCx = gearBx + (rB + rC) * Math.cos(0.9), gearCy = gearBy + (rB + rC) * Math.sin(0.9);
+
+                drawGear(gearCx, gearCy, rC, teethC, spinC, 'rgba(255,178,56,0.5)', 1.3);
+                drawGear(gearBx, gearBy, rB, teethB, spinB, 'rgba(0,243,255,0.55)', 1.3);
+                drawGear(gearAx, gearAy, rA, teethA, spinA, 'rgba(0,243,255,0.65)', 1.5);
 
                 requestAnimationFrame(draw);
             }
             draw();
+        })();
+
+        /* ===================== 연구실 하이라이트: 3초마다 교수/연구실 로테이션 ===================== */
+        (function () {
+            const spotlightData = [
+                { icon: '👤', name: '최로봇 교수', lab: '지능형 로보틱스 연구실', tag: '동역학·제어·로봇' },
+                { icon: '👤', name: '김연세 교수', lab: '차세대 에너지 연구실', tag: '열·유체' },
+                { icon: '👤', name: '이공학 교수', lab: '정밀 나노소재 연구실', tag: '고체·생산' },
+                { icon: '👤', name: '박기계 교수', lab: '자율주행 메카트로닉스 연구실', tag: '동역학·제어·로봇' },
+                { icon: '👤', name: '정유체 교수', lab: '전산유체역학 연구실', tag: '열·유체' },
+                { icon: '👤', name: '한소재 교수', lab: '복합재료 구조설계 연구실', tag: '고체·생산' },
+            ];
+            const card = document.getElementById('spotlightCard');
+            if (!card) return;
+            const iconEl = document.getElementById('spotlightIcon');
+            const tagEl = document.getElementById('spotlightTag');
+            const labEl = document.getElementById('spotlightLab');
+            const profEl = document.getElementById('spotlightProf');
+            let idx = 0;
+            function render() {
+                const d = spotlightData[idx];
+                iconEl.textContent = d.icon;
+                tagEl.textContent = d.tag;
+                labEl.textContent = d.lab;
+                profEl.textContent = d.name;
+            }
+            render();
+            setInterval(() => {
+                card.style.opacity = '0';
+                setTimeout(() => {
+                    idx = (idx + 1) % spotlightData.length;
+                    render();
+                    card.style.opacity = '1';
+                }, 350);
+            }, 3000);
         })();
 
     </script>

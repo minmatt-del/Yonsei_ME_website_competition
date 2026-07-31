@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>연세대학교 기계공학부 | 졸업 요건</title>
+    <title>연세대학교 기계공학부 | 교과목 소개</title>
     <style>
         /* [디자인 시스템] CAD/HUD 무드 v3 - 기계공학 도면 스타일 */
         :root {
@@ -469,13 +469,21 @@
         ::selection { background: rgba(0,243,255,0.3); color: #fff; }
 
 
-        .note-box { background: var(--bg-surface); border: 1px solid var(--border-c); border-left: 4px solid #b8590a; border-radius: 3px; padding: 20px 24px; margin-top: 20px; font-size: 13.5px; color: var(--text-main); }
-        .note-box strong { color: #b8590a; }
-        .req-extra-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 26px; }
-        .req-extra-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 4px; padding: 20px; }
-        .req-extra-card h5 { font-size: 14.5px; color: var(--primary); margin-bottom: 8px; }
-        .req-extra-card p { font-size: 12.5px; color: var(--text-soft); }
-        @media (max-width: 900px) { .req-extra-grid { grid-template-columns: 1fr; } }
+        .course-list { display: flex; flex-direction: column; gap: 12px; }
+        .course-item {
+            display: grid; grid-template-columns: 120px 1fr 90px; gap: 18px; align-items: center;
+            background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px;
+            padding: 16px 20px; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .course-item:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(0,243,255,0.15); }
+        .course-code { font-family: 'Consolas', 'Courier New', monospace; font-size: 12px; color: var(--accent); font-weight: 700; }
+        .course-body h4 { font-size: 15px; color: var(--text-strong); margin-bottom: 4px; }
+        .course-body p { font-size: 12.5px; color: var(--text-soft); }
+        .course-credit { text-align: right; font-size: 12px; color: var(--text-soft); }
+        .course-credit b { color: var(--text-strong); font-size: 15px; }
+        .course-group-title { font-size: 15px; font-weight: 800; color: var(--primary); margin: 30px 0 12px; }
+        .course-group-title:first-child { margin-top: 0; }
 
     </style>
 </head>
@@ -545,65 +553,128 @@
 
     <div class="hero-media">
         <div class="hero-ph-pattern"></div>
-        <span class="hero-imgnote">이미지 영역 · 추후 학위수여식/캠퍼스 사진 교체</span>
+        <span class="hero-imgnote">이미지 영역 · 추후 강의실/실습 사진 교체</span>
         <div class="hero-media-inner">
             <div class="hero-eyebrow">Undergraduate · Faculty Introduction</div>
-            <h1>졸업 요건</h1>
-            <p>기계공학부 학사학위 취득을 위한 이수 구분별 최소 학점과 필수 이수 사항을 안내합니다.</p>
+            <h1>교과목 소개</h1>
+            <p>기계공학부 전공필수·전공선택 대표 교과목을 코드와 함께 소개합니다.</p>
         </div>
     </div>
 
     <div class="page-wrap">
-        <section class="page-section" id="summary">
-            <h2>졸업 이수 학점 개요</h2>
-            <p class="section-desc">2026학번 기준 예시 기준이며, 정확한 최신 기준은 학번별 교육과정표를 따릅니다.</p>
-            <div class="bignum-strip">
-                <div class="bignum-item"><div class="bn">130</div><div class="bl">졸업 최소 총 이수학점</div></div>
-                <div class="bignum-item"><div class="bn">45</div><div class="bl">전공필수 학점</div></div>
-                <div class="bignum-item"><div class="bn">39</div><div class="bl">전공선택 학점</div></div>
-                <div class="bignum-item"><div class="bn">6</div><div class="bl">졸업 설계(캡스톤) 학점</div></div>
-            </div>
+        <section class="page-section" id="required">
+            <h2>전공필수 교과목</h2>
+            <p class="section-desc">모든 학생이 이수해야 하는 공학 기초·핵심 과목입니다.</p>
+            <div class="course-group-title">전공필수</div>
+<div class="course-list">
+                <div class="course-item">
+                    <span class="course-code">MEU2101</span>
+                    <div class="course-body"><h4>공업수학 I</h4><p>공학 문제 해결에 필요한 상미분방정식·선형대수 기초를 다룹니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEU2201</span>
+                    <div class="course-body"><h4>정역학</h4><p>힘과 모멘트의 평형을 다루는 고체역학의 출발점입니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEU2301</span>
+                    <div class="course-body"><h4>열역학</h4><p>에너지 보존과 엔트로피 개념을 바탕으로 열기관·냉동사이클을 분석합니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEU2401</span>
+                    <div class="course-body"><h4>유체역학</h4><p>유체의 정지·유동 현상과 베르누이·나비어-스토크스 방정식을 학습합니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEU3101</span>
+                    <div class="course-body"><h4>고체역학(재료역학)</h4><p>부재의 응력·변형률 해석과 구조 설계 기초를 다룹니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEU3201</span>
+                    <div class="course-body"><h4>동역학</h4><p>입자 및 강체의 운동을 뉴턴역학과 에너지법으로 해석합니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEU3301</span>
+                    <div class="course-body"><h4>제어공학</h4><p>선형시스템의 모델링과 피드백 제어기 설계를 다룹니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEU3401</span>
+                    <div class="course-body"><h4>기계공작법 및 실습</h4><p>절삭·용접·성형 등 기본 가공 공정을 이론과 실습으로 익힙니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+</div>
         </section>
 
-        <section class="page-section" id="table">
-            <h2>이수 구분별 학점표</h2>
-            <p class="section-desc">교양·전공·설계 영역으로 구분되며, 각 영역 내 세부 지정 과목이 있습니다.</p>
-            <table class="req-table">
-                <thead><tr><th>이수 구분</th><th>내용</th><th style="text-align:right;">학점</th></tr></thead>
-                <tbody>
-                    <tr><td>교양필수</td><td>채플, 글쓰기, 외국어, RC(레지덴셜 칼리지) 등 대학 공통 교양</td><td class="credit">15</td></tr>
-                    <tr><td>교양선택</td><td>인문·사회·자연 균형 이수 교양선택 과목</td><td class="credit">20</td></tr>
-                    <tr><td>전공필수</td><td>공업수학, 정역학, 열역학, 유체역학, 고체역학, 동역학, 기계공작법 등</td><td class="credit">45</td></tr>
-                    <tr><td>전공선택</td><td>로보틱스, 에너지시스템, 정밀가공, 제어공학, 전산설계 등 심화 과목</td><td class="credit">39</td></tr>
-                    <tr><td>졸업 설계(캡스톤)</td><td>기계공학종합설계(캡스톤 디자인) 프로젝트</td><td class="credit">6</td></tr>
-                    <tr><td>일반선택</td><td>타 학과 개설 과목 등 자유 선택</td><td class="credit">5</td></tr>
-                </tbody>
-                <tfoot>
-                    <tr><td colspan="2">합계</td><td class="credit">130</td></tr>
-                </tfoot>
-            </table>
-        </section>
+        <section class="page-section" id="elective">
+            <h2>전공선택 교과목</h2>
+            <p class="section-desc">트랙별 심화 학습을 위한 전공선택 대표 과목입니다.</p>
+            <div class="course-group-title">전공선택</div>
+<div class="course-list">
+                <div class="course-item">
+                    <span class="course-code">MEE4102</span>
+                    <div class="course-body"><h4>로봇공학</h4><p>로봇 기구학·동역학과 궤적 제어의 기본 원리를 다룹니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
 
-        <section class="page-section" id="conditions">
-            <h2>필수 이수 조건</h2>
-            <p class="section-desc">학점 이수 외에 충족해야 하는 졸업 요건입니다.</p>
-            <div class="req-extra-grid">
-                <div class="req-extra-card"><h5>졸업 설계(캡스톤 디자인)</h5><p>4학년 재학 중 팀 단위 기계공학종합설계 프로젝트를 수행하고 결과를 발표해야 합니다.</p></div>
-                <div class="req-extra-card"><h5>외국어 인증</h5><p>대학 지정 공인 어학 성적 또는 학교 자체 인증 기준을 충족해야 합니다.</p></div>
-                <div class="req-extra-card"><h5>채플 이수</h5><p>학기별 채플 이수 요건을 충족해야 합니다. (편입·재입학생 등은 별도 기준 적용)</p></div>
-                <div class="req-extra-card"><h5>SW·AI 기초 소양</h5><p>공과대학 공통 기준에 따라 소프트웨어·인공지능 관련 기초 교과를 이수해야 합니다.</p></div>
-                <div class="req-extra-card"><h5>현장실습 권장</h5><p>학기 중 또는 계절학기 중 산업체 현장실습(인턴십) 이수를 권장합니다.</p></div>
-                <div class="req-extra-card"><h5>평점 기준</h5><p>졸업 사정을 위한 전체 평점평균 및 전공 평점평균 기준을 충족해야 합니다.</p></div>
-            </div>
+                <div class="course-item">
+                    <span class="course-code">MEE4205</span>
+                    <div class="course-body"><h4>메카트로닉스</h4><p>센서·구동기·제어 회로를 통합한 기계-전자 융합 시스템을 설계합니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
 
-            <div class="note-box">
-                <strong>안내.</strong> 위 학점 구성은 대표적인 예시이며, 입학년도(학번)에 따라 적용되는 세부 이수 구분과 학점이 달라질 수 있습니다. 정확한 본인 학번 기준의 졸업 요건은 학부 행정실(02-2123-4426) 또는 포털 교육과정표를 통해 반드시 확인하시기 바랍니다.
-            </div>
+                <div class="course-item">
+                    <span class="course-code">MEE4310</span>
+                    <div class="course-body"><h4>전산유체역학(CFD)</h4><p>수치해석 기법으로 유동장을 시뮬레이션하고 결과를 해석합니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEE4318</span>
+                    <div class="course-body"><h4>에너지시스템설계</h4><p>친환경 에너지 변환·저장 시스템의 설계 방법론을 학습합니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEE4422</span>
+                    <div class="course-body"><h4>정밀가공특론</h4><p>초정밀 절삭·연삭 및 마이크로 가공 공정의 원리를 다룹니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEE4467</span>
+                    <div class="course-body"><h4>복합재료 구조설계</h4><p>복합재료의 물성과 구조 설계·해석 기법을 학습합니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEE4501</span>
+                    <div class="course-body"><h4>인공지능응용</h4><p>기계공학 문제에 머신러닝·딥러닝을 적용하는 방법을 다룹니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+
+                <div class="course-item">
+                    <span class="course-code">MEE4900</span>
+                    <div class="course-body"><h4>기계공학종합설계(캡스톤)</h4><p>팀 단위로 실제 공학 문제를 정의하고 설계·제작·검증합니다.</p></div>
+                    <div class="course-credit"><b>3</b>학점</div>
+                </div>
+</div>
         </section>
 
         <section class="page-section" id="more">
             <h2>더 알아보기</h2>
-            <p class="section-desc">졸업 요건과 함께 확인하면 좋은 학부 안내 페이지입니다.</p>
+            <p class="section-desc">교과목 소개와 함께 확인하면 좋은 학부 안내 페이지입니다.</p>
             <div class="cta-grid">
                 <a href="교육목표.html" class="cta-card">
                     <div class="img-ph ar-16-9"><span class="ph-icon">🎯</span><span class="ph-label">교육 목표</span></div>
@@ -619,16 +690,16 @@
                     <div class="cta-card-body">
                         <div class="eyebrow-sm">Undergraduate</div>
                         <h4>교과목 체계도</h4>
-                        <p>졸업 학점을 채우는 학년별 교과목 흐름을 살펴보세요.</p>
+                        <p>학년별·트랙별 교과목 이수 흐름을 살펴보세요.</p>
                         <span class="go">자세히 보기 →</span>
                     </div>
                 </a>
-                <a href="교과목소개.html" class="cta-card">
-                    <div class="img-ph ar-16-9"><span class="ph-icon">📘</span><span class="ph-label">교과목 소개</span></div>
+                <a href="졸업요건.html" class="cta-card">
+                    <div class="img-ph ar-16-9"><span class="ph-icon">🎓</span><span class="ph-label">졸업 요건</span></div>
                     <div class="cta-card-body">
                         <div class="eyebrow-sm">Undergraduate</div>
-                        <h4>교과목 소개</h4>
-                        <p>전공필수·전공선택 대표 교과목을 살펴보세요.</p>
+                        <h4>졸업 요건</h4>
+                        <p>이수 구분별 필요 학점과 필수 이수 조건을 확인하세요.</p>
                         <span class="go">자세히 보기 →</span>
                     </div>
                 </a>
