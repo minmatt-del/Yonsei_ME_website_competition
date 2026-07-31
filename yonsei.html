@@ -544,11 +544,16 @@
             gap: 16px; padding: 158px 40px 0; color: #fff;
         }
         .hero-video-inner h2 { font-size: 48px; font-weight: 800; letter-spacing: -0.5px; }
-        .hero-video-inner p { font-size: 18px; color: var(--accent); font-weight: 300; }
+        .hero-video-inner p {
+            font-size: 18px; font-weight: 600; color: var(--primary);
+            background: #fff; display: inline-block; padding: 9px 18px; border-radius: 3px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        }
         @media (max-width: 768px) {
             .hero-video-section { height: 78vh; min-height: 460px; }
             .hero-video-inner { padding-top: 40px; align-items: center; text-align: center; }
             .hero-video-inner h2 { font-size: 32px; }
+            .hero-video-inner p { font-size: 15px; padding: 8px 14px; }
         }
 
         /* ===================== 히어로 이후 섹션: 새하얀 배경 + 연세 블루 + 블루프린트 느낌 ===================== */
