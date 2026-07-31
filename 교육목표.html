@@ -5,26 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>연세대학교 기계공학부 | 교육 목표</title>
     <style>
-        /* [디자인 시스템] CAD/HUD 무드 v3 - 기계공학 도면 스타일 */
+        /* [디자인 시스템] 새하얀 블루프린트 무드 v4 - 연세 블루 + 기계공학 도면 스타일 */
         :root {
-            --primary: #2fb6d9;       /* HUD 블루 (연세 블루 계열의 사이언화) */
-            --dark-bg: #0b0f19;      /* CAD 다크 배경 */
-            --accent: #00f3ff;       /* 네온 시안 */
-            --accent-amber: #ffb238; /* 네온 앰버 (보조 포인트) */
-            --light-bg: #0b0f19;
-            --card-border: rgba(0,243,255,0.22);
+            --primary: #004a99;      /* 연세 블루 */
+            --dark-bg: #0b0f19;      /* 히어로/푸터용 CAD 다크 배경 (부분 사용) */
+            --accent: #0074d9;       /* 포인트 블루 (글로우/보더) */
+            --accent-amber: #ffb238; /* 앰버 (보조 포인트) */
+            --navy-active: #0a2540;  /* 아코디언 등 active 상태 진한 네이비 */
+            --light-bg: #ffffff;
+            --card-border: #dde6f0;
 
-            --bg-page: #0b0f19;
-            --bg-surface: rgba(16,22,36,0.72);
-            --bg-surface-solid: #101624;
-            --text-main: #b9c6d9;
-            --text-strong: #f2f8ff;
-            --text-soft: #7c8aa0;
+            --bg-page: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-solid: #ffffff;
+            --text-main: #4a5a70;
+            --text-strong: #0a2540;
+            --text-soft: #7a8aa0;
             --border-c: var(--card-border);
-            --ph-bg: linear-gradient(135deg, rgba(0,243,255,0.06) 0%, rgba(0,243,255,0.02) 55%, rgba(0,243,255,0.06) 100%);
-            --ph-border: rgba(0,243,255,0.3);
-            --ph-text: #6f88a8;
-            --hud-grid-line: rgba(0,243,255,0.055);
+            --ph-bg: linear-gradient(135deg, #eef4fb 0%, #e3edf7 55%, #eef4fb 100%);
+            --ph-border: #c7d8ea;
+            --ph-text: #5a7599;
+            --hud-grid-line: rgba(0,74,153,0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,8 +46,8 @@
         /* HUD 상태 태그 (예: [ LAB_STATUS: ACTIVE ]) */
         .hud-tag {
             display: inline-flex; align-items: center; gap: 6px; font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 11px; letter-spacing: 1px; color: var(--accent); background: rgba(0,243,255,0.07);
-            border: 1px solid rgba(0,243,255,0.3); padding: 4px 10px; border-radius: 2px;
+            font-size: 11px; letter-spacing: 1px; color: var(--accent); background: rgba(0,116,217,0.07);
+            border: 1px solid rgba(0,116,217,0.3); padding: 4px 10px; border-radius: 2px;
         }
         .hud-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px 1px var(--accent); animation: hudBlink 1.6s infinite; flex-shrink: 0; }
         @keyframes hudBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
@@ -66,7 +67,7 @@
         .logo-area { display: flex; align-items: center; }
         .logo-area img { height: 45px; width: auto; object-fit: contain; margin-right: 15px; }
         .logo-link { display: flex; align-items: center; }
-        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid rgba(0,243,255,0.25); cursor: pointer; }
+        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid rgba(0,116,217,0.25); cursor: pointer; }
         .header-actions { display: flex; align-items: center; gap: 10px; }
 
         .lang-toggle {
@@ -102,7 +103,7 @@
         .slide { min-width: 100%; height: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 0 20px; overflow: hidden; }
         .slide .slide-ph {
             position: absolute; inset: 0; z-index: 0; pointer-events: none;
-            background: radial-gradient(ellipse at 30% 40%, rgba(0,243,255,0.05) 0%, transparent 60%);
+            background: radial-gradient(ellipse at 30% 40%, rgba(0,116,217,0.05) 0%, transparent 60%);
         }
         .slide .slide-ph::before {
             content: ""; position: absolute; inset: 0;
@@ -144,7 +145,7 @@
         .prof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .prof-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px; padding: 16px 15px 18px; text-align: center; transition: 0.3s; }
         .prof-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
-        .prof-card .tag { display: inline-block; background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.25); color: var(--accent); font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
+        .prof-card .tag { display: inline-block; background: rgba(0,116,217,0.1); border: 1px solid rgba(0,116,217,0.25); color: var(--accent); font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
         .prof-card h4 { font-size: 16px; color: var(--text-strong); margin-bottom: 4px; }
         .prof-card p { font-size: 12px; color: var(--text-soft); }
 
@@ -184,7 +185,7 @@
             .gnb > li { flex: 1 1 50%; min-width: 50%; }
         }
 
-        .site-footer { background: #060a14; color: #fff; padding: 26px 0; margin-top: 60px; border-top: 1px solid rgba(0,243,255,0.22); box-shadow: 0 -1px 24px rgba(0,243,255,0.05); }
+        .site-footer { background: #060a14; color: #fff; padding: 26px 0; margin-top: 60px; border-top: 1px solid rgba(0,116,217,0.22); box-shadow: 0 -1px 24px rgba(0,116,217,0.05); }
         .site-footer .footer-inner {
             max-width: 1400px; margin: 0 auto; padding: 0 40px;
             display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
@@ -216,15 +217,15 @@
         .related-site-btn.open .caret { transform: rotate(180deg); }
         .related-site-menu {
             list-style: none; position: absolute; bottom: calc(100% + 8px); right: 0;
-            background: var(--bg-surface-solid); border: 1px solid rgba(0,243,255,0.25);
+            background: var(--bg-surface-solid); border: 1px solid rgba(0,116,217,0.25);
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.4), 0 0 20px rgba(0,243,255,0.08); min-width: 230px;
+            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.4), 0 0 20px rgba(0,116,217,0.08); min-width: 230px;
             display: none; overflow: hidden; z-index: 200;
         }
         .related-site-menu.open { display: block; }
         .related-site-menu li a { display: block; padding: 11px 18px; font-size: 13px; color: var(--text-main); }
-        .related-site-menu li a:hover { background: rgba(0,243,255,0.08); color: var(--accent); }
-        .related-site-menu li + li { border-top: 1px solid rgba(0,243,255,0.12); }
+        .related-site-menu li a:hover { background: rgba(0,116,217,0.08); color: var(--accent); }
+        .related-site-menu li + li { border-top: 1px solid rgba(0,116,217,0.12); }
 
         @media (max-width: 768px) {
             .site-footer .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -240,13 +241,13 @@
         @keyframes bounceCue { 0%,100% { transform: translate(-50%, 0); opacity: 0.6; } 50% { transform: translate(-50%, 8px); opacity: 1; } }
 
         .stats-section {
-            background: rgba(0,243,255,0.035); padding: 50px 40px;
-            border-top: 1px solid rgba(0,243,255,0.16); border-bottom: 1px solid rgba(0,243,255,0.16);
+            background: rgba(0,116,217,0.035); padding: 50px 40px;
+            border-top: 1px solid rgba(0,116,217,0.16); border-bottom: 1px solid rgba(0,116,217,0.16);
         }
         .stats-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .stat-item .stat-num { font-size: 42px; font-weight: 800; color: var(--accent); line-height: 1; }
+        .stat-item .stat-num { font-size: 42px; font-weight: 800; color: var(--primary); line-height: 1; }
         .stat-item .stat-num::after { content: attr(data-suffix); font-size: 24px; margin-left: 2px; }
-        .stat-item .stat-label { color: #cfe3f5; font-size: 14px; margin-top: 8px; letter-spacing: 0.3px; }
+        .stat-item .stat-label { color: #5a6a80; font-size: 14px; margin-top: 8px; letter-spacing: 0.3px; }
         @media (max-width: 768px) { .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; } }
 
         .showcase-section { max-width: 1400px; margin: 60px auto 10px; padding: 0 40px; }
@@ -376,7 +377,7 @@
 
         .staff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .staff-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px; padding: 18px 20px; }
-        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.25); display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(0,116,217,0.1); border: 1px solid rgba(0,116,217,0.25); display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
         .staff-card h4 { font-size: 15px; color: var(--text-strong); margin-bottom: 4px; }
         .staff-card p { font-size: 12.5px; color: var(--text-soft); }
 
@@ -425,7 +426,7 @@
         /* ===================== [v3 신규] CAD/HUD 글래스모피즘 + 네온 글로우 ===================== */
         #header {
             backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 1px 0 rgba(0,243,255,0.08);
+            box-shadow: 0 1px 0 rgba(0,116,217,0.08);
         }
         .nav-container { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
         .submenu-wrap { backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
@@ -434,40 +435,52 @@
         .req-table, .modal-content, .cta-card, .curri-col li, .vision-box,
         .location-map-box {
             backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 0 0 1px rgba(0,243,255,0.04) inset, 0 10px 26px rgba(0,0,0,0.35);
+            box-shadow: 0 0 0 1px rgba(0,74,153,0.03) inset, 0 6px 18px rgba(10,37,64,0.07);
             transition: 0.35s cubic-bezier(0.4,0,0.2,1);
         }
         .content-box:hover, .prof-card:hover, .goal-card:hover, .cta-card:hover {
             border-color: var(--accent);
-            box-shadow: 0 0 0 1px rgba(0,243,255,0.08) inset, 0 0 26px rgba(0,243,255,0.18), 0 10px 26px rgba(0,0,0,0.4);
+            box-shadow: 0 0 0 1px rgba(0,116,217,0.06) inset, 0 0 20px rgba(0,116,217,0.12), 0 10px 24px rgba(10,37,64,0.12);
         }
         .img-ph { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: 0.35s cubic-bezier(0.4,0,0.2,1); }
-        .img-ph:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,243,255,0.15); }
+        .img-ph:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,116,217,0.15); }
 
-        .coop-item { background: rgba(0,243,255,0.03); backdrop-filter: blur(10px); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
-        .coop-item:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(0,243,255,0.15); }
+        .coop-item { background: rgba(0,116,217,0.03); backdrop-filter: blur(10px); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .coop-item:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(0,116,217,0.15); }
 
         /* 버튼류 네온 글로우 & 부드러운 트랜지션 */
         .lang-toggle, .theme-toggle, .filter-btn, .tab-btn, .related-site-btn, .slider-btn {
             transition: 0.3s cubic-bezier(0.4,0,0.2,1);
         }
-        .lang-toggle { box-shadow: 0 0 0 rgba(0,243,255,0); }
-        .lang-toggle:hover { background: var(--primary); box-shadow: 0 0 16px rgba(47,182,217,0.55); transform: translateY(-1px); }
-        .filter-btn.active, .filter-btn:hover { box-shadow: 0 0 14px rgba(47,182,217,0.45); }
-        .tab-btn.active { text-shadow: 0 0 10px rgba(0,243,255,0.5); }
-        .slider-btn:hover { box-shadow: 0 0 20px rgba(0,243,255,0.4); }
-        .related-site-btn:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(0,243,255,0.25); }
+        .lang-toggle { box-shadow: 0 0 0 rgba(0,116,217,0); }
+        .lang-toggle:hover { background: var(--primary); box-shadow: 0 0 16px rgba(0,74,153,0.55); transform: translateY(-1px); }
+        .filter-btn.active, .filter-btn:hover { box-shadow: 0 0 14px rgba(0,74,153,0.45); }
+        .tab-btn.active { text-shadow: 0 0 10px rgba(0,116,217,0.5); }
+        .slider-btn:hover { box-shadow: 0 0 20px rgba(0,116,217,0.4); }
+        .related-site-btn:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(0,116,217,0.25); }
         .cta-card, .prof-card, .goal-card, .showcase-card, .coop-item {
             transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s cubic-bezier(0.4,0,0.2,1), border-color 0.35s cubic-bezier(0.4,0,0.2,1);
         }
 
-        .showcase-card { border: 1px solid rgba(0,243,255,0.18); }
-        .showcase-card:hover { box-shadow: 0 0 30px rgba(0,243,255,0.2), 0 10px 25px rgba(0,0,0,0.35); }
+        .showcase-card { border: 1px solid rgba(0,116,217,0.18); }
+        .showcase-card:hover { box-shadow: 0 0 30px rgba(0,116,217,0.2), 0 10px 25px rgba(0,0,0,0.35); }
 
-        .stat-item .stat-num { text-shadow: 0 0 16px rgba(0,243,255,0.55); font-family: 'Consolas', 'Courier New', monospace; }
+        .stat-item .stat-num { font-family: 'Consolas', 'Courier New', monospace; }
 
-        ::selection { background: rgba(0,243,255,0.3); color: #fff; }
+        ::selection { background: rgba(0,116,217,0.3); color: #fff; }
 
+
+        .edu-detail-list { margin: 0; padding: 0; counter-reset: edu-item; }
+        .edu-detail-list li {
+            list-style: none; position: relative; font-size: 15px; color: var(--text-main); line-height: 1.85;
+            margin-bottom: 16px; padding: 18px 20px 18px 62px; background: var(--bg-surface);
+            border: 1px solid var(--border-c); border-radius: 4px; counter-increment: edu-item;
+        }
+        .edu-detail-list li::before {
+            content: counter(edu-item); position: absolute; left: 18px; top: 18px;
+            width: 26px; height: 26px; border-radius: 3px; background: var(--primary); color: #fff;
+            display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800;
+        }
 
     </style>
 </head>
@@ -539,80 +552,39 @@
         <div class="hero-ph-pattern"></div>
         <span class="hero-imgnote">이미지 영역 · 추후 캠퍼스/실습 사진 교체</span>
         <div class="hero-media-inner">
-            <div class="hero-eyebrow">Undergraduate · Faculty Introduction</div>
+            <div class="hero-eyebrow">Undergraduate · Educational Goals</div>
             <h1>교육 목표</h1>
-            <p>연세대학교 기계공학부는 창의적 사고와 도전정신을 바탕으로 종합적인 공학설계 능력을 갖추고, 글로벌 사회에 유익한 가치를 창출할 수 있는 인재를 양성합니다.</p>
+            <p>창의적 사고와 도전정신을 바탕으로 종합 설계 능력을 갖추고 글로벌 사회에 유익한 가치를 창출할 수 있는 인재 양성</p>
         </div>
     </div>
 
     <div class="page-wrap">
         <section class="page-section" id="mission">
-            <h2>교육 미션</h2>
-            <p class="section-desc">기계공학부 학부 교육과정이 지향하는 인재상입니다.</p>
+            <h2>기계공학부 소개</h2>
             <div class="vision-box">
                 <h3>MISSION</h3>
-                <p>창의적 사고와 도전정신을 바탕으로 종합 설계 능력을 갖추고, 글로벌 사회에 유익한 가치를 창출할 수 있는 인재를 양성한다. 이를 위해 기계공학부는 수학·물리 기반의 공학 기초 위에 로보틱스·에너지·정밀공학 등 첨단 분야를 아우르는 교육과정을 운영합니다.</p>
+                <p>기독교 정신에 기하여 학술의 심오한 이론과 광범 정치한 응용방법을 교수 연구하며 국가와 인류 사회 발전에 공헌할 지도적 인격을 도야함을 목적으로 한다.</p>
             </div>
         </section>
 
         <section class="page-section" id="peo">
-            <h2>교육 목표 (Program Educational Objectives)</h2>
-            <p class="section-desc">졸업 후 3~5년 이내에 본 학부 졸업생이 달성하기를 기대하는 4가지 교육 목표입니다.</p>
-
-            <div class="feature-split">
-                <div class="fs-media">
-                    <div class="img-ph ar-4-3"><span class="ph-icon">🛠️</span><span class="ph-label">공학실무·연구수행 역량</span><span class="ph-sub">이미지 영역 · 설계/실습 사진</span></div>
-                </div>
-                <div class="fs-text">
-                    <div class="eyebrow-sm">Goal 01</div>
-                    <h3>종합적 공학설계 · 연구수행 능력</h3>
-                    <p>창의적 사고방법과 설계기술을 익히고, 기계공학을 기반으로 여러 전문 분야에 걸친 종합적인 공학설계에 적용할 수 있는 공학실무능력과 연구수행능력을 계발한다.</p>
-                </div>
-            </div>
-
-            <div class="feature-split reverse">
-                <div class="fs-media">
-                    <div class="img-ph ar-4-3"><span class="ph-icon">🤝</span><span class="ph-label">팀워크·리더십</span><span class="ph-sub">이미지 영역 · 팀 프로젝트 사진</span></div>
-                </div>
-                <div class="fs-text">
-                    <div class="eyebrow-sm">Goal 02</div>
-                    <h3>소통 · 협업 · 리더십</h3>
-                    <p>자신의 생각을 효율적으로 전달하고 동료들과 팀워크를 이룰 수 있으며, 조직을 관리하고 경영할 줄 아는 리더십을 배양한다.</p>
-                </div>
-            </div>
-
-            <div class="feature-split">
-                <div class="fs-media">
-                    <div class="img-ph ar-4-3"><span class="ph-icon">🚀</span><span class="ph-label">신기술 도전</span><span class="ph-sub">이미지 영역 · 연구실 현장 사진</span></div>
-                </div>
-                <div class="fs-text">
-                    <div class="eyebrow-sm">Goal 03</div>
-                    <h3>미래 기술에 대한 도전</h3>
-                    <p>미래에 필요한, 예측하기 어려운 기술에 도전하고 신기술을 개발하여 새로운 환경에 유익하게 적용할 수 있는 능력을 계발한다.</p>
-                </div>
-            </div>
-
-            <div class="feature-split reverse">
-                <div class="fs-media">
-                    <div class="img-ph ar-4-3"><span class="ph-icon">🌍</span><span class="ph-label">사회적·윤리적 책임</span><span class="ph-sub">이미지 영역 · 사회공헌 활동 사진</span></div>
-                </div>
-                <div class="fs-text">
-                    <div class="eyebrow-sm">Goal 04</div>
-                    <h3>평생 자기계발과 윤리의식</h3>
-                    <p>평생을 통해 자기계발을 할 줄 알며, 개방적인 마음과 비판적 의문을 가지고 자신의 연구 결과 및 개발품에 대해 사회적·윤리적 책임을 인식한다.</p>
-                </div>
+            <h2>기계공학부 교육목적</h2>
+            <div class="vision-box">
+                <h3>PROGRAM EDUCATIONAL OBJECTIVES</h3>
+                <p>창의적 사고와 도전정신을 바탕으로 종합 설계 능력을 갖추고 글로벌 사회에 유익한 가치를 창출 할 수 있는 인재 양성</p>
             </div>
         </section>
 
         <section class="page-section" id="outcomes">
-            <h2>핵심 역량 (Student Outcomes)</h2>
-            <p class="section-desc">4가지 교육 목표를 달성하기 위해 교과·비교과 과정 전반에서 배양하는 핵심 역량입니다.</p>
-            <div class="goal-grid">
-                <div class="goal-card"><div class="g-num">1</div><h4>공학 기초 역량</h4><p>수학·물리 기반의 탄탄한 공학 기초와 문제 정의 능력</p></div>
-                <div class="goal-card"><div class="g-num">2</div><h4>설계·문제해결 역량</h4><p>실제 공학 문제를 해결하는 창의적 종합설계 능력</p></div>
-                <div class="goal-card"><div class="g-num">3</div><h4>융합 역량</h4><p>로보틱스·AI·에너지 등 타 분야와의 융합적 사고</p></div>
-                <div class="goal-card"><div class="g-num">4</div><h4>글로벌 협업 역량</h4><p>국제 학술·산업 현장에서의 소통 및 협업 능력</p></div>
-            </div>
+            <h2>기계공학 프로그램의 세부교육</h2>
+            <p class="section-desc">교육목적을 달성하기 위해 학부 교육과정 전반에서 추구하는 세부 교육 내용입니다.</p>
+            <ul class="edu-detail-list">
+                <li>창의적 사고방법과 설계기술을 익히고, 기계공학을 기반으로 여러 전문 분야에 걸친 종합적인 공학설계에 적용할 수 있는 공학실무능력, 연구수행능력을 계발한다.</li>
+                <li>자신의 생각을 효율적으로 전달하고 동료들과 팀워크를 할 수 있으며, 조직을 관리하고 경영할 줄 아는 리더십을 배양한다.</li>
+                <li>미래에 필요한 예측하기 어려운 기술에 도전하고 신기술을 개발하여 새로운 환경에 유익하게 적용할 수 있는 능력 계발한다.</li>
+                <li>평생을 통해 자기계발을 할 줄 알며, 개방적인 마음과 비판적 의문을 가지고 자신의 연구결과 및 개발품에 대해 사회적, 윤리적 책임을 인식할 줄 아는 소양을 익힌다.</li>
+                <li>글로벌사회에서 공학인의 국제적 역할을 인식하고 산업체, 교육·연구기관, 공공기관의 리더로서 성장할 수 있는 역량을 계발한다.</li>
+            </ul>
         </section>
 
         <section class="page-section" id="more">

@@ -62,7 +62,7 @@
         }
         .category-box span { font-weight: 600; color: var(--text-main); font-size: 15px; }
         .category-box .arrow { font-size: 12px; transition: 0.3s; }
-        .category-box.active { border-left: 6px solid var(--navy-active); background: rgba(0,243,255,0.05); }
+        .category-box.active { border-left: 6px solid var(--navy-active); background: rgba(0,116,217,0.05); }
         .category-box.active span { color: var(--navy-active); }
         .category-box.active .arrow { transform: rotate(180deg); color: var(--navy-active); }
 
@@ -228,27 +228,27 @@
             .related-site-menu { left: 0; right: 0; }
         }
     
-        /* ===================== [v3 패치] CAD/HUD 다크 테마 통일 (레거시 페이지 공용 변수 재정의) ===================== */
+        /* ===================== [v4 패치] 새하얀 블루프린트 테마 통일 (레거시 페이지 공용 변수 재정의) ===================== */
         :root {
-            --primary: #2fb6d9;
+            --primary: #004a99;
             --dark-bg: #0b0f19;
-            --accent: #00f3ff;
+            --accent: #0074d9;
             --accent-amber: #ffb238;
-            --light-bg: #0b0f19;
-            --card-border: rgba(0,243,255,0.22);
-            --navy-active: #060a14;
+            --navy-active: #0a2540;
+            --light-bg: #ffffff;
+            --card-border: #dde6f0;
 
-            --bg-page: #0b0f19;
-            --bg-surface: rgba(16,22,36,0.72);
-            --bg-surface-solid: #101624;
-            --text-main: #b9c6d9;
-            --text-strong: #f2f8ff;
-            --text-soft: #7c8aa0;
+            --bg-page: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-solid: #ffffff;
+            --text-main: #4a5a70;
+            --text-strong: #0a2540;
+            --text-soft: #7a8aa0;
             --border-c: var(--card-border);
-            --ph-bg: linear-gradient(135deg, rgba(0,243,255,0.06) 0%, rgba(0,243,255,0.02) 55%, rgba(0,243,255,0.06) 100%);
-            --ph-border: rgba(0,243,255,0.3);
-            --ph-text: #6f88a8;
-            --hud-grid-line: rgba(0,243,255,0.055);
+            --ph-bg: linear-gradient(135deg, #eef4fb 0%, #e3edf7 55%, #eef4fb 100%);
+            --ph-border: #c7d8ea;
+            --ph-text: #5a7599;
+            --hud-grid-line: rgba(0,74,153,0.05);
         }
         body {
             background-image:
@@ -266,7 +266,7 @@
         .category-box, .sub-category-list, .sub-category-list li a {
             background: var(--bg-surface) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         }
-        .category-box { box-shadow: 0 0 0 1px rgba(0,243,255,0.04) inset, 0 8px 20px rgba(0,0,0,0.3); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .category-box { box-shadow: 0 0 0 1px rgba(0,74,153,0.03) inset, 0 6px 16px rgba(10,37,64,0.06); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
         .category-box:hover { border-color: var(--accent); }
 
         /* 이미지 placeholder 공용 컴포넌트 */

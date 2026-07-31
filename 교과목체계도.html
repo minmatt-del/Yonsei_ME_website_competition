@@ -5,26 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>연세대학교 기계공학부 | 교과목 체계도</title>
     <style>
-        /* [디자인 시스템] CAD/HUD 무드 v3 - 기계공학 도면 스타일 */
+        /* [디자인 시스템] 새하얀 블루프린트 무드 v4 - 연세 블루 + 기계공학 도면 스타일 */
         :root {
-            --primary: #2fb6d9;       /* HUD 블루 (연세 블루 계열의 사이언화) */
-            --dark-bg: #0b0f19;      /* CAD 다크 배경 */
-            --accent: #00f3ff;       /* 네온 시안 */
-            --accent-amber: #ffb238; /* 네온 앰버 (보조 포인트) */
-            --light-bg: #0b0f19;
-            --card-border: rgba(0,243,255,0.22);
+            --primary: #004a99;      /* 연세 블루 */
+            --dark-bg: #0b0f19;      /* 히어로/푸터용 CAD 다크 배경 (부분 사용) */
+            --accent: #0074d9;       /* 포인트 블루 (글로우/보더) */
+            --accent-amber: #ffb238; /* 앰버 (보조 포인트) */
+            --navy-active: #0a2540;  /* 아코디언 등 active 상태 진한 네이비 */
+            --light-bg: #ffffff;
+            --card-border: #dde6f0;
 
-            --bg-page: #0b0f19;
-            --bg-surface: rgba(16,22,36,0.72);
-            --bg-surface-solid: #101624;
-            --text-main: #b9c6d9;
-            --text-strong: #f2f8ff;
-            --text-soft: #7c8aa0;
+            --bg-page: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-solid: #ffffff;
+            --text-main: #4a5a70;
+            --text-strong: #0a2540;
+            --text-soft: #7a8aa0;
             --border-c: var(--card-border);
-            --ph-bg: linear-gradient(135deg, rgba(0,243,255,0.06) 0%, rgba(0,243,255,0.02) 55%, rgba(0,243,255,0.06) 100%);
-            --ph-border: rgba(0,243,255,0.3);
-            --ph-text: #6f88a8;
-            --hud-grid-line: rgba(0,243,255,0.055);
+            --ph-bg: linear-gradient(135deg, #eef4fb 0%, #e3edf7 55%, #eef4fb 100%);
+            --ph-border: #c7d8ea;
+            --ph-text: #5a7599;
+            --hud-grid-line: rgba(0,74,153,0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,8 +46,8 @@
         /* HUD 상태 태그 (예: [ LAB_STATUS: ACTIVE ]) */
         .hud-tag {
             display: inline-flex; align-items: center; gap: 6px; font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 11px; letter-spacing: 1px; color: var(--accent); background: rgba(0,243,255,0.07);
-            border: 1px solid rgba(0,243,255,0.3); padding: 4px 10px; border-radius: 2px;
+            font-size: 11px; letter-spacing: 1px; color: var(--accent); background: rgba(0,116,217,0.07);
+            border: 1px solid rgba(0,116,217,0.3); padding: 4px 10px; border-radius: 2px;
         }
         .hud-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px 1px var(--accent); animation: hudBlink 1.6s infinite; flex-shrink: 0; }
         @keyframes hudBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
@@ -66,7 +67,7 @@
         .logo-area { display: flex; align-items: center; }
         .logo-area img { height: 45px; width: auto; object-fit: contain; margin-right: 15px; }
         .logo-link { display: flex; align-items: center; }
-        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid rgba(0,243,255,0.25); cursor: pointer; }
+        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid rgba(0,116,217,0.25); cursor: pointer; }
         .header-actions { display: flex; align-items: center; gap: 10px; }
 
         .lang-toggle {
@@ -102,7 +103,7 @@
         .slide { min-width: 100%; height: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 0 20px; overflow: hidden; }
         .slide .slide-ph {
             position: absolute; inset: 0; z-index: 0; pointer-events: none;
-            background: radial-gradient(ellipse at 30% 40%, rgba(0,243,255,0.05) 0%, transparent 60%);
+            background: radial-gradient(ellipse at 30% 40%, rgba(0,116,217,0.05) 0%, transparent 60%);
         }
         .slide .slide-ph::before {
             content: ""; position: absolute; inset: 0;
@@ -144,7 +145,7 @@
         .prof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .prof-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px; padding: 16px 15px 18px; text-align: center; transition: 0.3s; }
         .prof-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
-        .prof-card .tag { display: inline-block; background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.25); color: var(--accent); font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
+        .prof-card .tag { display: inline-block; background: rgba(0,116,217,0.1); border: 1px solid rgba(0,116,217,0.25); color: var(--accent); font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
         .prof-card h4 { font-size: 16px; color: var(--text-strong); margin-bottom: 4px; }
         .prof-card p { font-size: 12px; color: var(--text-soft); }
 
@@ -184,7 +185,7 @@
             .gnb > li { flex: 1 1 50%; min-width: 50%; }
         }
 
-        .site-footer { background: #060a14; color: #fff; padding: 26px 0; margin-top: 60px; border-top: 1px solid rgba(0,243,255,0.22); box-shadow: 0 -1px 24px rgba(0,243,255,0.05); }
+        .site-footer { background: #060a14; color: #fff; padding: 26px 0; margin-top: 60px; border-top: 1px solid rgba(0,116,217,0.22); box-shadow: 0 -1px 24px rgba(0,116,217,0.05); }
         .site-footer .footer-inner {
             max-width: 1400px; margin: 0 auto; padding: 0 40px;
             display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
@@ -216,15 +217,15 @@
         .related-site-btn.open .caret { transform: rotate(180deg); }
         .related-site-menu {
             list-style: none; position: absolute; bottom: calc(100% + 8px); right: 0;
-            background: var(--bg-surface-solid); border: 1px solid rgba(0,243,255,0.25);
+            background: var(--bg-surface-solid); border: 1px solid rgba(0,116,217,0.25);
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.4), 0 0 20px rgba(0,243,255,0.08); min-width: 230px;
+            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.4), 0 0 20px rgba(0,116,217,0.08); min-width: 230px;
             display: none; overflow: hidden; z-index: 200;
         }
         .related-site-menu.open { display: block; }
         .related-site-menu li a { display: block; padding: 11px 18px; font-size: 13px; color: var(--text-main); }
-        .related-site-menu li a:hover { background: rgba(0,243,255,0.08); color: var(--accent); }
-        .related-site-menu li + li { border-top: 1px solid rgba(0,243,255,0.12); }
+        .related-site-menu li a:hover { background: rgba(0,116,217,0.08); color: var(--accent); }
+        .related-site-menu li + li { border-top: 1px solid rgba(0,116,217,0.12); }
 
         @media (max-width: 768px) {
             .site-footer .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -240,13 +241,13 @@
         @keyframes bounceCue { 0%,100% { transform: translate(-50%, 0); opacity: 0.6; } 50% { transform: translate(-50%, 8px); opacity: 1; } }
 
         .stats-section {
-            background: rgba(0,243,255,0.035); padding: 50px 40px;
-            border-top: 1px solid rgba(0,243,255,0.16); border-bottom: 1px solid rgba(0,243,255,0.16);
+            background: rgba(0,116,217,0.035); padding: 50px 40px;
+            border-top: 1px solid rgba(0,116,217,0.16); border-bottom: 1px solid rgba(0,116,217,0.16);
         }
         .stats-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .stat-item .stat-num { font-size: 42px; font-weight: 800; color: var(--accent); line-height: 1; }
+        .stat-item .stat-num { font-size: 42px; font-weight: 800; color: var(--primary); line-height: 1; }
         .stat-item .stat-num::after { content: attr(data-suffix); font-size: 24px; margin-left: 2px; }
-        .stat-item .stat-label { color: #cfe3f5; font-size: 14px; margin-top: 8px; letter-spacing: 0.3px; }
+        .stat-item .stat-label { color: #5a6a80; font-size: 14px; margin-top: 8px; letter-spacing: 0.3px; }
         @media (max-width: 768px) { .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; } }
 
         .showcase-section { max-width: 1400px; margin: 60px auto 10px; padding: 0 40px; }
@@ -376,7 +377,7 @@
 
         .staff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .staff-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px; padding: 18px 20px; }
-        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.25); display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(0,116,217,0.1); border: 1px solid rgba(0,116,217,0.25); display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
         .staff-card h4 { font-size: 15px; color: var(--text-strong); margin-bottom: 4px; }
         .staff-card p { font-size: 12.5px; color: var(--text-soft); }
 
@@ -425,7 +426,7 @@
         /* ===================== [v3 신규] CAD/HUD 글래스모피즘 + 네온 글로우 ===================== */
         #header {
             backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 1px 0 rgba(0,243,255,0.08);
+            box-shadow: 0 1px 0 rgba(0,116,217,0.08);
         }
         .nav-container { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
         .submenu-wrap { backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
@@ -434,40 +435,62 @@
         .req-table, .modal-content, .cta-card, .curri-col li, .vision-box,
         .location-map-box {
             backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 0 0 1px rgba(0,243,255,0.04) inset, 0 10px 26px rgba(0,0,0,0.35);
+            box-shadow: 0 0 0 1px rgba(0,74,153,0.03) inset, 0 6px 18px rgba(10,37,64,0.07);
             transition: 0.35s cubic-bezier(0.4,0,0.2,1);
         }
         .content-box:hover, .prof-card:hover, .goal-card:hover, .cta-card:hover {
             border-color: var(--accent);
-            box-shadow: 0 0 0 1px rgba(0,243,255,0.08) inset, 0 0 26px rgba(0,243,255,0.18), 0 10px 26px rgba(0,0,0,0.4);
+            box-shadow: 0 0 0 1px rgba(0,116,217,0.06) inset, 0 0 20px rgba(0,116,217,0.12), 0 10px 24px rgba(10,37,64,0.12);
         }
         .img-ph { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: 0.35s cubic-bezier(0.4,0,0.2,1); }
-        .img-ph:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,243,255,0.15); }
+        .img-ph:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,116,217,0.15); }
 
-        .coop-item { background: rgba(0,243,255,0.03); backdrop-filter: blur(10px); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
-        .coop-item:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(0,243,255,0.15); }
+        .coop-item { background: rgba(0,116,217,0.03); backdrop-filter: blur(10px); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .coop-item:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(0,116,217,0.15); }
 
         /* 버튼류 네온 글로우 & 부드러운 트랜지션 */
         .lang-toggle, .theme-toggle, .filter-btn, .tab-btn, .related-site-btn, .slider-btn {
             transition: 0.3s cubic-bezier(0.4,0,0.2,1);
         }
-        .lang-toggle { box-shadow: 0 0 0 rgba(0,243,255,0); }
-        .lang-toggle:hover { background: var(--primary); box-shadow: 0 0 16px rgba(47,182,217,0.55); transform: translateY(-1px); }
-        .filter-btn.active, .filter-btn:hover { box-shadow: 0 0 14px rgba(47,182,217,0.45); }
-        .tab-btn.active { text-shadow: 0 0 10px rgba(0,243,255,0.5); }
-        .slider-btn:hover { box-shadow: 0 0 20px rgba(0,243,255,0.4); }
-        .related-site-btn:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(0,243,255,0.25); }
+        .lang-toggle { box-shadow: 0 0 0 rgba(0,116,217,0); }
+        .lang-toggle:hover { background: var(--primary); box-shadow: 0 0 16px rgba(0,74,153,0.55); transform: translateY(-1px); }
+        .filter-btn.active, .filter-btn:hover { box-shadow: 0 0 14px rgba(0,74,153,0.45); }
+        .tab-btn.active { text-shadow: 0 0 10px rgba(0,116,217,0.5); }
+        .slider-btn:hover { box-shadow: 0 0 20px rgba(0,116,217,0.4); }
+        .related-site-btn:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(0,116,217,0.25); }
         .cta-card, .prof-card, .goal-card, .showcase-card, .coop-item {
             transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s cubic-bezier(0.4,0,0.2,1), border-color 0.35s cubic-bezier(0.4,0,0.2,1);
         }
 
-        .showcase-card { border: 1px solid rgba(0,243,255,0.18); }
-        .showcase-card:hover { box-shadow: 0 0 30px rgba(0,243,255,0.2), 0 10px 25px rgba(0,0,0,0.35); }
+        .showcase-card { border: 1px solid rgba(0,116,217,0.18); }
+        .showcase-card:hover { box-shadow: 0 0 30px rgba(0,116,217,0.2), 0 10px 25px rgba(0,0,0,0.35); }
 
-        .stat-item .stat-num { text-shadow: 0 0 16px rgba(0,243,255,0.55); font-family: 'Consolas', 'Courier New', monospace; }
+        .stat-item .stat-num { font-family: 'Consolas', 'Courier New', monospace; }
 
-        ::selection { background: rgba(0,243,255,0.3); color: #fff; }
+        ::selection { background: rgba(0,116,217,0.3); color: #fff; }
 
+
+        .curri-diagram-wrap { margin-bottom: 20px; }
+        .curri-legend { display: flex; gap: 18px; margin-bottom: 18px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-soft); font-weight: 600; }
+        .legend-swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+        .curri-flow { display: grid; grid-template-columns: repeat(9, minmax(125px, 1fr)); gap: 12px; background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 6px; padding: 22px 18px; overflow-x: auto; }
+        .curri-flow-col { display: flex; flex-direction: column; min-width: 130px; position: relative; }
+        .curri-flow-col:not(:last-child)::after { content: "\203A"; position: absolute; right: -10px; top: 40px; font-size: 18px; color: #c6cdd6; font-weight: 800; }
+        .curri-flow-head { text-align: center; font-size: 12.5px; font-weight: 800; color: #fff; background: var(--navy-active); padding: 7px 4px; border-radius: 5px; margin-bottom: 10px; }
+        .curri-flow-list { display: flex; flex-direction: column; gap: 7px; }
+        .curri-block { list-style: none; font-size: 12px; text-align: center; color: #223; font-weight: 600; padding: 8px 6px; border-radius: 5px; border: 1px solid transparent; line-height: 1.35; }
+        .curri-block-sub { display: block; font-size: 10.5px; font-weight: 500; color: inherit; opacity: 0.75; margin-top: 2px; }
+        .cat-gen { background: #eef1f4; border-color: #d7dde3; color: #55606b; }
+        .cat-req { background: #dceafd; border-color: #a9c9f2; color: #0a4a9c; }
+        .cat-el  { background: #eaf6f0; border-color: #bfe3cf; color: #1f7a4c; }
+        .legend-swatch.cat-gen { background: #eef1f4; border: 1px solid #d7dde3; }
+        .legend-swatch.cat-req { background: #dceafd; border: 1px solid #a9c9f2; }
+        .legend-swatch.cat-el  { background: #eaf6f0; border: 1px solid #bfe3cf; }
+        .curri-flow-col-wide { min-width: 160px; }
+        @media (max-width: 900px) { .curri-flow { grid-template-columns: repeat(9, minmax(110px, 1fr)); } }
+        .curri-diagram-note { font-size: 12.5px; color: var(--text-soft); margin-top: 14px; line-height: 1.7; }
+        .curri-diagram-note a { color: var(--primary); font-weight: 600; }
 
     </style>
 </head>
@@ -537,142 +560,148 @@
 
     <div class="hero-media">
         <div class="hero-ph-pattern"></div>
-        <span class="hero-imgnote">이미지 영역 · 추후 교과과정 다이어그램 이미지 교체</span>
+        <span class="hero-imgnote">이미지 영역 · 추후 학부 로드맵 인포그래픽 교체</span>
         <div class="hero-media-inner">
-            <div class="hero-eyebrow">Undergraduate · Faculty Introduction</div>
+            <div class="hero-eyebrow">Undergraduate · Curriculum Map</div>
             <h1>교과목 체계도</h1>
-            <p>공학 기초에서 융합·설계까지, 학년이 올라갈수록 심화되는 기계공학부 교과목 이수 흐름을 소개합니다.</p>
+            <p>1학년부터 4학년까지, 기계공학부 교과목이 어떤 순서로 이어지는지 한눈에 확인하세요.</p>
         </div>
     </div>
 
     <div class="page-wrap">
-        <section class="page-section" id="tracks">
-            <h2>4대 교과 트랙</h2>
-            <p class="section-desc">기계공학부 전공 교과목은 아래 4개 트랙을 중심으로 설계되어 있습니다.</p>
-            <div class="track-legend">
-                <span class="track-chip tc-mech">역학 · 공학기초</span>
-                <span class="track-chip tc-thermo">열 · 유체 · 에너지</span>
-                <span class="track-chip tc-dyn">동역학 · 제어 · 로보틱스</span>
-                <span class="track-chip tc-design">고체 · 생산 · 설계</span>
-            </div>
+        <section class="page-section" id="curriculum">
+            <h2>기계공학부 교과목 체계도</h2>
+            <p class="section-desc">
+                학년·학기별 이수 흐름과 이수구분(대학교양·전공필수·전공선택)을 색상으로 구분해 정리했습니다.
+            </p>
 
-            <div class="img-ph ar-21-9">
-                <span class="ph-icon">📊</span>
-                <span class="ph-label">교과목 체계도 전체 흐름 다이어그램</span>
-                <span class="ph-sub">이미지 영역 · 학과 사무실 제공 공식 체계도 이미지로 교체 예정</span>
-            </div>
+            <div class="curri-diagram-wrap">
+                            <div class="curri-legend">
+                                <span class="legend-item"><span class="legend-swatch cat-gen"></span>대학교양(대교)</span>
+                                <span class="legend-item"><span class="legend-swatch cat-req"></span>전공필수(전필)</span>
+                                <span class="legend-item"><span class="legend-swatch cat-el"></span>전공선택(전선)</span>
+                            </div>
+
+                            <div class="curri-flow">
+                            <div class="curri-flow-col">
+                                <div class="curri-flow-head">1학년 1학기</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-gen">공학수학(1)</li>
+                                    <li class="curri-block cat-gen">공학물리학및실험(1)</li>
+                                    <li class="curri-block cat-gen">공학화학및실험(1)</li>
+                                    <li class="curri-block cat-req">기계공학창의설계</li>
+                                </ul>
+                            </div>
+
+                            <div class="curri-flow-col">
+                                <div class="curri-flow-head">1학년 2학기</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-gen">공학수학(2)</li>
+                                    <li class="curri-block cat-gen">공학물리학및실험(2)</li>
+                                    <li class="curri-block cat-gen">공학화학및실험(2)</li>
+                                    <li class="curri-block cat-gen">공학정보처리</li>
+                                </ul>
+                            </div>
+
+                            <div class="curri-flow-col">
+                                <div class="curri-flow-head">2학년 1학기</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-gen">공학수학(3)</li>
+                                    <li class="curri-block cat-req">고체역학</li>
+                                    <li class="curri-block cat-req">열역학</li>
+                                    <li class="curri-block cat-el">컴퓨터응용기계설계</li>
+                                </ul>
+                            </div>
+
+                            <div class="curri-flow-col">
+                                <div class="curri-flow-head">2학년 2학기</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-gen">공학수학(4)</li>
+                                    <li class="curri-block cat-req">유체역학</li>
+                                    <li class="curri-block cat-req">동역학</li>
+                                    <li class="curri-block cat-req">기계공학실험(1)</li>
+                                </ul>
+                            </div>
+
+                            <div class="curri-flow-col">
+                                <div class="curri-flow-head">3·4학년 1학기</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-el">공학수치해석</li>
+                                    <li class="curri-block cat-el">확률통계</li>
+                                    <li class="curri-block cat-req">기계공학실험(2)</li>
+                                    <li class="curri-block cat-el">기계진동</li>
+                                    <li class="curri-block cat-el">열전달</li>
+                                    <li class="curri-block cat-el">생산공학</li>
+                                    <li class="curri-block cat-el">메카니즘설계</li>
+                                    <li class="curri-block cat-el">바이오의료기계</li>
+                                    <li class="curri-block cat-el">마이크로기계시스템</li>
+                                    <li class="curri-block cat-el">응용유체역학</li>
+                                    <li class="curri-block cat-el">재료거동학</li>
+                                    <li class="curri-block cat-el">전자기학및응용</li>
+                                    <li class="curri-block cat-el">환경기계공학</li>
+                                    <li class="curri-block cat-el">학부연구(1)</li>
+                                </ul>
+                            </div>
+
+                            <div class="curri-flow-col">
+                                <div class="curri-flow-head">3·4학년 2학기</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-el">기계요소설계</li>
+                                    <li class="curri-block cat-el">응용고체역학</li>
+                                    <li class="curri-block cat-el">응용열역학</li>
+                                    <li class="curri-block cat-el">메카트로닉스</li>
+                                    <li class="curri-block cat-el">기계시스템제어</li>
+                                    <li class="curri-block cat-el">생체역학</li>
+                                    <li class="curri-block cat-el">공학재료</li>
+                                    <li class="curri-block cat-el">광공학</li>
+                                    <li class="curri-block cat-el">정형생산시스템</li>
+                                    <li class="curri-block cat-el">에너지동력공학</li>
+                                    <li class="curri-block cat-el">나노기계공학</li>
+                                    <li class="curri-block cat-el">컴퓨터해석기반설계</li>
+                                    <li class="curri-block cat-el">학부연구(2)</li>
+                                </ul>
+                            </div>
+
+                            <div class="curri-flow-col">
+                                <div class="curri-flow-head">4학년 1학기</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-req">창의제품설계</li>
+                                    <li class="curri-block cat-req">연구논문</li>
+                                    <li class="curri-block cat-el">기계공학세미나(1)</li>
+                                </ul>
+                            </div>
+
+                            <div class="curri-flow-col">
+                                <div class="curri-flow-head">4학년 2학기</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-req">창의제품설계</li>
+                                    <li class="curri-block cat-req">연구논문</li>
+                                    <li class="curri-block cat-el">기계공학세미나(2)</li>
+                                </ul>
+                            </div>
+
+                            <div class="curri-flow-col curri-flow-col-wide">
+                                <div class="curri-flow-head">전 학년 상시</div>
+                                <ul class="curri-flow-list">
+                                    <li class="curri-block cat-el">스페셜 토픽 <span class="curri-block-sub">(2·3·4학년)</span></li>
+                                </ul>
+                            </div>
+                            </div>
+
+                            <p class="curri-diagram-note">※ 연세대학교 기계공학부 공식 홈페이지의 교과목 이수체계도 이미지를 학년·학기·이수구분 기준으로 재구성한 것입니다. 정확한 학점·선후수 관계는 <a href="졸업요건.html">졸업 요건</a> 및 <a href="교과목소개.html">교과목 소개</a> 페이지를 함께 확인해 주세요.</p>
+                        </div>
         </section>
 
-        <section class="page-section" id="roadmap">
-            <h2>학년별 교과목 로드맵</h2>
-            <p class="section-desc">굵게 표시된 과목은 다음 학년 전공 심화 과목의 선수과목에 해당하는 핵심 과목입니다.</p>
-            <div class="curri-grid">
-                <div class="curri-col">
-                    <h5>1학년</h5>
-                    <ul>
-                        <li class="core">일반물리학 및 실험</li>
-                        <li class="core">공업수학 I</li>
-                        <li>공학설계입문</li>
-                        <li>프로그래밍기초(C/Python)</li>
-                        <li>일반화학</li>
-                    </ul>
-                </div>
-                <div class="curri-col">
-                    <h5>2학년</h5>
-                    <ul>
-                        <li class="core">정역학</li>
-                        <li class="core">열역학</li>
-                        <li class="core">유체역학</li>
-                        <li class="core">고체역학(재료역학)</li>
-                        <li>동역학</li>
-                        <li>공업수학 II</li>
-                    </ul>
-                </div>
-                <div class="curri-col">
-                    <h5>3학년</h5>
-                    <ul>
-                        <li class="core">제어공학</li>
-                        <li class="core">열전달</li>
-                        <li>기계재료</li>
-                        <li>기계공작법 및 실습</li>
-                        <li>로보틱스개론</li>
-                        <li>진동학</li>
-                    </ul>
-                </div>
-                <div class="curri-col">
-                    <h5>4학년</h5>
-                    <ul>
-                        <li class="core">기계공학종합설계(캡스톤)</li>
-                        <li>에너지시스템설계</li>
-                        <li>정밀가공특론</li>
-                        <li>인공지능응용</li>
-                        <li>메카트로닉스</li>
-                        <li>현장실습/인턴십</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="page-section" id="tracks-detail">
-            <h2>트랙별 대표 과목</h2>
-            <p class="section-desc">진로·연구 관심 분야에 따라 아래 트랙을 중심으로 전공선택 과목을 설계할 수 있습니다.</p>
-            <div class="feature-split">
-                <div class="fs-media">
-                    <div class="img-ph ar-4-3"><span class="ph-icon">🔥</span><span class="ph-label">열 · 유체 · 에너지 트랙</span></div>
-                </div>
-                <div class="fs-text">
-                    <div class="eyebrow-sm">Track</div>
-                    <h3>열·유체·에너지</h3>
-                    <p>열역학, 유체역학, 열전달을 기초로 친환경 에너지 변환, 열관리 시스템, 전산유체역학(CFD)을 다룹니다.</p>
-                    <ul>
-                        <li>연소공학 · 에너지변환공학</li>
-                        <li>전산유체역학(CFD)</li>
-                        <li>냉동공조공학 · 열시스템설계</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="feature-split reverse">
-                <div class="fs-media">
-                    <div class="img-ph ar-4-3"><span class="ph-icon">🤖</span><span class="ph-label">동역학 · 제어 · 로보틱스 트랙</span></div>
-                </div>
-                <div class="fs-text">
-                    <div class="eyebrow-sm">Track</div>
-                    <h3>동역학 · 제어 · 로보틱스</h3>
-                    <p>동역학, 제어공학을 기반으로 자율주행, 인간-로봇 협업, 메카트로닉스 시스템 설계를 학습합니다.</p>
-                    <ul>
-                        <li>로봇공학 · 로봇동역학</li>
-                        <li>메카트로닉스 · 임베디드 제어</li>
-                        <li>인공지능응용 · 지능형시스템</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="feature-split">
-                <div class="fs-media">
-                    <div class="img-ph ar-4-3"><span class="ph-icon">⚙️</span><span class="ph-label">고체 · 생산 · 설계 트랙</span></div>
-                </div>
-                <div class="fs-text">
-                    <div class="eyebrow-sm">Track</div>
-                    <h3>고체 · 생산 · 설계</h3>
-                    <p>고체역학과 기계재료를 바탕으로 정밀가공, 복합소재, 종합설계 역량을 심화합니다.</p>
-                    <ul>
-                        <li>정밀가공특론 · 제조공정</li>
-                        <li>복합재료 구조설계</li>
-                        <li>기계공학종합설계(캡스톤)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="page-section" id="more">
+        <section class="page-section" id="more-map">
             <h2>더 알아보기</h2>
-            <p class="section-desc">교과목 체계도와 함께 확인하면 좋은 학부 안내 페이지입니다.</p>
+            <p class="section-desc">교과목 체계도와 함께 확인하면 좋은 학부 페이지입니다.</p>
             <div class="cta-grid">
                 <a href="교육목표.html" class="cta-card">
                     <div class="img-ph ar-16-9"><span class="ph-icon">🎯</span><span class="ph-label">교육 목표</span></div>
                     <div class="cta-card-body">
                         <div class="eyebrow-sm">Undergraduate</div>
                         <h4>교육 목표</h4>
-                        <p>학부 교육이 지향하는 4가지 목표를 확인하세요.</p>
+                        <p>기계공학부가 지향하는 인재상과 교육 목적을 확인하세요.</p>
                         <span class="go">자세히 보기 →</span>
                     </div>
                 </a>
@@ -690,12 +719,13 @@
                     <div class="cta-card-body">
                         <div class="eyebrow-sm">Undergraduate</div>
                         <h4>교과목 소개</h4>
-                        <p>전공필수·전공선택 대표 교과목을 살펴보세요.</p>
+                        <p>학년·학기별 개설교과목과 상세 내용을 확인하세요.</p>
                         <span class="go">자세히 보기 →</span>
                     </div>
                 </a>
             </div>
         </section>
+
     </div>
 
     <footer class="site-footer">

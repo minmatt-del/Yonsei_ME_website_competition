@@ -5,26 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>연세대학교 기계공학부 | 학과 소개</title>
     <style>
-        /* [디자인 시스템] CAD/HUD 무드 v3 - 기계공학 도면 스타일 */
+        /* [디자인 시스템] 새하얀 블루프린트 무드 v4 - 연세 블루 + 기계공학 도면 스타일 */
         :root {
-            --primary: #2fb6d9;       /* HUD 블루 (연세 블루 계열의 사이언화) */
-            --dark-bg: #0b0f19;      /* CAD 다크 배경 */
-            --accent: #00f3ff;       /* 네온 시안 */
-            --accent-amber: #ffb238; /* 네온 앰버 (보조 포인트) */
-            --light-bg: #0b0f19;
-            --card-border: rgba(0,243,255,0.22);
+            --primary: #004a99;      /* 연세 블루 */
+            --dark-bg: #0b0f19;      /* 히어로/푸터용 CAD 다크 배경 (부분 사용) */
+            --accent: #0074d9;       /* 포인트 블루 (글로우/보더) */
+            --accent-amber: #ffb238; /* 앰버 (보조 포인트) */
+            --navy-active: #0a2540;  /* 아코디언 등 active 상태 진한 네이비 */
+            --light-bg: #ffffff;
+            --card-border: #dde6f0;
 
-            --bg-page: #0b0f19;
-            --bg-surface: rgba(16,22,36,0.72);
-            --bg-surface-solid: #101624;
-            --text-main: #b9c6d9;
-            --text-strong: #f2f8ff;
-            --text-soft: #7c8aa0;
+            --bg-page: #ffffff;
+            --bg-surface: #ffffff;
+            --bg-surface-solid: #ffffff;
+            --text-main: #4a5a70;
+            --text-strong: #0a2540;
+            --text-soft: #7a8aa0;
             --border-c: var(--card-border);
-            --ph-bg: linear-gradient(135deg, rgba(0,243,255,0.06) 0%, rgba(0,243,255,0.02) 55%, rgba(0,243,255,0.06) 100%);
-            --ph-border: rgba(0,243,255,0.3);
-            --ph-text: #6f88a8;
-            --hud-grid-line: rgba(0,243,255,0.055);
+            --ph-bg: linear-gradient(135deg, #eef4fb 0%, #e3edf7 55%, #eef4fb 100%);
+            --ph-border: #c7d8ea;
+            --ph-text: #5a7599;
+            --hud-grid-line: rgba(0,74,153,0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,8 +46,8 @@
         /* HUD 상태 태그 (예: [ LAB_STATUS: ACTIVE ]) */
         .hud-tag {
             display: inline-flex; align-items: center; gap: 6px; font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 11px; letter-spacing: 1px; color: var(--accent); background: rgba(0,243,255,0.07);
-            border: 1px solid rgba(0,243,255,0.3); padding: 4px 10px; border-radius: 2px;
+            font-size: 11px; letter-spacing: 1px; color: var(--accent); background: rgba(0,116,217,0.07);
+            border: 1px solid rgba(0,116,217,0.3); padding: 4px 10px; border-radius: 2px;
         }
         .hud-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px 1px var(--accent); animation: hudBlink 1.6s infinite; flex-shrink: 0; }
         @keyframes hudBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
@@ -66,7 +67,7 @@
         .logo-area { display: flex; align-items: center; }
         .logo-area img { height: 45px; width: auto; object-fit: contain; margin-right: 15px; }
         .logo-link { display: flex; align-items: center; }
-        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid rgba(0,243,255,0.25); cursor: pointer; }
+        .dept-name { font-size: 22px; font-weight: bold; color: var(--primary); padding-left: 15px; border-left: 2px solid rgba(0,116,217,0.25); cursor: pointer; }
         .header-actions { display: flex; align-items: center; gap: 10px; }
 
         .lang-toggle {
@@ -102,7 +103,7 @@
         .slide { min-width: 100%; height: 100%; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; text-align: center; padding: 0 20px; overflow: hidden; }
         .slide .slide-ph {
             position: absolute; inset: 0; z-index: 0; pointer-events: none;
-            background: radial-gradient(ellipse at 30% 40%, rgba(0,243,255,0.05) 0%, transparent 60%);
+            background: radial-gradient(ellipse at 30% 40%, rgba(0,116,217,0.05) 0%, transparent 60%);
         }
         .slide .slide-ph::before {
             content: ""; position: absolute; inset: 0;
@@ -144,7 +145,7 @@
         .prof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
         .prof-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px; padding: 16px 15px 18px; text-align: center; transition: 0.3s; }
         .prof-card:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
-        .prof-card .tag { display: inline-block; background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.25); color: var(--accent); font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
+        .prof-card .tag { display: inline-block; background: rgba(0,116,217,0.1); border: 1px solid rgba(0,116,217,0.25); color: var(--accent); font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; font-weight: bold; }
         .prof-card h4 { font-size: 16px; color: var(--text-strong); margin-bottom: 4px; }
         .prof-card p { font-size: 12px; color: var(--text-soft); }
 
@@ -184,7 +185,7 @@
             .gnb > li { flex: 1 1 50%; min-width: 50%; }
         }
 
-        .site-footer { background: #060a14; color: #fff; padding: 26px 0; margin-top: 60px; border-top: 1px solid rgba(0,243,255,0.22); box-shadow: 0 -1px 24px rgba(0,243,255,0.05); }
+        .site-footer { background: #060a14; color: #fff; padding: 26px 0; margin-top: 60px; border-top: 1px solid rgba(0,116,217,0.22); box-shadow: 0 -1px 24px rgba(0,116,217,0.05); }
         .site-footer .footer-inner {
             max-width: 1400px; margin: 0 auto; padding: 0 40px;
             display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
@@ -216,15 +217,15 @@
         .related-site-btn.open .caret { transform: rotate(180deg); }
         .related-site-menu {
             list-style: none; position: absolute; bottom: calc(100% + 8px); right: 0;
-            background: var(--bg-surface-solid); border: 1px solid rgba(0,243,255,0.25);
+            background: var(--bg-surface-solid); border: 1px solid rgba(0,116,217,0.25);
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.4), 0 0 20px rgba(0,243,255,0.08); min-width: 230px;
+            border-radius: 2px; box-shadow: 0 -10px 24px rgba(0,0,0,0.4), 0 0 20px rgba(0,116,217,0.08); min-width: 230px;
             display: none; overflow: hidden; z-index: 200;
         }
         .related-site-menu.open { display: block; }
         .related-site-menu li a { display: block; padding: 11px 18px; font-size: 13px; color: var(--text-main); }
-        .related-site-menu li a:hover { background: rgba(0,243,255,0.08); color: var(--accent); }
-        .related-site-menu li + li { border-top: 1px solid rgba(0,243,255,0.12); }
+        .related-site-menu li a:hover { background: rgba(0,116,217,0.08); color: var(--accent); }
+        .related-site-menu li + li { border-top: 1px solid rgba(0,116,217,0.12); }
 
         @media (max-width: 768px) {
             .site-footer .footer-inner { flex-direction: column; align-items: flex-start; }
@@ -240,13 +241,13 @@
         @keyframes bounceCue { 0%,100% { transform: translate(-50%, 0); opacity: 0.6; } 50% { transform: translate(-50%, 8px); opacity: 1; } }
 
         .stats-section {
-            background: rgba(0,243,255,0.035); padding: 50px 40px;
-            border-top: 1px solid rgba(0,243,255,0.16); border-bottom: 1px solid rgba(0,243,255,0.16);
+            background: rgba(0,116,217,0.035); padding: 50px 40px;
+            border-top: 1px solid rgba(0,116,217,0.16); border-bottom: 1px solid rgba(0,116,217,0.16);
         }
         .stats-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .stat-item .stat-num { font-size: 42px; font-weight: 800; color: var(--accent); line-height: 1; }
+        .stat-item .stat-num { font-size: 42px; font-weight: 800; color: var(--primary); line-height: 1; }
         .stat-item .stat-num::after { content: attr(data-suffix); font-size: 24px; margin-left: 2px; }
-        .stat-item .stat-label { color: #cfe3f5; font-size: 14px; margin-top: 8px; letter-spacing: 0.3px; }
+        .stat-item .stat-label { color: #5a6a80; font-size: 14px; margin-top: 8px; letter-spacing: 0.3px; }
         @media (max-width: 768px) { .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; } }
 
         .showcase-section { max-width: 1400px; margin: 60px auto 10px; padding: 0 40px; }
@@ -376,7 +377,7 @@
 
         .staff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .staff-card { background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 3px; padding: 18px 20px; }
-        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(0,243,255,0.1); border: 1px solid rgba(0,243,255,0.25); display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+        .staff-card .s-role { font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(0,116,217,0.1); border: 1px solid rgba(0,116,217,0.25); display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
         .staff-card h4 { font-size: 15px; color: var(--text-strong); margin-bottom: 4px; }
         .staff-card p { font-size: 12.5px; color: var(--text-soft); }
 
@@ -425,7 +426,7 @@
         /* ===================== [v3 신규] CAD/HUD 글래스모피즘 + 네온 글로우 ===================== */
         #header {
             backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 1px 0 rgba(0,243,255,0.08);
+            box-shadow: 0 1px 0 rgba(0,116,217,0.08);
         }
         .nav-container { backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
         .submenu-wrap { backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
@@ -434,40 +435,156 @@
         .req-table, .modal-content, .cta-card, .curri-col li, .vision-box,
         .location-map-box {
             backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-            box-shadow: 0 0 0 1px rgba(0,243,255,0.04) inset, 0 10px 26px rgba(0,0,0,0.35);
+            box-shadow: 0 0 0 1px rgba(0,74,153,0.03) inset, 0 6px 18px rgba(10,37,64,0.07);
             transition: 0.35s cubic-bezier(0.4,0,0.2,1);
         }
         .content-box:hover, .prof-card:hover, .goal-card:hover, .cta-card:hover {
             border-color: var(--accent);
-            box-shadow: 0 0 0 1px rgba(0,243,255,0.08) inset, 0 0 26px rgba(0,243,255,0.18), 0 10px 26px rgba(0,0,0,0.4);
+            box-shadow: 0 0 0 1px rgba(0,116,217,0.06) inset, 0 0 20px rgba(0,116,217,0.12), 0 10px 24px rgba(10,37,64,0.12);
         }
         .img-ph { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: 0.35s cubic-bezier(0.4,0,0.2,1); }
-        .img-ph:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,243,255,0.15); }
+        .img-ph:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,116,217,0.15); }
 
-        .coop-item { background: rgba(0,243,255,0.03); backdrop-filter: blur(10px); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
-        .coop-item:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(0,243,255,0.15); }
+        .coop-item { background: rgba(0,116,217,0.03); backdrop-filter: blur(10px); transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .coop-item:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(0,116,217,0.15); }
 
         /* 버튼류 네온 글로우 & 부드러운 트랜지션 */
         .lang-toggle, .theme-toggle, .filter-btn, .tab-btn, .related-site-btn, .slider-btn {
             transition: 0.3s cubic-bezier(0.4,0,0.2,1);
         }
-        .lang-toggle { box-shadow: 0 0 0 rgba(0,243,255,0); }
-        .lang-toggle:hover { background: var(--primary); box-shadow: 0 0 16px rgba(47,182,217,0.55); transform: translateY(-1px); }
-        .filter-btn.active, .filter-btn:hover { box-shadow: 0 0 14px rgba(47,182,217,0.45); }
-        .tab-btn.active { text-shadow: 0 0 10px rgba(0,243,255,0.5); }
-        .slider-btn:hover { box-shadow: 0 0 20px rgba(0,243,255,0.4); }
-        .related-site-btn:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(0,243,255,0.25); }
+        .lang-toggle { box-shadow: 0 0 0 rgba(0,116,217,0); }
+        .lang-toggle:hover { background: var(--primary); box-shadow: 0 0 16px rgba(0,74,153,0.55); transform: translateY(-1px); }
+        .filter-btn.active, .filter-btn:hover { box-shadow: 0 0 14px rgba(0,74,153,0.45); }
+        .tab-btn.active { text-shadow: 0 0 10px rgba(0,116,217,0.5); }
+        .slider-btn:hover { box-shadow: 0 0 20px rgba(0,116,217,0.4); }
+        .related-site-btn:hover { border-color: var(--accent); box-shadow: 0 0 14px rgba(0,116,217,0.25); }
         .cta-card, .prof-card, .goal-card, .showcase-card, .coop-item {
             transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), box-shadow 0.35s cubic-bezier(0.4,0,0.2,1), border-color 0.35s cubic-bezier(0.4,0,0.2,1);
         }
 
-        .showcase-card { border: 1px solid rgba(0,243,255,0.18); }
-        .showcase-card:hover { box-shadow: 0 0 30px rgba(0,243,255,0.2), 0 10px 25px rgba(0,0,0,0.35); }
+        .showcase-card { border: 1px solid rgba(0,116,217,0.18); }
+        .showcase-card:hover { box-shadow: 0 0 30px rgba(0,116,217,0.2), 0 10px 25px rgba(0,0,0,0.35); }
 
-        .stat-item .stat-num { text-shadow: 0 0 16px rgba(0,243,255,0.55); font-family: 'Consolas', 'Courier New', monospace; }
+        .stat-item .stat-num { font-family: 'Consolas', 'Courier New', monospace; }
 
-        ::selection { background: rgba(0,243,255,0.3); color: #fff; }
+        ::selection { background: rgba(0,116,217,0.3); color: #fff; }
 
+        /* [신규] 교수진 섹션 내부 필터 탭 (교수진 / 명예·퇴임 교수) + 검색창 */
+        .filter-tabs { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 6px 0 26px; flex-wrap: wrap; }
+        .filter-tabs-left { display: flex; gap: 10px; flex-wrap: wrap; }
+        .filter-tab {
+            padding: 9px 24px; border: 1px solid var(--border-c); border-radius: 22px;
+            background: var(--bg-surface); color: var(--text-soft); font-size: 14px; font-weight: 600; cursor: pointer;
+            transition: 0.25s;
+        }
+        .filter-tab:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .prof-search { position: relative; margin-left: auto; }
+        .prof-search-input {
+            width: 220px; max-width: 100%; padding: 9px 38px 9px 16px; border: 1px solid var(--border-c);
+            border-radius: 22px; background: var(--bg-surface); color: var(--text-main); font-size: 13.5px;
+            outline: none; transition: 0.25s;
+        }
+        .prof-search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,74,153,0.12); }
+        .prof-search-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--text-soft); pointer-events: none; }
+        @media (max-width: 560px) { .prof-search { margin-left: 0; width: 100%; } .prof-search-input { width: 100%; } }
+
+        .prof-empty { text-align: center; color: var(--text-soft); font-size: 14px; padding: 40px 0; }
+
+        /* [신규] 교수진 페이지네이션 (10명 단위, 이전/다음) */
+        .prof-pagination { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 32px; flex-wrap: wrap; }
+        .pg-btn {
+            min-width: 36px; height: 36px; padding: 0 10px; border: 1px solid var(--border-c); border-radius: 6px;
+            background: var(--bg-surface); color: var(--text-main); font-size: 13.5px; font-weight: 600; cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; transition: 0.2s;
+        }
+        .pg-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        .pg-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+        .pg-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+        /* [신규] 페이지 상단 카테고리 퀵내비 (연혁 / 교수진 / 교직원 / 오시는 길) */
+        .cat-nav {
+            position: sticky; top: 62px; z-index: 90; background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-c); box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        }
+        .cat-nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 6px; padding: 10px 40px; flex-wrap: wrap; }
+        .cat-nav-btn {
+            background: transparent; border: 1px solid var(--border-c); color: var(--text-main);
+            padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.25s;
+        }
+        .cat-nav-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .cat-nav-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+        @media (max-width: 600px) { .cat-nav-inner { padding: 10px 16px; } .cat-nav-btn { padding: 7px 14px; font-size: 13px; } }
+
+        .prof-card { position: relative; background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 8px; padding: 16px 15px 18px; text-align: center; transition: 0.3s; overflow: hidden; }
+        /* [수정] 카드 호버 효과는 "교수진(active)" 카드에만 적용 - 명예/퇴임 교수 카드는 마우스를 올려도 변화 없음 */
+        .prof-card[data-category="active"]:hover { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 6px 15px rgba(0,0,0,0.08); }
+        .prof-card .tag { display: inline-block; background: #e3f2fd; color: var(--primary); font-size: 11px; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; font-weight: bold; }
+        .prof-card .tag.tag-emeritus { background: #eef1f4; color: var(--text-soft); }
+        .prof-card h4 { font-size: 16px; color: var(--text-strong); margin-bottom: 4px; }
+        .prof-card p { font-size: 12px; color: var(--text-soft); }
+        .prof-card .prof-major { min-height: 16px; }
+
+        .prof-photo-ph {
+            width: 100%; aspect-ratio: 3 / 4; border-radius: 8px; margin: 0 0 12px;
+            background: var(--ph-bg); border: 1px dashed var(--ph-border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--ph-text); font-size: 22px; overflow: hidden;
+        }
+        .prof-photo-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .prof-card[data-category="active"]:hover .prof-photo-ph { border-color: var(--primary); }
+
+        /* [신규] 카드 호버 시 나타나는 상세 정보 패널 (교수진 카드 전용, 명예/퇴임 교수 카드에는 존재하지 않음) */
+        .prof-hover-panel {
+            position: absolute; inset: 0; z-index: 5;
+            background: linear-gradient(160deg, rgba(0,45,90,0.97), rgba(0,74,153,0.94));
+            color: #fff; padding: 20px 16px; border-radius: 8px;
+            display: flex; flex-direction: column; justify-content: center; gap: 5px;
+            opacity: 0; visibility: hidden; transform: scale(0.98);
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+        }
+        .prof-card[data-category="active"]:hover .prof-hover-panel {
+            opacity: 1; visibility: visible; transform: scale(1);
+        }
+        .prof-hover-panel .hp-name { font-size: 19px; font-weight: 800; margin-bottom: 2px; }
+        .prof-hover-panel .hp-rank { font-size: 12.5px; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+        .prof-hover-panel .hp-line { font-size: 12px; color: #e3ecf7; line-height: 1.6; word-break: break-all; }
+        .prof-hover-panel .hp-more {
+            display: inline-block; margin-top: 12px; font-size: 12.5px; font-weight: 800; color: #fff;
+            border: 1px solid rgba(255,255,255,0.6); border-radius: 16px; padding: 6px 14px; align-self: center;
+        }
+        .prof-hover-panel .hp-more:hover { background: #fff; color: var(--primary); }
+        .ph-icon-txt { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; }
+
+        .table-wrap-scroll { overflow-x: auto; }
+        .staff-table { min-width: 560px; }
+        .staff-table td { font-size: 13.5px; color: var(--text-main); white-space: nowrap; }
+        .staff-table .s-role { font-size: 11px; font-weight: 700; color: var(--primary); background: #e3f2fd; display: inline-block; padding: 3px 10px; border-radius: 10px; }
+        .staff-table td a { color: var(--primary); font-weight: 600; }
+        .staff-table td a:hover { text-decoration: underline; }
+
+        .location-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 30px; align-items: start; }
+        .location-info p { font-size: 14px; color: var(--text-main); margin-bottom: 10px; }
+        .location-info strong { color: var(--text-strong); }
+
+        /* [신규] 버스 노선 (me.yonsei.ac.kr 오시는 길 페이지 반영: 초록/파랑/빨강) */
+        .bus-routes { margin-top: 36px; background: var(--bg-surface); border: 1px solid var(--border-c); border-radius: 10px; padding: 24px 26px; }
+        .bus-routes-title { font-size: 17px; font-weight: 800; color: var(--text-strong); margin-bottom: 16px; }
+        .bus-row { display: flex; align-items: flex-start; gap: 14px; padding: 10px 0; border-top: 1px dashed var(--border-c); }
+        .bus-row:first-of-type { border-top: none; padding-top: 0; }
+        .bus-badge {
+            flex-shrink: 0; width: 96px; text-align: center; padding: 6px 4px; border-radius: 18px;
+            font-size: 12.5px; font-weight: 800; color: #fff;
+        }
+        .bus-badge.bus-green { background: #3ba13b; }
+        .bus-badge.bus-blue { background: #1a6dd4; }
+        .bus-badge.bus-red { background: #e6393e; }
+        .bus-numbers { font-size: 13px; color: var(--text-main); line-height: 1.8; padding-top: 3px; }
+        @media (max-width: 560px) {
+            .bus-row { flex-direction: column; gap: 6px; }
+            .bus-badge { width: auto; align-self: flex-start; padding: 5px 12px; }
 
     </style>
 </head>
@@ -545,6 +662,15 @@
         </div>
     </div>
 
+    <nav class="cat-nav" id="catNav">
+        <div class="cat-nav-inner">
+            <button type="button" class="cat-nav-btn" data-target="history" onclick="goCategory('history', this)">연혁</button>
+            <button type="button" class="cat-nav-btn" data-target="faculty" onclick="goCategory('faculty', this)">교수진</button>
+            <button type="button" class="cat-nav-btn" data-target="staff" onclick="goCategory('staff', this)">교직원</button>
+            <button type="button" class="cat-nav-btn" data-target="location" onclick="goCategory('location', this)">오시는 길</button>
+        </div>
+    </nav>
+
     <div class="page-wrap">
         <section class="page-section" id="history">
             <h2>연혁 및 비전</h2>
@@ -571,24 +697,611 @@
 
         <section class="page-section" id="faculty">
             <h2>교수진</h2>
-            <p class="section-desc">각 연구 분야를 이끌어가는 기계공학부 교수진을 소개합니다.</p>
-            <div class="prof-grid">
-                <div class="prof-card"><div class="prof-photo-ph">👤</div><span class="tag">열·유체</span><h4>김연세 교수</h4><p>차세대 열역학 & 에너지</p></div>
-                <div class="prof-card"><div class="prof-photo-ph">👤</div><span class="tag">동역학·제어</span><h4>박기계 교수</h4><p>자율주행 & 메카트로닉스</p></div>
-                <div class="prof-card"><div class="prof-photo-ph">👤</div><span class="tag">고체·생산</span><h4>이공학 교수</h4><p>정밀가공 & 나노소재</p></div>
-                <div class="prof-card"><div class="prof-photo-ph">👤</div><span class="tag">동역학·제어</span><h4>최로봇 교수</h4><p>인공지능 로봇 제어</p></div>
-                <div class="prof-card"><div class="prof-photo-ph">👤</div><span class="tag">열·유체</span><h4>정유체 교수</h4><p>전산유체역학(CFD)</p></div>
-                <div class="prof-card"><div class="prof-photo-ph">👤</div><span class="tag">고체·생산</span><h4>한소재 교수</h4><p>복합재료 구조설계</p></div>
+            <p class="section-desc">각 연구 분야를 이끌어가는 기계공학부 교수진을 소개합니다. 카드에 마우스를 올리면 연락처와 상세 정보를 확인할 수 있습니다.</p>
+
+            <div class="filter-tabs">
+                <div class="filter-tabs-left">
+                    <button type="button" class="filter-tab active" onclick="filterProf('active', this)">교수진</button>
+                    <button type="button" class="filter-tab" onclick="filterProf('emeritus', this)">명예 · 퇴임 교수</button>
+                </div>
+                <div class="prof-search">
+                    <input type="text" id="profSearchInput" class="prof-search-input" placeholder="이름으로 검색" oninput="onProfSearch(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();}">
+                    <span class="prof-search-icon">🔍</span>
+                </div>
             </div>
+
+            <!--
+                [실제 데이터 안내]
+                아래 "교수진" 카드는 me.yonsei.ac.kr/me/faculty/professor_list.do 게시판에 등재된
+                현직 교수진 33명의 이름·직급·이메일·전화·연구실 위치·more information 링크·사진을 그대로 반영했습니다.
+                단, 카드 앞면에 표시되는 "전공 태그"와 "세부전공" 한 줄 설명은 사이트 목록 화면에 별도로 표기되어 있지 않아
+                일반적인 기계공학 세부분야(열·유체 / 동역학·제어 / 고체·생산 / 고체·재료 / 바이오·의공학)로 임의 분류한 것이므로,
+                정확한 세부전공은 각 교수님의 more information 페이지를 확인하여 필요시 수정해 주세요.
+
+                "명예 · 퇴임 교수" 명단은 목록 페이지에서 별도로 확인되지 않아 현재 비어 있습니다.
+                확정되는 대로 emeritus 카드로 추가해 주세요. (emeritus 카드는 마우스를 올려도 변화 없이 항상 그대로 보입니다)
+            -->
+            <div class="prof-grid" id="profGrid">
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/959da8019d105b3b9ab461b3112b3f4e.jpg" alt="강건욱 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·재료</span>
+                    <h4>강건욱 교수</h4>
+                    <p class="prof-major">재료역학 · 분자동역학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">강건욱</p>
+                        <p class="hp-rank">Associate Professor</p>
+                        <p class="hp-line">kwkang75@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2825</p>
+                        <p class="hp-line">Engineering Building #1, Room 589</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=H6IAceQ75BsxdEuXLJXMoA%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000511_thum.jpg" alt="강신일 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>강신일 교수</h4>
+                    <p class="prof-major">열전달 · 에너지시스템</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">강신일</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">snlkang@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2829</p>
+                        <p class="hp-line">Engineering Building #3, Room C324</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=b1GY5tMdKXn9pcopgnOXuA%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/eec1cc10be36de85efc82d5af42ee8e8.jpg" alt="김경식 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>김경식 교수</h4>
+                    <p class="prof-major">열유체공학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김경식</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">kks@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5815</p>
+                        <p class="hp-line">Engineering Building #3, Room C317</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=vf2yly2lcmm7EMPsUS2Fvw%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/_attach/image/2020/08/thumb_mhpWZnlcCChgpVnljfIc.jpg" alt="김대은 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>김대은 교수</h4>
+                    <p class="prof-major">로봇공학 · 메카트로닉스</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김대은</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">kimde@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2822</p>
+                        <p class="hp-line">Engineering Building #1, Room N202</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=Oc%2BnXOyFIPnaS%2F2tcn0VsQ%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/_attach/image/2025/03/thumb_SyPVDYDlLiHFWyBWrXil0.jpg" alt="김석 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>김석 교수</h4>
+                    <p class="prof-major">지능형 로봇 제어</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김석</p>
+                        <p class="hp-rank">Associate Professor</p>
+                        <p class="hp-line">seokkim@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-4463</p>
+                        <p class="hp-line">Engineering Building #3, Room C314</p>
+                        <a class="hp-more" href="https://sites.google.com/view/seoklab" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000993_thum.jpg" alt="김영주 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·생산</span>
+                    <h4>김영주 교수</h4>
+                    <p class="prof-major">정밀공학 · 생산시스템</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김영주</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">yjkim40@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-6852</p>
+                        <p class="hp-line">Engineering Building #3, Room C316</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=M%2FhpSLUqHMFmyYRpueciEw%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000832_thum.jpg" alt="김용준 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>김용준 교수</h4>
+                    <p class="prof-major">진동 · 소음제어</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김용준</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">yjk@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2844</p>
+                        <p class="hp-line">Engineering Building #1, Room A585</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=rF3EfB2KwpYgW%2F3mA9hWYQ%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1001409_thum.jpg" alt="김우철 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>김우철 교수</h4>
+                    <p class="prof-major">열전달 · 에너지</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김우철</p>
+                        <p class="hp-rank">Professor / 학부장</p>
+                        <p class="hp-line">woochul@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5816</p>
+                        <p class="hp-line">Engineering Building #3, Room C428</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=MS4QfqRPzaZ5YDrwsETFUA%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/_attach/image/2024/02/thumb_ZlIJSkdGMkFfCtvwnaaU.jpg" alt="김원정 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·재료</span>
+                    <h4>김원정 교수</h4>
+                    <p class="prof-major">스마트 소재 · 구조</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김원정</p>
+                        <p class="hp-rank">Associate Professor / 학부주임교수</p>
+                        <p class="hp-line">WJK@YONSEI.AC.KR</p>
+                        <p class="hp-line">☎ 02)2123-4471</p>
+                        <p class="hp-line">Engineering Building</p>
+                        <a class="hp-more" href="https://ssfl.yonsei.ac.kr" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1001210_thum.jpg" alt="김종백 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·생산</span>
+                    <h4>김종백 교수</h4>
+                    <p class="prof-major">고체역학 · 기계설계</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김종백</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">kimjb@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2812</p>
+                        <p class="hp-line">Engineering Building #3, Room C427</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=1RE2La5mkxWHrR7NkNGulA%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/_attach/image/2023/03/thumb_dLvbULRgDGLUKJcrjbkA.jpg" alt="김해진 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>김해진 교수</h4>
+                    <p class="prof-major">유체역학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">김해진</p>
+                        <p class="hp-rank">Associate Professor</p>
+                        <p class="hp-line">hjk@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2819</p>
+                        <p class="hp-line">Engineering Building #1, Room N206</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=pAo4Dx2KA2dkOviAVvwsLQ%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/4c975229ea608552e12a8cf27cea2b51.png" alt="류원형 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">바이오·의공학</span>
+                    <h4>류원형 교수</h4>
+                    <p class="prof-major">바이오메디컬공학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">류원형</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">whryu@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5821</p>
+                        <p class="hp-line">Engineering Building #3, Room C326</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=FbTFwqvmJtakGUouowJkLQ%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/_attach/image/2025/03/thumb_XwHTlguOBfVUQeiVGGHl0.png" alt="민경민 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>민경민 교수</h4>
+                    <p class="prof-major">지능제어 · AI</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">민경민</p>
+                        <p class="hp-rank">Associate Professor</p>
+                        <p class="hp-line">kmin.min@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-4464</p>
+                        <p class="hp-line">Engineering Building #1, Room N201</p>
+                        <a class="hp-more" href="https://csailabyonsei.quv.kr/" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000939_thum.jpg" alt="민병권 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>민병권 교수</h4>
+                    <p class="prof-major">에너지시스템</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">민병권</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">bkmin@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5813</p>
+                        <p class="hp-line">Engineering Building</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=epVKuTRkwjej3W7%2F8Ob6lA%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000840_thum.jpg" alt="박노철 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·생산</span>
+                    <h4>박노철 교수</h4>
+                    <p class="prof-major">정밀기계 · MEMS</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">박노철</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">pnch@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-4530</p>
+                        <p class="hp-line">Engineering Building #1, Room N311</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=0fw0kb%2Brd1T%2BAnxOWIWCMg%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1001209_thum.jpg" alt="송순호 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>송순호 교수</h4>
+                    <p class="prof-major">열유체 · 에너지</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">송순호</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">soonhosong@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2811</p>
+                        <p class="hp-line">Engineering Building #3, Room C318</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=EMeDFsg7ezICnj1V655kTw%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1002390_thum.jpg" alt="신동준 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>신동준 교수</h4>
+                    <p class="prof-major">인간중심 로봇공학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">신동준</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">dj.shin@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2826</p>
+                        <p class="hp-line">Engineering Building #3, Room 426</p>
+                        <a class="hp-more" href="http://hcr.yonsei.ac.kr" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000461_thum.jpg" alt="양현석 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·생산</span>
+                    <h4>양현석 교수</h4>
+                    <p class="prof-major">생산공학 · 정밀가공</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">양현석</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">hsyang@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2824</p>
+                        <p class="hp-line">Engineering Building #1, Room A584</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=unA5vq9t8ID%2BONEoTLKWKQ%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000833_thum.jpg" alt="유정훈 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>유정훈 교수</h4>
+                    <p class="prof-major">진동 · 동역학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">유정훈</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">yoojh@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2859</p>
+                        <p class="hp-line">Engineering Building #3, Room C322</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=J7LH67wjoKs7HqFmJNWRwg%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/ca262541718fa0b704035e167a203f05.jpg" alt="윤준영 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>윤준영 교수</h4>
+                    <p class="prof-major">열유체공학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">윤준영</p>
+                        <p class="hp-rank">Associate Professor</p>
+                        <p class="hp-line">junyoung.yoon@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2817</p>
+                        <p class="hp-line">Engineering Building #1, Room N205</p>
+                        
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/_attach/image/2023/02/thumb_zIYwrlYCsJotVGeGwEiF.jpg" alt="이남규 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>이남규 교수</h4>
+                    <p class="prof-major">로봇공학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">이남규</p>
+                        <p class="hp-rank">Assistant Professor</p>
+                        <p class="hp-line">NK.LEE@YONSEI.AC.KR</p>
+                        
+                        <p class="hp-line">Engineering Building #1, Room N207</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=wLefcjV8lUCv2Zzs9J5RAQ%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000637_thum.jpg" alt="이종수 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>이종수 교수</h4>
+                    <p class="prof-major">열전달 · 에너지시스템</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">이종수</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">jleej@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-4474</p>
+                        <p class="hp-line">Engineering Building #3, Room C323</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=AXk7pPArre7tC15Fk0psVg%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/cdb557bb201cd9e356d8c21ae4c7ca3a.jpg" alt="이준상 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·재료</span>
+                    <h4>이준상 교수</h4>
+                    <p class="prof-major">고체역학 · 복합재료</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">이준상</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">joonlee@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5820</p>
+                        <p class="hp-line">3공학관 327호</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=b2q9%2FrsniLTpqoJPWYQWVA%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/d2593919ab77fbd78257f7913c5c034c.jpg" alt="이창훈 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>이창훈 교수</h4>
+                    <p class="prof-major">열유체 · 에너지</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">이창훈</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">CLEE@YONSEI.AC.KR</p>
+                        <p class="hp-line">☎ 02)2123-2846</p>
+                        <p class="hp-line">ASTC 611a, Engineering I 590</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=DRg2MLLATF8Kat2jhI9Ziw%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/_attach/image/2022/03/thumb_uZlfISmnPvEnqCspsCLc.jpg" alt="이형석 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>이형석 교수</h4>
+                    <p class="prof-major">열역학 · 에너지시스템</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">이형석</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">hyungsuk@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5824</p>
+                        <p class="hp-line">Engineering Building #1, Room A588</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=bk0aGPYdMJPO%2FVyfZRhrHg%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/ec451f23158388ca569d0e3d9fa21534.jpg" alt="장용훈 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·재료</span>
+                    <h4>장용훈 교수</h4>
+                    <p class="prof-major">나노 · 마이크로시스템</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">장용훈</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">jyh@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5812, 032)749-3122</p>
+                        <p class="hp-line">Engineering Building #1, Room A591</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=DotpS%2BViSxK%2FWL4BBUofsA%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1001492_thum.jpg" alt="전성찬 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">바이오·의공학</span>
+                    <h4>전성찬 교수</h4>
+                    <p class="prof-major">의공학 · 의료영상</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">전성찬</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">scj@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5817</p>
+                        <p class="hp-line">Engineering Building #1, Room A587</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=wTKcmb%2F8b6Ols1dO%2B8bByg%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1000613_thum.jpg" alt="전흥재 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·재료</span>
+                    <h4>전흥재 교수</h4>
+                    <p class="prof-major">정밀계측 · 센서</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">전흥재</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">hjchun@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-4827</p>
+                        <p class="hp-line">Engineering Building #3, Room C325</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=e5X28rITIomg0i%2BF34C3pg%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1001047_thum.jpg" alt="정효일 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>정효일 교수</h4>
+                    <p class="prof-major">유체역학 · 전산유체(CFD)</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">정효일</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">uridle7@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5814</p>
+                        <p class="hp-line">Engineering Building #1, Room A592</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=eIbW20vagt1HuZYo4nBWjg%3D%3D&sosokcd=" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/10d7b591da70f4b10875c3d227befa95.jpg" alt="주철민 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">고체·생산</span>
+                    <h4>주철민 교수</h4>
+                    <p class="prof-major">광공학 · 레이저가공</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">주철민</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">cjoo@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-5822</p>
+                        <p class="hp-line">Engineering Building C 328</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=bhaCBRF5otdK3WVWoRHYiw%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/profileImg/fbb9c2b336255aa6a56ca74dc3e004b7.jpg" alt="최종은 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>최종은 교수</h4>
+                    <p class="prof-major">로봇 동역학 · 제어</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">최종은</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">jongeunchoi@yonsei.ac.kr</p>
+                        
+                        <p class="hp-line">Eng Blg III C319</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=i8y28rIy7%2Fvf1sq15evoBw%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://me.yonsei.ac.kr/_attach/image/2022/09/thumb_WNwDpFlnMLdsQuXpIQEy.jpg" alt="현재상 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">동역학·제어</span>
+                    <h4>현재상 교수</h4>
+                    <p class="prof-major">로봇공학</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">현재상</p>
+                        <p class="hp-rank">Assistant Professor</p>
+                        <p class="hp-line">hyun.jaesang@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-2818</p>
+                        <p class="hp-line">Engineering Building #3, Room C315</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=foH0i4BlWWcsEx6j%2B0Dwqg%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+                <div class="prof-card" data-category="active">
+                    <div class="prof-photo-ph"><img src="https://ysgw.yonsei.ac.kr/upload/img/profile/yonsei/Y1002100_thum.jpg" alt="홍종섭 교수 프로필 사진" loading="lazy"></div>
+                    <span class="tag">열·유체</span>
+                    <h4>홍종섭 교수</h4>
+                    <p class="prof-major">연소 · 에너지</p>
+
+                    <div class="prof-hover-panel">
+                        <p class="hp-name">홍종섭</p>
+                        <p class="hp-rank">Professor</p>
+                        <p class="hp-line">jongsup.hong@yonsei.ac.kr</p>
+                        <p class="hp-line">☎ 02)2123-4465</p>
+                        <p class="hp-line">Engineering Building</p>
+                        <a class="hp-more" href="https://me.yonsei.ac.kr/faculty/name_search.do?mode=view&userId=OqCjCitbqY9SNaY%2FMELsJg%3D%3D&sosokcd=0000405" target="_blank" rel="noopener">more information &gt;</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="prof-empty" id="profEmpty" style="display:none;">검색 결과가 없습니다.</p>
+            <div class="prof-pagination" id="profPagination"></div>
         </section>
 
         <section class="page-section" id="staff">
             <h2>교직원</h2>
-            <p class="section-desc">학부 행정 업무를 담당하는 교직원 안내입니다.</p>
-            <div class="staff-grid">
-                <div class="staff-card"><span class="s-role">학부 행정실</span><h4>이행정 주임</h4><p>수강신청·졸업요건 안내 · 02-2123-4426</p></div>
-                <div class="staff-card"><span class="s-role">대학원 행정실</span><h4>박대학 주임</h4><p>대학원 입학·학사 안내 · 02-2123-2810</p></div>
-                <div class="staff-card"><span class="s-role">BK21 사업단</span><h4>최연구 선임</h4><p>연구사업 및 정산 지원 · 02-2123-7817</p></div>
+            <p class="section-desc">학부 · 대학원 · BK21 교육연구단 행정 업무를 담당하는 교직원 안내입니다.</p>
+            <div class="table-wrap-scroll">
+                <table class="req-table staff-table">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>성명</th>
+                            <th>교내 전화</th>
+                            <th>장소</th>
+                            <th>이메일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="s-role">대학원</span></td>
+                            <td>남민화</td>
+                            <td>(02) 2123-2810</td>
+                            <td>제 4공학관 D301호</td>
+                            <td><a href="mailto:nmh@yonsei.ac.kr">nmh@yonsei.ac.kr</a></td>
+                        </tr>
+                        <tr>
+                            <td><span class="s-role">학부 행정</span></td>
+                            <td>정나경</td>
+                            <td>(02) 2123-4426</td>
+                            <td>제 4공학관 D301호</td>
+                            <td><a href="mailto:skyice@yonsei.ac.kr">skyice@yonsei.ac.kr</a></td>
+                        </tr>
+                        <tr>
+                            <td><span class="s-role">BK21 교육 연구단</span></td>
+                            <td>임은영</td>
+                            <td>(02) 2123-7817</td>
+                            <td>제 4공학관 D608호</td>
+                            <td><a href="mailto:mech_bk21_ley@yonsei.ac.kr">mech_bk21_ley@yonsei.ac.kr</a></td>
+                        </tr>
+                        <tr>
+                            <td><span class="s-role">BK21 교육 연구단</span></td>
+                            <td>정예솔</td>
+                            <td>(02) 2123-7815</td>
+                            <td>제 4공학관 D608호</td>
+                            <td><a href="mailto:ysol912@yonsei.ac.kr">ysol912@yonsei.ac.kr</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
@@ -603,8 +1316,26 @@
                     <p><strong>대표 연락처</strong><br>학부 02-2123-4426 · 대학원 02-2123-2810</p>
                 </div>
             </div>
+
+            <div class="bus-routes">
+                <h3 class="bus-routes-title">버스 노선</h3>
+                <div class="bus-row">
+                    <span class="bus-badge bus-green">초록 (지선)</span>
+                    <p class="bus-numbers">6711, 6712, 6714, 7014, 7015, 7017, 7020, 7613, 7712, 7720, 7725, 7726, 7727, 7728, 7736, 서대문03, 서대문04, 서대문05</p>
+                </div>
+                <div class="bus-row">
+                    <span class="bus-badge bus-blue">파랑 (간선)</span>
+                    <p class="bus-numbers">163, 170, 171, 172, 270, 272, 370, 470, 472, 601, 606, 700, 750, 751</p>
+                </div>
+                <div class="bus-row">
+                    <span class="bus-badge bus-red">빨강 (광역)</span>
+                    <p class="bus-numbers">9600, 9601, 9602, 9702, 9704, 9706, 9708, 9713</p>
+                </div>
+            </div>
         </section>
     </div>
+
+
 
     <footer class="site-footer">
         <div class="footer-inner">
@@ -673,6 +1404,146 @@
             });
         });
 
+        function goCategory(targetId, btn) {
+            const alreadyActive = btn.classList.contains('active');
+            if (alreadyActive) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            const target = document.getElementById(targetId);
+            if (target) {
+                const gnbH = document.getElementById('navContainer').offsetHeight;
+                const catH = document.getElementById('catNav').offsetHeight;
+                const offset = gnbH + catH + 14;
+                const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        }
+
+        // 스크롤 위치에 따라 카테고리 퀵내비의 active 상태를 자동으로 갱신 (스크롤 스파이)
+        (function () {
+            const sections = ['history', 'faculty', 'staff', 'location']
+                .map(id => document.getElementById(id))
+                .filter(Boolean);
+            const navBtns = Array.from(document.querySelectorAll('.cat-nav-btn'));
+
+            function setActiveBtn(id) {
+                navBtns.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+            }
+
+            if ('IntersectionObserver' in window && sections.length) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setActiveBtn(entry.target.id);
+                        }
+                    });
+                }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+                sections.forEach(sec => observer.observe(sec));
+            }
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY < 80) navBtns.forEach(b => b.classList.remove('active'));
+            });
+        })();
+
+        // [신규] 교수진 섹션: 탭(교수진/명예·퇴임 교수) + 이름 검색 + 10명 단위 페이지네이션
+        const profState = { category: 'active', query: '', page: 1, perPage: 10 };
+        let profSearchDebounce = null;
+
+        function getProfName(card) {
+            const h4 = card.querySelector('h4');
+            return h4 ? h4.textContent.replace(/\s*교수\s*$/, '').trim() : '';
+        }
+
+        function filterProf(category, btn) {
+            document.querySelectorAll('#faculty .filter-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            profState.category = category;
+            profState.page = 1;
+            renderProfGrid();
+        }
+
+        function onProfSearch(value) {
+            clearTimeout(profSearchDebounce);
+            profSearchDebounce = setTimeout(() => {
+                profState.query = value.trim();
+                profState.page = 1;
+                renderProfGrid();
+            }, 150);
+        }
+
+        function goProfPage(page) {
+            profState.page = page;
+            renderProfGrid();
+            document.getElementById('faculty').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function renderProfGrid() {
+            const allCards = Array.from(document.querySelectorAll('#profGrid .prof-card'));
+            const query = profState.query.toLowerCase();
+
+            const matched = allCards.filter(card => {
+                const inCategory = card.dataset.category === profState.category;
+                if (!inCategory) return false;
+                if (!query) return true;
+                return getProfName(card).toLowerCase().includes(query);
+            });
+
+            const totalPages = Math.max(1, Math.ceil(matched.length / profState.perPage));
+            if (profState.page > totalPages) profState.page = totalPages;
+            if (profState.page < 1) profState.page = 1;
+
+            const start = (profState.page - 1) * profState.perPage;
+            const visible = new Set(matched.slice(start, start + profState.perPage));
+
+            allCards.forEach(card => {
+                card.style.display = visible.has(card) ? '' : 'none';
+            });
+
+            const emptyEl = document.getElementById('profEmpty');
+            emptyEl.style.display = matched.length === 0 ? '' : 'none';
+            emptyEl.textContent = (profState.category === 'emeritus' && !query)
+                ? '명예·퇴임 교수 정보는 추후 업데이트될 예정입니다.'
+                : '검색 결과가 없습니다.';
+
+            renderProfPagination(totalPages, matched.length);
+        }
+
+        function renderProfPagination(totalPages, totalCount) {
+            const wrap = document.getElementById('profPagination');
+            wrap.innerHTML = '';
+            if (totalCount === 0 || totalPages <= 1) return;
+
+            const cur = profState.page;
+
+            const prevBtn = document.createElement('button');
+            prevBtn.type = 'button';
+            prevBtn.className = 'pg-btn';
+            prevBtn.textContent = '이전';
+            prevBtn.disabled = cur === 1;
+            prevBtn.onclick = () => goProfPage(cur - 1);
+            wrap.appendChild(prevBtn);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'pg-btn' + (i === cur ? ' active' : '');
+                b.textContent = i;
+                b.onclick = () => goProfPage(i);
+                wrap.appendChild(b);
+            }
+
+            const nextBtn = document.createElement('button');
+            nextBtn.type = 'button';
+            nextBtn.className = 'pg-btn';
+            nextBtn.textContent = '다음';
+            nextBtn.disabled = cur === totalPages;
+            nextBtn.onclick = () => goProfPage(cur + 1);
+            wrap.appendChild(nextBtn);
+        }
+
+        renderProfGrid();
 
     </script>
 </body>
